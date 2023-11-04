@@ -1,9 +1,10 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, get_user_model, login
 from django.shortcuts import redirect, render
 
 from apps.forms.user import UserForm
+
+User = get_user_model()
 
 
 def register(request):

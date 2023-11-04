@@ -1,10 +1,11 @@
-from django.contrib.auth.models import User
 from django.forms import ModelForm
+
+from apps.models import Users
 
 
 class UserForm(ModelForm):
     class Meta:
-        model = User
+        model = Users
         fields = [
             "first_name",
             "last_name",
