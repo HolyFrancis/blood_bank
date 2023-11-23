@@ -1,6 +1,6 @@
 from django.urls import path
 
-from apps.views import home, user, donnor, transfusion, psl, analyse, equipement, hressource, client, order, stock
+from apps.views import home, user, donnor, transfusion, psl, analyse, equipement, users, client, order, stock
 
 urlpatterns = [
     path("", home.home, name="home"),
@@ -10,8 +10,9 @@ urlpatterns = [
     path("psl", psl.psl, name="psl"),
     path("analyse", analyse.analyse, name="analyse"),
     path("equipement", equipement.equipement, name="equipement"),
-    path("hressource", hressource.hressource, name="hressource"),
     path("client", client.client, name="client"),
     path("order", order.order, name="order"),
     path("stock", stock.stock, name="stock"),
+    
+    path("users", users.users, name="users"),
 ]
