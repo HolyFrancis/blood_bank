@@ -1,0 +1,26 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en" class="minimal-theme">
+
+<!-- Head -->
+{% include 'apps/partials/head.html' %}
+<!-- End of Head -->
+
+<body>
+    <!--start wrapper-->
+  <div class="wrapper">
+    
+    <!--start content-->
+    {% block content %}
+    {% endblock %}     
+    <!--end page main-->
+
+</div>
+<!--end wrapper-->
+
+
+<!--plugins-->
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/pace.min.js' %}"></script>
+</body>
