@@ -1,0 +1,111 @@
+{% load static %}
+
+<!--start sidebar -->
+<aside class="sidebar-wrapper">
+    <div class="iconmenu"> 
+
+      <div class="nav-toggle-box">
+        <div class="nav-toggle-icon"><i class="bi bi-list"></i></div>
+      </div>
+
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboards">
+          <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-dashboards" type="button"><i class="bi bi-house-door-fill"></i></button>
+        </li>
+        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Requests">
+          <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-requests" type="button"><i class="bi bi-bell-fill"></i></button>
+        </li>
+        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="History">
+          <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-history" type="button"><i class="bi bi-clock-fill"></i></button>
+        </li>
+        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Users">
+          <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-users" type="button"><i class="bi bi-people-fill"></i></button>
+        </li>
+      </ul>
+
+    </div>
+
+    <div class="textmenu">
+
+      <div class="brand-logo">
+        <img src="{% static 'assets/images/brand-logo-2.png' %}" width="140" alt=""/>
+      </div>
+
+      <div class="tab-content">
+
+        <div class="tab-pane fade" id="pills-dashboards">
+          <div class="list-group list-group-flush">
+            <div class="list-group-item">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-0">Dashboard</h5>
+              </div>
+              <small class="mb-0">Here are displayed general informations</small>
+            </div>
+
+            <a href="{% url 'home' %}" class="list-group-item"><i class="bi bi-house"></i>Home</a>
+            <a href="{% url 'donnor' %}" class="list-group-item"><i class="bi bi-file-person"></i>Donnors</a>
+            <a href="{% url 'transfusion' %}" class="list-group-item"><i class="bi bi-heart-pulse"></i>Transfusions</a>
+            <a href="{% url 'psl' %}" class="list-group-item"><i class="bi bi-bag-heart"></i>Labile Blood Products</a>
+            <a href="{% url 'analyse' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
+            <a href="{% url 'equipement' %}" class="list-group-item"><i class="bi bi-highlighter"></i>Equipements</a>
+            <a href="{% url 'client' %}" class="list-group-item"><i class="bi bi-person-rolodex"></i>Clients</a>
+            <a href="{% url 'order' %}" class="list-group-item"><i class="bi bi-list-ul"></i>Orders</a>
+            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-shop"></i>Stock</a>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-requests">
+          <div class="list-group list-group-flush">
+            <div class="list-group-item">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-0">Requests</h5>
+              </div>
+              <small class="mb-0">Here are displayed the latest requests</small>
+            </div>
+            
+            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-person-circle"></i>Donnor Requests</a>
+            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-droplet-fill"></i>Red Cells Requests</a>
+            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Plasma Requests</a>
+            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-droplet"></i>Platelets Requests</a>
+
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-history">
+          <div class="list-group list-group-flush">
+            <div class="list-group-item">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-0">History</h5>
+              </div>
+              <small class="mb-0">Here is displayed a detailed requests history</small>
+            </div>
+
+            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-person-circle"></i>Donnors History</a>
+            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-droplet-fill"></i>Red Cells History</a>
+            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Plasma History</a>
+            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-droplet"></i>Platelets History</a>
+
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-users">
+          <div class="list-group list-group-flush">
+            <div class="list-group-item">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-0">Users</h5>
+              </div>
+              <small class="mb-0">Here are displayed all the users</small>
+            </div>
+
+            
+            <a href="{% url 'users' %}" class="list-group-item"><i class="bi bi-people"></i>Users</a>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+ </aside>
+ <!--start sidebar -->
