@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     
     "apps",
     
-    "crispy_forms",
-    "crispy_bootstrap4",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -126,9 +125,6 @@ MEDIA_URL = '/image/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/assets/images')
 
-# django-crispy-forms
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
