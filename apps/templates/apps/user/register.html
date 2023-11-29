@@ -10,56 +10,56 @@
         <div class="row g-0">
         <div class="col-lg">
             <div class="card-body p-4 p-sm-3">
-            <h5 class="card-title">Sign Up</h5>
-            <p class="card-text mb-5">Blood bank system management</p>
+            <h5 class="card-title">S'inscrire</h5>
+            <p class="card-text mb-5">Système de Gestion d'une Banque de Sang</p>
             <form class="form-body" method="POST">
                 {% csrf_token %}
                 <div class="row g-3">
                     <!-- first name and last name -->
                     <div class="col-6">
-                        <label for="firstName" class="form-label">First Name</label>
+                        <label for="firstName" class="form-label">Nom</label>
                         <div class="ms-auto position-relative">
                             <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                            <input type="text" name="first_name" class="form-control radius-30 ps-5" id="firstName" placeholder="First Name">
+                            <input type="text" name="first_name" class="form-control radius-30 ps-5" id="firstName" placeholder="Nom">
                         </div>
                     </div>
                     <div class="col-6">
-                        <label for="lastName" class="form-label">Last Name</label>
+                        <label for="lastName" class="form-label">Prénoms</label>
                         <div class="ms-auto position-relative">
                             <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                            <input type="text" name="last_name" class="form-control radius-30 ps-5" id="lastName" placeholder="Last Name">
+                            <input type="text" name="last_name" class="form-control radius-30 ps-5" id="lastName" placeholder="Prénoms">
                         </div>
                     </div>
                     <!-- end first name and last name -->
                     <!-- username -->
                     <div class="col-12">
-                        <label for="username" class="form-label">Username</label>
+                        <label for="username" class="form-label">Nom d'Utilisateur</label>
                         <div class="ms-auto position-relative">
                             <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                            <input type="text" name="username" class="form-control radius-30 ps-5" id="username" placeholder="Username">
+                            <input type="text" name="username" class="form-control radius-30 ps-5" id="username" placeholder="Nom d'Utilisateur">
                         </div>
                     </div>
                     <!-- end username -->
                     <!-- email -->
                     <div class="col-12">
-                        <label for="email" class="form-label">Email Adress</label>
+                        <label for="email" class="form-label">Adresse Email</label>
                         <div class="ms-auto position-relative">
                             <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-envelope-fill"></i></div>
-                            <input type="email" name="email" class="form-control radius-30 ps-5" id="email" placeholder="Email Adress">
+                            <input type="email" name="email" class="form-control radius-30 ps-5" id="email" placeholder="Adresse Email">
                         </div>
                     </div>
                     <!-- end email -->
                     <!-- enter password -->
                     <div class="col-12">
-                        <label for="password" class="form-label">Enter Password</label>
+                        <label for="password" class="form-label">Mot de Passe</label>
                         <div class="ms-auto position-relative">
                             <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
-                            <input type="password" name="password" class="form-control radius-30 ps-5" id="password" placeholder="Enter Password">
+                            <input type="password" name="password" class="form-control radius-30 ps-5" id="password" placeholder="Mot de Passe">
                         </div>
-                        <label for="password_confirm" class="form-label">Confirm Password</label>
+                        <label for="password_confirm" class="form-label">Confirmer le Mot de Passe</label>
                         <div class="ms-auto position-relative">
                             <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
-                            <input type="password" name="password_confirm" class="form-control radius-30 ps-5" id="password_confirm" placeholder="Confirm Password">
+                            <input type="password" name="password_confirm" class="form-control radius-30 ps-5" id="password_confirm" placeholder="Confirmer le Mot de Passe">
                         </div>
                     </div>
                     <!-- end enter password -->
@@ -96,11 +96,11 @@
                     </div>
                     <div class="col-12">
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary radius-30">Sign Up</button>
+                            <button type="submit" class="btn btn-primary radius-30">S'inscrire</button>
                         </div>
                     </div>
                     <div class="col-12">
-                    <p class="mb-0">Already have an account yet? <a href="{% url 'login' %}">Sign in here</a></p>
+                    <p class="mb-0">Vous avez déjà un compte? <a href="{% url 'login' %}">Connectez-vous ici</a></p>
                     </div>
                 </div>
             </form>
