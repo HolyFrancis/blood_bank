@@ -1,9 +1,9 @@
 from django.db import models
 
 class Donor(models.Model):
-    SEX = (("F", "Female"), ("M", "Male"))
+    SEX = (("F", "Féminin"), ("M", "Masculin"))
     BLOOD_GROUP = (("O+", "O+"), ("A+", "A+"), ("B+", "B+"), ("AB+", "AB+"), ("O-", "O-"), ("A-", "A-"), ("B-", "B-"), ("AB-", "AB-"))
-    STATUS = (("Eligible","Eligible"), ("Pending","Pending Approval"), ("Ineligible","Ineligible"))
+    STATUS = (("Eligible","Eligible"), ("Attente","En Attente de Confirmation"), ("Ineligible","Ineligible"))
     first_name = models.CharField(null=False, blank=False, max_length=255)
     last_name = models.CharField(null=False, blank=False,max_length=255)
     cni = models.CharField(null=False, blank=False,max_length=255, unique=True)
@@ -23,7 +23,8 @@ class Donor(models.Model):
     transfusion = models.BooleanField(default=False)
     anemia = models.BooleanField(default=False)
     infections = models.BooleanField(default=False)
-    status = models.CharField(null=True, blank=True, choices=STATUS)
+    examens = models.BooleanField(default=False)
+    status = models.CharField(null=True, blank=True, choices=STATUS, default=STATUS["Attente"])
     date_created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     

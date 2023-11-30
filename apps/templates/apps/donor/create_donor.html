@@ -10,33 +10,29 @@
         <div class="card">
             <div class="card-body">
                 <div class="border p-3 rounded">
-                    <h6 class="mb-0 text-uppercase">Add Donor</h6>
+                    <h6 class="mb-0 text-uppercase">Nouveau Donneur</h6>
                     <hr />
                     <form class="row g-3">
                         {% csrf_token %}
                         <div class="col-6">
-                            <label class="form-label">First Name</label>
+                            <label class="form-label">Nom</label>
                             {{form.first_name}}
                         </div>
                         <div class="col-6">
-                            <label class="form-label">Last Name</label>
+                            <label class="form-label">Prénom</label>
                             {{form.last_name}}
                         </div>
                         <div class="col-6">
-                            <label class="form-label">ID Card</label>
+                            <label class="form-label">CNI</label>
                             {{form.cni}}
                         </div>
                         <div class="col-6">
-                            <label class="form-label">Weight</label>
-                            {{form.weight}}
-                        </div>
-                        <div class="col-6">
-                            <label class="form-label">Number of Partners</label>
-                            {{form.parteners}}
-                        </div>
-                        <div class="col-6">
-                            <label class="form-label">Birthday:</label>
+                            <label class="form-label">Date de Naissance:</label>
                             {% render_field form.birthday type="date" class="form-control" %}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Poids</label>
+                            {{form.weight}}
                         </div>
                         <div class="col-6">
                             <label class="form-select-label">
@@ -46,7 +42,7 @@
                         </div>
                         <div class="col-6">
                             <label class="form-select-label">
-                                Blood Group
+                                Groupe Sanguin
                             </label>
                             {{form.blood_group}}
                         </div>
@@ -56,41 +52,50 @@
                         </div>
                         <div class="col-6">
                             <div class="form-check">
+                                {{form.last_donation}}
+                                <label class="form-check-label" >
+                                Avez-vous fait un don de sang dans les 4 derniers mois?
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check">
                                 {{form.drugs}}
                                 <label class="form-check-label" >
-                                    Takes Drugs
+                                    Avez-vous pris de la drogue par voie intra-veineuse dans les 4 derniers mois?
                                 </label>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-check">
-                                {{form.tattoo}}
+                                {{form.tattoo_piercing}}
                                 <label class="form-check-label" >
-                                    Have Tattoos
+                                    Vous êtes-vous fait(e) faire un tatouage ou un piercing dans les 4 derniers mois?
                                 </label>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-check">
-                                {{form.piercing}}
+                                {{form.disease}}
                                 <label class="form-check-label" >
-                                    Have Piercings
+                                    Présentez-vous ou avez-vous déjà eu une de ces maladies: <br>
+                                    <li>
+                                        <ul>Cancer</ul>
+                                        <ul>AVC</ul>
+                                        <ul>Infarctus</ul>
+                                        <ul>VIH/SIDA</ul>
+                                        <ul>Hépatite C</ul>
+                                        <ul>Syphilis</ul>
+                                        <ul>Maladie Chronique(Diabète(traité par insuline), maladie inflammatoire de l'intestin, maladie auto-immune,...)</ul>
+                                    </li>
                                 </label>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-check">
-                                {{form.has_disease}}
+                                {{form.surgery}}
                                 <label class="form-check-label" >
-                                    Has Disease
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-check">
-                                {{form.had_surgery}}
-                                <label class="form-check-label" >
-                                    Had Surgery
+                                    Avez-vous été opéré(e) dans les 4 derniers mois?
                                 </label>
                             </div>
                         </div>
@@ -98,7 +103,63 @@
                             <div class="form-check">
                                 {{form.under_medication}}
                                 <label class="form-check-label" >
-                                    Under Medication
+                                    Prenez-vous des médicaments?
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check">
+                                {{form.vaccine}}
+                                <label class="form-check-label" >
+                                    Avez-vous été vacciné(e) au cours du dernier mois?
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check">
+                                {{form.dentist}}
+                                <label class="form-check-label" >
+                                    Etes-vous allé(e) chez un dentiste dans les 7 derniers jours?
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check">
+                                {{form.pregnancy}}
+                                <label class="form-check-label" >
+                                    Etes-vous enceinte ou avez-vous accouché depuis moins de 6 mois?
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check">
+                                {{form.transfusion}}
+                                <label class="form-check-label" >
+                                    Avez-vous déjà eu une transfusion ou une greffe d'organe?
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check">
+                                {{form.anemia}}
+                                <label class="form-check-label" >
+                                    Etes-vous suivi(e) pour une anémie ou manque de fer
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check">
+                                {{form.infections}}
+                                <label class="form-check-label" >
+                                    Avez-vous eu de la fièvre ou une infection(toux, diarrhée, infection urinaire, plaie cutanée...) dans les 2 dernières semaines
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check">
+                                {{form.infections}}
+                                <label class="form-check-label" >
+                                    Avez-vous fait(e) un examen de type "fibroscopie" dans les 4 derniers mois?
                                 </label>
                             </div>
                         </div>
