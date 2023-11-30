@@ -24,7 +24,7 @@ class Donor(models.Model):
     anemia = models.BooleanField(default=False)
     infections = models.BooleanField(default=False)
     examens = models.BooleanField(default=False)
-    status = models.CharField(null=True, blank=True, choices=STATUS, default=STATUS["Attente"])
+    status = models.CharField(null=True, blank=True, choices=STATUS, default=STATUS[1], max_length=255)
     date_created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
