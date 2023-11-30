@@ -5,7 +5,7 @@
 
   <!--breadcrumb-->
   <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Donors</div>
+    <div class="breadcrumb-title pe-3">Donneurs</div>
     <div class="ps-3">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-0 p-0">
@@ -16,7 +16,7 @@
     </div>
     <div class="ms-auto">
       <div class="btn-group">
-        <button type="button" class="btn btn-primary"><a href="{% url 'create_donor' %}" class="link-light"><i class="bi bi-plus-circle"></i> Add Donor</a></button>
+        <a class="btn btn-primary" href="{% url 'create_donor' %}" class="link-light"><i class="bi bi-plus-circle"></i> Ajouter un Donneur</a>
       </div>
     </div>
   </div>
@@ -25,31 +25,42 @@
   <div class="card">
     <div class="card-body">
       <div class="d-flex align-items-center">
-        <h5 class="mb-0">Donor Details</h5>
+        <h5 class="mb-0">Details des Donneurs</h5>
         <form class="ms-auto position-relative">
           <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-search"></i></div>
           <input class="form-control ps-5" type="text" placeholder="search">
         </form>
       </div>
       <div class="table-responsive mt-3">
-        <table class="table align-middle">
-          <thead class="table-secondary">
+        <table id="example2" class="table align-middle" style="width:100%">
+          <thead class="table-light">
             <tr>
               <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>ID Card</th>
-              <th>Birthday</th>
-              <th>Weight</th>
-              <th>Sex</th>
-              <th>Blood Group</th>
               <th>Actions</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>CNI</th>
+              <th>Date de Naissance</th>
+              <th>Poids</th>
+              <th>Sexe</th>
+              <th>Groupe Sanguin</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
             {% for donor in donors %}
             <tr>
               <td>{{donor.id}}</td>
+              <td>
+                <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                  <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Views"><i class="bi bi-eye-fill"></i></a>
+                  <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Edit"><i class="bi bi-pencil-fill"></i></a>
+                  <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Delete"><i class="bi bi-trash-fill"></i></a>
+                </div>
+              </td>
               <td>
                 <div class="d-flex align-items-center gap-3 cursor-pointer">
                   <div class="">
@@ -68,18 +79,8 @@
               <td>{{donor.birthday}}</td>
               <td>{{donor.weight}}</td>
               <td>{{donor.sex}}</td>
-              <td>{{donor.sex}}</td>
               <td>{{donor.blood_group}}</td>
-              <td>
-                <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                  <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Views"><i class="bi bi-eye-fill"></i></a>
-                  <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Edit"><i class="bi bi-pencil-fill"></i></a>
-                  <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Delete"><i class="bi bi-trash-fill"></i></a>
-                </div>
-              </td>
+              <td><span class="badge bg-light-success text-success w-100">{{donor.status}}</span></td>
             </tr>
             {% endfor %}
           </tbody>
