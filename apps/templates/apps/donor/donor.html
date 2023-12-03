@@ -31,7 +31,33 @@
           <input class="form-control ps-5" type="text" placeholder="search">
         </form>
       </div>
-      <div class="table-responsive mt-3">
+      <div class="table-responsive mt-3">{% if messages %}
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+                <div class="d-flex align-items-center">
+                    <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="text-info">{{message}}</div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% else %}
+            <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                <div class="d-flex align-items-center">
+                    <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="text-danger">{{message}}</div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
         <table id="example2" class="table align-middle" style="width:100%">
           <thead class="table-light">
             <tr>
@@ -57,8 +83,7 @@
                     title="Views"><i class="bi bi-eye-fill"></i></a>
                   <a href="{% url 'update_donor' donor.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
                     title="Edit"><i class="bi bi-pencil-fill"></i></a>
-                  <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Delete"><i class="bi bi-trash-fill"></i></a>
+                  <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer {{donor.first_name}} {{donor.last_name}}?')" href="{% url 'delete_donor' donor.id %}"><i class="bi bi-trash-fill"></i></a>
                 </div>
               </td>
               <td>

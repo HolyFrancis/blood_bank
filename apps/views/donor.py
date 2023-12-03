@@ -1,4 +1,6 @@
 from django.shortcuts import redirect, render
+from django.http import HttpRequest
+from django.contrib import messages
 
 from apps.models import Donor
 from apps.forms import DonorForm
@@ -42,7 +44,16 @@ def update_donor(request, id):
 
 def donor_details(request, id):
     donor = Donor.objects.get(id=id)
-    print(donor.status)
+    
     context = {"donor":donor}
     
     return render(request, "apps/donor/donor_details.html", context)
+
+def delete_donor(request, id):
+    donor = Donor.objects.get(id=id)
+    donor.delete()
+    messages.success(request, "Donor deleted successefuly!")
+    
+    context = {'donor':donor}
+    
+    return redirect('donor')
