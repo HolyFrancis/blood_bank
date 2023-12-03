@@ -193,7 +193,7 @@ class Migration(migrations.Migration):
                 ('inflammatory', models.BooleanField()),
                 ('date_created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
-                ('donnor', models.ManyToManyField(to='apps.donor')),
+                ('donor', models.ManyToManyField(to='apps.donor')),
             ],
         ),
         migrations.CreateModel(

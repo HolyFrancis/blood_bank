@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
-from apps.views import home, user, donnor, transfusion, psl, analyse, equipement, client, order, stock
+from apps.views import home, user, donor, transfusion, psl, analyse, equipement, client, order, stock
 
 urlpatterns = [
     path("login", user.loginview, name="login"),
@@ -15,7 +15,13 @@ urlpatterns = [
     
     
     path("", home.home, name="home"),
-    path("donnor", donnor.donnor, name="donnor"),
+    
+    path("donor", donor.donor, name="donor"),
+    path("create-donor", donor.create_donor, name="create_donor"),
+    path("update-donor/<str:id>", donor.update_donor, name="update_donor"),
+    path("donor-details/<str:id>", donor.donor_details, name="donor_details"),
+    path("delete-donor/<str:id>", donor.delete_donor, name="delete_donor"),
+    
     path("transfusion", transfusion.transfusion, name="transfusion"),
     path("psl", psl.psl, name="psl"),
     path("analyse", analyse.analyse, name="analyse"),

@@ -1,0 +1,225 @@
+{% extends "apps/layouts/main.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-12 mx-auto">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="border p-3 rounded">
+                    <h5 class="mb-0 text-uppercase">Informations Détaillées</h5>
+                    <hr />
+                    <div class="card card-outline-secondary p-2">
+                        <h6 class="mb-0 text-uppercase">Informations Générales</h6>
+                        <hr>
+                        <div class="col-6">
+                            <p class="form-label">Nom : {{donor.first_name}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Prénom : {{donor.last_name}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">CNI : {{donor.cni}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Date de Naissance: {{donor.birthday}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Poids : {{donor.weight}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-select-label">
+                                Sexe : {{donor.sex}}
+                            </p>
+                        </div>
+                        <div class="col-12">
+                            <p class="form-select-label">
+                                Groupe Sanguin : {{donor.blood_group}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card card-outline-secondary p-2">
+                        <h6 class="mb-0 text-uppercase">Informations relatifs aux dons</h6>
+                        <div class="col-12">
+                            <div class="">
+                                <p class="form-check-label" >
+                                Don de sang dans les 4 derniers mois : 
+                                {% if donor.last_donation %}
+                                OUI
+                                {% else %}
+                                NON
+                                {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="">
+                                <p class="form-check-label" >
+                                    Prise de drogue par voie intra-veineuse dans les 4 derniers mois : 
+                                    {% if donor.drugs %}
+                                    OUI
+                                    {% else %}
+                                    NON
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="">
+                                <p class="form-check-label" >
+                                    Tatouage ou un piercing dans les 4 derniers mois : 
+                                    {% if donor.tattoo_piercing %}
+                                    OUI
+                                    {% else %}
+                                    NON
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="">
+                                <p class="form-check-label" >
+                                    Présente ou a déjà eu une maladie ne lui permettant plus de donner son sang : 
+                                    {% if donor.disease %}
+                                    OUI
+                                    {% else %}
+                                    NON
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="">
+                                <p class="form-check-label" >
+                                    Opération dans les 4 derniers mois : 
+                                    {% if donor.surgery %}
+                                    OUI
+                                    {% else %}
+                                    NON
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="">
+                                <p class="form-check-label" >
+                                    Prise de médicaments? : 
+                                    {% if donor.under_medication %}
+                                    OUI
+                                    {% else %}
+                                    NON
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="">
+                                <p class="form-check-label" >
+                                    Vaccination au cours du dernier mois? 
+                                    {% if donor.vaccine %}
+                                    OUI
+                                    {% else %}
+                                    NON
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="">
+                                <p class="form-check-label" >
+                                    Visite chez un dentiste dans les 7 derniers jours : 
+                                    {% if donor.dentist %}
+                                    OUI
+                                    {% else %}
+                                    NON
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="">
+                                <p class="form-check-label" >
+                                    Est enceinte ou a accouché depuis moins de 6 mois : 
+                                    {% if donor.pregnancy %}
+                                    OUI
+                                    {% else %}
+                                    NON
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="">
+                                <p class="form-check-label" >
+                                    Transfusion ou greffe d'organe : 
+                                    {% if donor.transfusion %}
+                                    OUI
+                                    {% else %}
+                                    NON
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="">
+                                <p class="form-check-label" >
+                                    Anémie ou manque de fer : 
+                                    {% if donor.anemia %}
+                                    OUI
+                                    {% else %}
+                                    NON
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="">
+                                <p class="form-check-label" >Fièvre ou une infection dans les 2 dernières semaines : 
+                                    {% if donor.infections %}
+                                    OUI
+                                    {% else %}
+                                    NON
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="">
+                                <p class="form-check-label" >
+                                    Examen de type "fibroscopie" dans les 4 derniers mois : 
+                                    {% if donor.examens %}
+                                    OUI
+                                    {% else %}
+                                    NON
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% if donor.status == "Eligible" %}
+                    <div style="border: 3px solid rgb(24, 216, 24); padding: 10px;">
+                    {% elif donor.status == "Ineligible" %}
+                    <div style="padding: 10px; border: solid red 3px">
+                    {% elif donor.status == "En Attente" %}
+                    <div style="padding: 10px; border: solid yellow 3px">
+                    {% endif %}
+                        <div class="col-12">
+                            <i style="font-weight: bold;">Status : </i>
+                            <i style="font-size: 16px;">{{donor.status}}</i>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-12">
+                        <div class="d-grid">
+                            <a class="btn btn-outline-secondary" href="{% url 'donor' %}">Retour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
