@@ -3,7 +3,7 @@ from django.db import models
 class Donor(models.Model):
     SEX = (("F", "Féminin"), ("M", "Masculin"))
     BLOOD_GROUP = (("O+", "O+"), ("A+", "A+"), ("B+", "B+"), ("AB+", "AB+"), ("O-", "O-"), ("A-", "A-"), ("B-", "B-"), ("AB-", "AB-"))
-    STATUS = (("Eligible","Eligible"), ("En Attente de Confirmation","Attente"), ("Ineligible","Ineligible"))
+    STATUS = (("Eligible","Eligible"), ("En Attente","Attente"), ("Ineligible","Ineligible"))
     first_name = models.CharField(null=False, blank=False, max_length=255)
     last_name = models.CharField(null=False, blank=False,max_length=255)
     cni = models.CharField(null=False, blank=False,max_length=255, unique=True)

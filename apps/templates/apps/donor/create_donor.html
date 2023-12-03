@@ -153,13 +153,13 @@
                         </div>
                         <div class="col-12">
                             <div class="form-check">
-                                {{form.infections}}
+                                {{form.examens}}
                                 <label class="form-check-label" >
                                     A fait un examen de type "fibroscopie" dans les 4 derniers mois
                                 </label>
                             </div>
                         </div>
-                        <div class="col-12 d-none">
+                        <div class="col-12">
                             <label class="form-select-label">
                                 Status
                             </label>
@@ -167,12 +167,12 @@
                         </div>
                         <div class="col-6">
                             <div class="d-grid">
-                                <a class="btn btn-outline-secondary" href="{% url 'donor' %}">Cancel</a>
+                                <a class="btn btn-outline-secondary" href="{% url 'donor' %}">Annuler</a>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
                             </div>
                         </div>
                     </form>

@@ -22,3 +22,27 @@ def create_donor(request):
     context = {"form":form}
     
     return render(request, "apps/donor/create_donor.html", context)
+
+def update_donor(request, id):
+    donor = Donor.objects.get(id=id)
+    
+    form = DonorForm(instance=donor)
+    
+    if request.method == "POST":
+        form = DonorForm(request.POST, instance=donor)
+        if form.is_valid():
+            form.save()
+            return redirect('donor')
+        else:
+            return form.errors
+    
+    context = {"form":form, 'donor':donor}
+    
+    return render(request, "apps/donor/create_donor.html", context)
+
+def donor_details(request, id):
+    donor = Donor.objects.get(id=id)
+    print(donor.status)
+    context = {"donor":donor}
+    
+    return render(request, "apps/donor/donor_details.html", context)

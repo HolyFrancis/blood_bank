@@ -18,6 +18,8 @@ urlpatterns = [
     
     path("donor", donor.donor, name="donor"),
     path("create-donor", donor.create_donor, name="create_donor"),
+    path("update-donor/<str:id>", donor.update_donor, name="update_donor"),
+    path("donor-details/<str:id>", donor.donor_details, name="donor_details"),
     
     path("transfusion", transfusion.transfusion, name="transfusion"),
     path("psl", psl.psl, name="psl"),
