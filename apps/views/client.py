@@ -49,7 +49,7 @@ def client_details(request, id):
 def delete_client(request, id):
     client = Client.objects.get(id=id)
     client.delete()
-    messages.success(request, "Dlient deleted successefuly!")
+    messages.success(request, "Le client supprimé avec succès!")
     
     context = {'client':client}
     
