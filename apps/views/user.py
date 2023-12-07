@@ -11,6 +11,12 @@ def users(request):
     
     return render(request, "apps/user/users.html", context)
 
+def settings(request):
+    
+    context={}
+    
+    return render(request, "apps/user/settings.html", context)
+
 def register(request):
     form = UserForm()
     if request.method == "POST":
