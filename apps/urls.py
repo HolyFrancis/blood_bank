@@ -7,6 +7,8 @@ urlpatterns = [
     path("login", user.loginview, name="login"),
     path("register", user.register, name="register"),
     path("logout", user.logoutview, name="logout"),
+    path("users", user.users, name="users"),  
+    path("settings", user.settings, name="settings"),  
     
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="apps/user/reset_password.html"), name="reset_password"),
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name="apps/user/password_reset_done.html"), name="password_reset_done"),
@@ -36,6 +38,4 @@ urlpatterns = [
 
     path("order", order.order, name="order"),
     path("stock", stock.stock, name="stock"),
-    
-    path("users", user.users, name="users"),  
 ]
