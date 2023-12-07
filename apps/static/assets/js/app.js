@@ -68,24 +68,54 @@ $(function() {
 		})
 	})
 
+	//my_switcher
 
-	// switcher 
+	var selectedTheme = localStorage.getItem("theme") || "dark-theme"
+
+	function setTheme(selectedTheme){
+		$("html").attr("class", selectedTheme)
+		localStorage.setItem("theme", selectedTheme)
+	}
 
 	$("#LightTheme").on("click", function() {
-		$("html").attr("class", "light-theme")
+		selectedTheme = "light-theme"
+		setTheme(selectedTheme)
 	}),
 
 	$("#DarkTheme").on("click", function() {
-		$("html").attr("class", "dark-theme")
+		selectedTheme = "dark-theme"
+		setTheme(selectedTheme)
 	}),
 
 	$("#SemiDarkTheme").on("click", function() {
-		$("html").attr("class", "semi-dark")
+		selectedTheme = "semi-dark"
+		setTheme(selectedTheme)
 	}),
 
 	$("#MinimalTheme").on("click", function() {
-		$("html").attr("class", "minimal-theme")
-	})
+		selectedTheme = "minimal-theme"
+		setTheme(selectedTheme)
+	}),
+
+	setTheme(selectedTheme)
+
+	// switcher 
+
+	// $("#LightTheme").on("click", function() {
+	// 	$("html").attr("class", "light-theme")
+	// }),
+
+	// $("#DarkTheme").on("click", function() {
+	// 	$("html").attr("class", "dark-theme")
+	// }),
+
+	// $("#SemiDarkTheme").on("click", function() {
+	// 	$("html").attr("class", "semi-dark")
+	// }),
+
+	// $("#MinimalTheme").on("click", function() {
+	// 	$("html").attr("class", "minimal-theme")
+	// })
 
 
 	$("#headercolor1").on("click", function() {
