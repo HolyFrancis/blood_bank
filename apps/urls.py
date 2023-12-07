@@ -26,7 +26,14 @@ urlpatterns = [
     path("psl", psl.psl, name="psl"),
     path("analyse", analyse.analyse, name="analyse"),
     path("equipement", equipement.equipement, name="equipement"),
+
+    
     path("client", client.client, name="client"),
+    path("create-client", client.create_client, name="create_client"),
+    path("update-client/<str:id>", client.update_client, name="update_client"),
+    path("client-details/<str:id>", client.client_details, name="client_details"),
+    path("delete-client/<str:id>", client.delete_client, name="delete_client"),
+
     path("order", order.order, name="order"),
     path("stock", stock.stock, name="stock"),
     
