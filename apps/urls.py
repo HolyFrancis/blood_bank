@@ -7,6 +7,8 @@ urlpatterns = [
     path("login", user.loginview, name="login"),
     path("register", user.register, name="register"),
     path("logout", user.logoutview, name="logout"),
+    path("users", user.users, name="users"),  
+    path("settings", user.settings, name="settings"),  
     
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="apps/user/reset_password.html"), name="reset_password"),
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name="apps/user/password_reset_done.html"), name="password_reset_done"),
@@ -26,9 +28,14 @@ urlpatterns = [
     path("psl", psl.psl, name="psl"),
     path("analyse", analyse.analyse, name="analyse"),
     path("equipement", equipement.equipement, name="equipement"),
+
+    
     path("client", client.client, name="client"),
+    path("create-client", client.create_client, name="create_client"),
+    path("update-client/<str:id>", client.update_client, name="update_client"),
+    path("client-details/<str:id>", client.client_details, name="client_details"),
+    path("delete-client/<str:id>", client.delete_client, name="delete_client"),
+
     path("order", order.order, name="order"),
     path("stock", stock.stock, name="stock"),
-    
-    path("users", user.users, name="users"),  
 ]

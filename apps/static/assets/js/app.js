@@ -68,43 +68,89 @@ $(function() {
 		})
 	})
 
+	//my_switcher
 
-	// switcher 
+	var selectedTheme = localStorage.getItem("theme") || "light-theme"
+	const themeSelectLight = document.getElementById("LightTheme")
+	const themeSelectDark = document.getElementById("DarkTheme")
+	const themeSelectSemiDark = document.getElementById("SemiDarkTheme")
+	const themeSelectMinimal = document.getElementById("MinimalTheme")
+
+	function setTheme(selectedTheme){
+		$("html").attr("class", selectedTheme)
+		localStorage.setItem("theme", selectedTheme)
+		if(selectedTheme=="light-theme"){
+			themeSelectLight.setAttribute("checked", "true")
+		}
+		else if(selectedTheme=="dark-theme"){
+			themeSelectDark.setAttribute("checked", "true")
+		}
+		else if(selectedTheme=="semi-dark"){
+			themeSelectSemiDark.setAttribute("checked", "true")
+		}
+		else if(selectedTheme=="minimal-theme"){
+			themeSelectMinimal.setAttribute("checked", "true")
+		}
+	}
 
 	$("#LightTheme").on("click", function() {
-		$("html").attr("class", "light-theme")
+		selectedTheme = "light-theme"
+		setTheme(selectedTheme)
 	}),
 
 	$("#DarkTheme").on("click", function() {
-		$("html").attr("class", "dark-theme")
+		selectedTheme = "dark-theme"
+		setTheme(selectedTheme)
 	}),
 
 	$("#SemiDarkTheme").on("click", function() {
-		$("html").attr("class", "semi-dark")
+		selectedTheme = "semi-dark"
+		setTheme(selectedTheme)
 	}),
 
 	$("#MinimalTheme").on("click", function() {
-		$("html").attr("class", "minimal-theme")
-	})
+		selectedTheme = "minimal-theme"
+		setTheme(selectedTheme)
+	}),
+
+	setTheme(selectedTheme)
+
+	// switcher 
+
+	// $("#LightTheme").on("click", function() {
+	// 	$("html").attr("class", "light-theme")
+	// }),
+
+	// $("#DarkTheme").on("click", function() {
+	// 	$("html").attr("class", "dark-theme")
+	// }),
+
+	// $("#SemiDarkTheme").on("click", function() {
+	// 	$("html").attr("class", "semi-dark")
+	// }),
+
+	// $("#MinimalTheme").on("click", function() {
+	// 	$("html").attr("class", "minimal-theme")
+	// })
 
 
-	$("#headercolor1").on("click", function() {
-		$("html").addClass("color-header headercolor1"), $("html").removeClass("headercolor2 headercolor3 headercolor4 headercolor5 headercolor6 headercolor7 headercolor8")
-	}), $("#headercolor2").on("click", function() {
-		$("html").addClass("color-header headercolor2"), $("html").removeClass("headercolor1 headercolor3 headercolor4 headercolor5 headercolor6 headercolor7 headercolor8")
-	}), $("#headercolor3").on("click", function() {
-		$("html").addClass("color-header headercolor3"), $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor5 headercolor6 headercolor7 headercolor8")
-	}), $("#headercolor4").on("click", function() {
-		$("html").addClass("color-header headercolor4"), $("html").removeClass("headercolor1 headercolor2 headercolor3 headercolor5 headercolor6 headercolor7 headercolor8")
-	}), $("#headercolor5").on("click", function() {
-		$("html").addClass("color-header headercolor5"), $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor3 headercolor6 headercolor7 headercolor8")
-	}), $("#headercolor6").on("click", function() {
-		$("html").addClass("color-header headercolor6"), $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor5 headercolor3 headercolor7 headercolor8")
-	}), $("#headercolor7").on("click", function() {
-		$("html").addClass("color-header headercolor7"), $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor5 headercolor6 headercolor3 headercolor8")
-	}), $("#headercolor8").on("click", function() {
-		$("html").addClass("color-header headercolor8"), $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor5 headercolor6 headercolor7 headercolor3")
-	})
+	// $("#headercolor1").on("click", function() {
+	// 	$("html").addClass("color-header headercolor1"), $("html").removeClass("headercolor2 headercolor3 headercolor4 headercolor5 headercolor6 headercolor7 headercolor8")
+	// }), $("#headercolor2").on("click", function() {
+	// 	$("html").addClass("color-header headercolor2"), $("html").removeClass("headercolor1 headercolor3 headercolor4 headercolor5 headercolor6 headercolor7 headercolor8")
+	// }), $("#headercolor3").on("click", function() {
+	// 	$("html").addClass("color-header headercolor3"), $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor5 headercolor6 headercolor7 headercolor8")
+	// }), $("#headercolor4").on("click", function() {
+	// 	$("html").addClass("color-header headercolor4"), $("html").removeClass("headercolor1 headercolor2 headercolor3 headercolor5 headercolor6 headercolor7 headercolor8")
+	// }), $("#headercolor5").on("click", function() {
+	// 	$("html").addClass("color-header headercolor5"), $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor3 headercolor6 headercolor7 headercolor8")
+	// }), $("#headercolor6").on("click", function() {
+	// 	$("html").addClass("color-header headercolor6"), $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor5 headercolor3 headercolor7 headercolor8")
+	// }), $("#headercolor7").on("click", function() {
+	// 	$("html").addClass("color-header headercolor7"), $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor5 headercolor6 headercolor3 headercolor8")
+	// }), $("#headercolor8").on("click", function() {
+	// 	$("html").addClass("color-header headercolor8"), $("html").removeClass("headercolor1 headercolor2 headercolor4 headercolor5 headercolor6 headercolor7 headercolor3")
+	// })
 
 
 	new PerfectScrollbar(".iconmenu")
