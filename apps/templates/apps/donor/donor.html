@@ -26,10 +26,6 @@
     <div class="card-body">
       <div class="d-flex align-items-center">
         <h5 class="mb-0">Details des Donneurs</h5>
-        <form class="ms-auto position-relative">
-          <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-search"></i></div>
-          <input class="form-control ps-5" type="text" placeholder="search">
-        </form>
       </div>
       <div class="table-responsive mt-3">{% if messages %}
         {% for message in messages %}
@@ -58,7 +54,7 @@
             {% endif %}
         {% endfor %}
     {% endif %}
-        <table id="example2" class="table align-middle" style="width:100%">
+        <table id="example" class="table align-middle" style="width:100%">
           <thead class="table-light">
             <tr>
               <th>ID</th>

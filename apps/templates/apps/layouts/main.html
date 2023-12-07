@@ -20,14 +20,19 @@
 
         <!--start content-->
         <main class="page-content">
-        {% block content %}{%endblock %}
+            {% block content %}
+
+            {%endblock %}
         </main>
         <!--end page main-->
 
         <!--start switcher-->
         <div class="switcher-body">
-            <button class="btn btn-primary btn-switcher shadow-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="bi bi-paint-bucket me-0"></i></button>
-            <div class="offcanvas offcanvas-end shadow border-start-0 p-2" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling">
+            <button class="btn btn-primary btn-switcher shadow-sm" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i
+                    class="bi bi-paint-bucket me-0"></i></button>
+            <div class="offcanvas offcanvas-end shadow border-start-0 p-2" data-bs-scroll="true"
+                data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling">
                 <div class="offcanvas-header border-bottom">
                     <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Changer le Thème</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
@@ -36,78 +41,85 @@
                     <h6 class="mb-0">Différentes Variations</h6>
                     <hr>
                     <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="LightTheme" value="option1">
-                    <label class="form-check-label" for="LightTheme">Clair</label>
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="LightTheme"
+                            value="option1">
+                        <label class="form-check-label" for="LightTheme">Clair</label>
                     </div>
                     <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="DarkTheme" value="option2">
-                    <label class="form-check-label" for="DarkTheme">Sombre</label>
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="DarkTheme"
+                            value="option2">
+                        <label class="form-check-label" for="DarkTheme">Sombre</label>
                     </div>
                     <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SemiDarkTheme" value="option3">
-                    <label class="form-check-label" for="SemiDarkTheme">Demi Sombre</label>
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SemiDarkTheme"
+                            value="option3">
+                        <label class="form-check-label" for="SemiDarkTheme">Demi Sombre</label>
                     </div>
                     <hr>
                     <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="MinimalTheme" value="option3" checked>
-                    <label class="form-check-label" for="MinimalTheme">Thème Minimal</label>
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="MinimalTheme"
+                            value="option3" checked>
+                        <label class="form-check-label" for="MinimalTheme">Thème Minimal</label>
                     </div>
-                    <hr/>
+                    <hr />
                     <h6 class="mb-0">Couleur de l'Entête</h6>
-                    <hr/>
+                    <hr />
                     <div class="header-colors-indigators">
-                    <div class="row row-cols-auto g-3">
-                        <div class="col">
-                        <div class="indigator headercolor1" id="headercolor1"></div>
+                        <div class="row row-cols-auto g-3">
+                            <div class="col">
+                                <div class="indigator headercolor1" id="headercolor1"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor2" id="headercolor2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor3" id="headercolor3"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor4" id="headercolor4"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor5" id="headercolor5"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor6" id="headercolor6"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor7" id="headercolor7"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor8" id="headercolor8"></div>
+                            </div>
                         </div>
-                        <div class="col">
-                        <div class="indigator headercolor2" id="headercolor2"></div>
-                        </div>
-                        <div class="col">
-                        <div class="indigator headercolor3" id="headercolor3"></div>
-                        </div>
-                        <div class="col">
-                        <div class="indigator headercolor4" id="headercolor4"></div>
-                        </div>
-                        <div class="col">
-                        <div class="indigator headercolor5" id="headercolor5"></div>
-                        </div>
-                        <div class="col">
-                        <div class="indigator headercolor6" id="headercolor6"></div>
-                        </div>
-                        <div class="col">
-                        <div class="indigator headercolor7" id="headercolor7"></div>
-                        </div>
-                        <div class="col">
-                        <div class="indigator headercolor8" id="headercolor8"></div>
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
-         </div>
-       <!--end switcher-->
+        </div>
+        <!--end switcher-->
 
     </div>
     <!--end wrapper-->
 
     <!-- Bootstrap bundle JS -->
     <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+
     <!--plugins-->
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
     <script src="{% static 'assets/plugins/simplebar/js/simplebar.min.js' %}"></script>
     <script src="{% static 'assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js' %}"></script>
     <script src="{% static 'assets/js/pace.min.js' %}"></script>
     <script src="{% static 'assets/plugins/apexcharts-bundle/js/apexcharts.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/easyPieChart/jquery.easypiechart.js' %}"></script>
+    <script src="{% static 'assets/plugins/peity/jquery.peity.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
+    <script src="{% static 'assets/plugins/datatable/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/datatable/js/dataTables.bootstrap5.min.js' %}"></script>
+    <script src="{% static 'assets/js/table-datatable.js' %}"></script>
+
     <!--app-->
     <script src="{% static 'assets/js/app.js' %}"></script>
     <script src="{% static 'assets/js/index.js' %}"></script>
-
-    <script src="https://code.jquery.com/jquery-3.7.0.js" ></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js" ></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js" ></script>
-
-    <script src="{% static 'assets/js/dataTable.js' %}"></script>
 
 </body>
 
