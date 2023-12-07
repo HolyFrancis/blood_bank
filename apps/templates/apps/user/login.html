@@ -1,0 +1,89 @@
+{% extends 'apps/layouts/authentication.html' %}
+{% load static %}
+
+{% block content %}
+<!--start content-->
+<main class="authentication-content">
+<div class="container-fluid">
+    <div class="authentication-card">
+    <div class="card shadow rounded-0 overflow-hidden">
+        <div class="row g-0">
+        <div class="col-lg">
+            <div class="card-body p-4 p-sm-3">
+            <h5 class="card-title">Se Connecter</h5>
+            <p class="card-text mb-5">Système de Gestion d'une Banque de Sang</p>
+            <form class="form-body" method="POST">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <!-- username or email -->
+                    <div class="col-12">
+                    <label for="inputEmailAddress" class="form-label">Nom d'Utilisateur</label>
+                    <div class="ms-auto position-relative">
+                        <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
+                        <input type="text" name="username" class="form-control radius-30 ps-5" id="inputEmailAddress" placeholder="Nom d'utilisateur">
+                    </div>
+                    </div>
+                    <!-- end username or email -->
+                    <!-- enter password -->
+                    <div class="col-12">
+                    <label for="inputChoosePassword" class="form-label">Mot de Passe</label>
+                    <div class="ms-auto position-relative">
+                        <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
+                        <input type="password" name="password" class="form-control radius-30 ps-5" id="inputChoosePassword" placeholder="Mot de Passe">
+                    </div>
+                    </div>
+                    <!-- end enter password -->
+                    <div class="col-12">
+                        <div class="d-grid">
+                            {% if messages %}
+                            {% for message in messages %}
+                                {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                                <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <div class="text-info">{{message}}</div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                {% else %}
+                                <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <div class="text-danger">{{message}}</div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary radius-30">Se Connecter</button>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <p class="mb-0">Mot de passe oublié? <a href="{% url 'reset_password' %}">Reinitialiser le mot de passe</a></p>
+                    </div>
+                    <div class="col-12">
+                    <p class="mb-0">Vous n'avez pas encore de compte? <a href="{% url 'register' %}">Inscrivez-vous ici</a></p>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</main>
+
+<!--end page main-->
+{% endblock %}

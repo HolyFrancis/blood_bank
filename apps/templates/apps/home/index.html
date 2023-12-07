@@ -1,0 +1,38 @@
+{% extends "apps/layouts/main.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="row row-cols-1 row-cols-sm-3 row-cols-md-3 row-cols-xl-3 row-cols-xxl-6">
+  <div class="col">
+    <div class="card radius-10 bg-danger">
+      <div class="card-body text-center">
+        <div class="widget-icon mx-auto mb-3 bg-white-1 text-white">
+          <i class="bi bi-hdd-fill"></i>
+        </div>
+        <h3 class="text-white">35</h3>
+         <p class="mb-0 text-white">Litres</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="card radius-10">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <p class="mb-1">Nombre de Commandes</p>
+            <h4 class="mb-0 text-tiffany">248</h4>
+          </div>
+          <div class="ms-auto">
+            <div id="chart1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+</div><!--end row-->
+
+{% endblock %}

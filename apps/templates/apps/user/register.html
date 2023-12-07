@@ -1,0 +1,116 @@
+{% extends 'apps/layouts/authentication.html' %}
+{% load static %}
+
+{% block content %}
+<!--start content-->
+<main class="authentication-content">
+<div class="container-fluid">
+    <div class="authentication-card">
+    <div class="card shadow rounded-0 overflow-hidden">
+        <div class="row g-0">
+        <div class="col-lg">
+            <div class="card-body p-4 p-sm-3">
+            <h5 class="card-title">S'inscrire</h5>
+            <p class="card-text mb-5">Système de Gestion d'une Banque de Sang</p>
+            <form class="form-body" method="POST">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <!-- first name and last name -->
+                    <div class="col-6">
+                        <label for="firstName" class="form-label">Nom</label>
+                        <div class="ms-auto position-relative">
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
+                            <input type="text" name="first_name" class="form-control radius-30 ps-5" id="firstName" placeholder="Nom">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="lastName" class="form-label">Prénoms</label>
+                        <div class="ms-auto position-relative">
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
+                            <input type="text" name="last_name" class="form-control radius-30 ps-5" id="lastName" placeholder="Prénoms">
+                        </div>
+                    </div>
+                    <!-- end first name and last name -->
+                    <!-- username -->
+                    <div class="col-12">
+                        <label for="username" class="form-label">Nom d'Utilisateur</label>
+                        <div class="ms-auto position-relative">
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
+                            <input type="text" name="username" class="form-control radius-30 ps-5" id="username" placeholder="Nom d'Utilisateur">
+                        </div>
+                    </div>
+                    <!-- end username -->
+                    <!-- email -->
+                    <div class="col-12">
+                        <label for="email" class="form-label">Adresse Email</label>
+                        <div class="ms-auto position-relative">
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-envelope-fill"></i></div>
+                            <input type="email" name="email" class="form-control radius-30 ps-5" id="email" placeholder="Adresse Email">
+                        </div>
+                    </div>
+                    <!-- end email -->
+                    <!-- enter password -->
+                    <div class="col-12">
+                        <label for="password" class="form-label">Mot de Passe</label>
+                        <div class="ms-auto position-relative">
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
+                            <input type="password" name="password" class="form-control radius-30 ps-5" id="password" placeholder="Mot de Passe">
+                        </div>
+                        <label for="password_confirm" class="form-label">Confirmer le Mot de Passe</label>
+                        <div class="ms-auto position-relative">
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
+                            <input type="password" name="password_confirm" class="form-control radius-30 ps-5" id="password_confirm" placeholder="Confirmer le Mot de Passe">
+                        </div>
+                    </div>
+                    <!-- end enter password -->
+                    <div class="col-12">
+                        <div class="d-grid">
+                            {% if messages %}
+                            {% for message in messages %}
+                                {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                                <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <div class="text-info">{{message}}</div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                {% else %}
+                                <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <div class="text-danger">{{message}}</div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary radius-30">S'inscrire</button>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                    <p class="mb-0">Vous avez déjà un compte? <a href="{% url 'login' %}">Connectez-vous ici</a></p>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</main>
+
+<!--end page main-->
+{% endblock %}
