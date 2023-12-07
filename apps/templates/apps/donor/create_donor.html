@@ -1,0 +1,185 @@
+{% extends "apps/layouts/main.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-12 mx-auto">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="border p-3 rounded">
+                    <h6 class="mb-0 text-uppercase">Nouveau Donneur</h6>
+                    <hr />
+                    <form class="row g-3" method="POST">
+                        {% csrf_token %}
+                        <div class="col-6">
+                            <label class="form-label">Nom</label>
+                            {{form.first_name}}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Prénom</label>
+                            {{form.last_name}}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">CNI</label>
+                            {{form.cni}}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Date de Naissance:</label>
+                            {% render_field form.birthday type="date" class="form-control" %}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Poids</label>
+                            {{form.weight}}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-select-label">
+                                Sex
+                            </label>
+                            {{form.sex}}
+                        </div>
+                        <div class="col-12">
+                            <label class="form-select-label">
+                                Groupe Sanguin
+                            </label>
+                            {{form.blood_group}}
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                {{form.last_donation}}
+                                <label class="form-check-label" >
+                                A fait un don de sang dans les 4 derniers mois
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                {{form.drugs}}
+                                <label class="form-check-label" >
+                                    A pris de la drogue par voie intra-veineuse dans les 4 derniers mois
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                {{form.tattoo_piercing}}
+                                <label class="form-check-label" >
+                                    S'est fait(e) faire un tatouage ou un piercing dans les 4 derniers mois
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                {{form.disease}}
+                                <label class="form-check-label" >
+                                    Présente ou a déjà eu une de ces maladies: <br>
+                                    <ul>
+                                        <li>Cancer</li>
+                                        <li>AVC</li>
+                                        <li>Infarctus</li>
+                                        <li>VIH/SIDA</li>
+                                        <li>Hépatite C</li>
+                                        <li>Syphilis</li>
+                                        <li>Maladie Chronique(Diabète(traité par insuline), maladie inflammatoire de l'intestin, maladie auto-immune,...)</li>
+                                    </ul>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                {{form.surgery}}
+                                <label class="form-check-label" >
+                                    A été opéré dans les 4 derniers mois
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                {{form.under_medication}}
+                                <label class="form-check-label" >
+                                    Prend des médicaments
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                {{form.vaccine}}
+                                <label class="form-check-label" >
+                                    A été vacciné au cours du dernier mois
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                {{form.dentist}}
+                                <label class="form-check-label" >
+                                    Est allé(e) chez un dentiste dans les 7 derniers jours
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                {{form.pregnancy}}
+                                <label class="form-check-label" >
+                                    Est enceinte ou a accouché depuis moins de 6 mois
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                {{form.transfusion}}
+                                <label class="form-check-label" >
+                                    A eu une transfusion ou une greffe d'organe
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                {{form.anemia}}
+                                <label class="form-check-label" >
+                                    Est suivi(e) pour une anémie ou manque de fer
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                {{form.infections}}
+                                <label class="form-check-label" >
+                                    A eu de la fièvre ou une infection(toux, diarrhée, infection urinaire, plaie cutanée...) dans les 2 dernières semaines
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                {{form.examens}}
+                                <label class="form-check-label" >
+                                    A fait un examen de type "fibroscopie" dans les 4 derniers mois
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-select-label">
+                                Status
+                            </label>
+                            {{form.status}}
+                        </div>
+                        <div class="col-6">
+                            <div class="d-grid">
+                                <a class="btn btn-outline-secondary" href="{% url 'donor' %}">Annuler</a>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
