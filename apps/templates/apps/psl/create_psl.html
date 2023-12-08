@@ -1,0 +1,53 @@
+{% extends "apps/layouts/main.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-body">
+            <div class="border p-3 rounded">
+                <h6 class="mb-0 text-uppercase">Nouveau Produit sanguins labiles</h6>
+                <hr />
+                <form class="row g-3" method="POST">
+                    {% csrf_token %}
+                    <div class="col-6">
+                        <label class="form-label">Numerode de Serie</label>
+                        {% render_field form.serial class="form-control" %}
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Volume</label>
+                        {% render_field form.volume class="form-control" %}
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Debut de Conservation </label>
+                        {% render_field form.start_date type="date" class="form-control" %}
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Fin de Conservation</label>
+                        {% render_field form.end_date type="date" class="form-control" %}
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Type PSL</label>
+                        {% render_field form.type_psl class="form-select" %}
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Transfusion</label>
+                        {% render_field form.blood class="form-control" %}
+                    </div>
+                    <div class="col-6">
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-grid">
+                            <a class="btn btn-outline-secondary" href="{% url 'psl' %}">Annuler</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
