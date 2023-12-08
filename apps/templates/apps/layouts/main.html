@@ -1,0 +1,55 @@
+{% load static %}
+
+<!doctype html>
+<html lang="fr" class="minimal-theme">
+
+<!-- Head -->
+{% include 'apps/partials/head.html' %}
+<!-- End of Head -->
+
+<body>
+    <!--start wrapper-->
+    <div class="wrapper">
+        <!-- Topbar -->
+        {% include 'apps/partials/topbar.html' %}
+        <!-- End of Topbar -->
+
+        <!-- Sidebar -->
+        {% include 'apps/partials/sidebar.html' %}
+        <!-- End of Sidebar -->
+
+        <!--start content-->
+        <main class="page-content">
+            {% block content %}
+
+            {%endblock %}
+        </main>
+        <!--end page main-->
+
+    </div>
+    <!--end wrapper-->
+
+    <!-- Bootstrap bundle JS -->
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!--plugins-->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/simplebar/js/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'assets/js/pace.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/apexcharts-bundle/js/apexcharts.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/easyPieChart/jquery.easypiechart.js' %}"></script>
+    <script src="{% static 'assets/plugins/peity/jquery.peity.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
+    <script src="{% static 'assets/plugins/datatable/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/datatable/js/dataTables.bootstrap5.min.js' %}"></script>
+    <script src="{% static 'assets/js/table-datatable.js' %}"></script>
+
+    <!--app-->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+    <script src="{% static 'assets/js/index.js' %}"></script>
+
+</body>
+
+</html>

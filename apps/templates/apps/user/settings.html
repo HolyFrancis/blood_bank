@@ -1,0 +1,41 @@
+{% extends "apps/layouts/main.html" %}
+{% load static %}
+
+{% block content %}
+
+<!--start switcher-->
+<div class="switcher-body">
+    <div class="card" >
+        <div class="card-header border-bottom">
+            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Changer le Thème</h5>
+        </div>
+        <div class="card-body">
+            <h6 class="mb-0">Différentes Variations</h6>
+            <hr>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="LightTheme"
+                    value="option1">
+                <label class="form-check-label" for="LightTheme">Clair</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="DarkTheme"
+                    value="option2">
+                <label class="form-check-label" for="DarkTheme">Sombre</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SemiDarkTheme"
+                    value="option3">
+                <label class="form-check-label" for="SemiDarkTheme">Demi Sombre</label>
+            </div>
+            <hr>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="MinimalTheme"
+                    value="option3">
+                <label class="form-check-label" for="MinimalTheme">Thème Minimal</label>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end switcher-->
+
+{% endblock %}
