@@ -3,6 +3,7 @@ from datetime import datetime
 
 from apps.models.type_psl import Type_psl
 from apps.models.blood import Blood
+from apps.models.order import Order
 
 class PSL(models.Model):
     serial = models.CharField(max_length=255, null=False, blank=False)
@@ -11,6 +12,7 @@ class PSL(models.Model):
     end_date = models.DateTimeField(null=False,blank=False)
     type_psl = models.ForeignKey(Type_psl, on_delete=models.CASCADE)
     blood = models.ManyToManyField(Blood)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     

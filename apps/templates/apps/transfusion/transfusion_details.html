@@ -1,0 +1,73 @@
+{% extends "apps/layouts/main.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-xl-12 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <div class="border p-3 rounded">
+                        <h5 class="mb-0 text-uppercase">Details de la Transfusion</h5>
+                        <hr>
+                        <div class="card card-outline-secondary p-2">
+                            <h6 class="mb-0 text-uppercase">Informations Générales</h6>
+                            <hr>
+                            <div class="col-6">
+                                <p class="form-label">Numero de Serie : <span class="ml-2">{{blood.serial}}</span></p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Volume : {{blood.volume}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Echantillon: {{blood.sample}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Anylsée: {% if blood.analysed %} OUI {% else %} NON {% endif %}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Etat : {{blood.state}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Centrifugée : {% if blood.centrifuged %} OUI {% else %} NON {% endif %}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Date de creation de la transfusion : {{blood.date_created}}</p>
+                            </div>
+                        </div>
+                        <div class="card card-outline-secondary p-2">
+                            <h6 class="mb-0 text-uppercase">Informations sur le donneur de la transfusion</h6>
+                            <hr>
+                            <div class="col-6">
+                                <p class="form-label">Nom : {{blood.donor.first_name}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Prénom : {{blood.donor.last_name}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">CNI : {{blood.donor.cni}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Date de Naissance: {{blood.donor.birthday}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Poids : {{blood.donor.weight}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-select-label">
+                                    Sexe : {{blood.donor.sex}}
+                                </p>
+                            </div>
+                            <div class="col-12">
+                                <p class="form-select-label">
+                                    Groupe Sanguin : {{blood.donor.blood_group}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
