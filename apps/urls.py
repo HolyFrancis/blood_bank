@@ -92,7 +92,11 @@ urlpatterns = [
     path("update-client/<str:id>", client.update_client, name="update_client"),
     path("client-details/<str:id>", client.client_details, name="client_details"),
     path("delete-client/<str:id>", client.delete_client, name="delete_client"),
+    
     path("order", order.order, name="order"),
+    path("create-order", order.create_order, name="create_order"),
+    path("update-order/<str:id>", order.update_order, name="update_order"),
+    path("delete-order/<str:id>", order.delete_order, name="delete_order"),
     path("stock", stock.stock, name="stock"),
     path("users", user.users, name="users"),
 ]
