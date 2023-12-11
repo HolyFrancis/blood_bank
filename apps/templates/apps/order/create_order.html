@@ -1,0 +1,43 @@
+{% extends "apps/layouts/main.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-12 mx-auto">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="border p-3 rounded">
+                    <h6 class="mb-0 text-uppercase">Nouvel Commande</h6>
+                    <hr />
+                    <form class="row g-3" method="POST">
+                        {% csrf_token %}
+                        <div class="col-6">
+                            <label class="form-label">Client</label>
+                            {{form.client}}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Quantité</label>
+                            {{form.quantity}}
+                        </div>
+
+                        <div class="col-6">
+                            <div class="d-grid">
+                                <a class="btn btn-outline-secondary" href="{% url 'order' %}">Annuler</a>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
