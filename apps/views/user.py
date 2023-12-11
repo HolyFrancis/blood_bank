@@ -1,8 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
+from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 
-from apps.forms.user import UserForm
+from apps.forms.user import UserForm, PasswordChangingForm
 
 User = get_user_model()
 
@@ -59,3 +61,11 @@ def loginview(request):
 def logoutview(request):
     logout(request)
     return redirect("login")
+
+class changePassword(PasswordChangeView):
+    form_class = PasswordChangingForm
+    success_url = reverse_lazy('password_success')
+    
+def password_success(request):
+    messages.success(request, "Le mot de passe a été changé avec succès")
+    return render(request, "apps/user/settings.html")
