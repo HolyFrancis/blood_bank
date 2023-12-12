@@ -97,6 +97,16 @@ urlpatterns = [
     path("create-order", order.create_order, name="create_order"),
     path("update-order/<str:id>", order.update_order, name="update_order"),
     path("delete-order/<str:id>", order.delete_order, name="delete_order"),
+
     path("stock", stock.stock, name="stock"),
+    path("create-stock", stock.create_stock, name="create_stock"),
+    path("update-stock/<str:id>", stock.update_stock, name="update_stock"),
+    path("delete-stock/<str:id>", stock.delete_stock, name="delete_stock"),
+
+    
+    path("create-location", stock.create_location, name="create_location"),
+    path("update-location/<str:id>", stock.update_location, name="update_location"),
+    path("delete-location/<str:id>", stock.delete_location, name="delete_location"),
+    
     path("users", user.users, name="users"),
 ]
