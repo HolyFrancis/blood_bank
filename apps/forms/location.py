@@ -6,16 +6,14 @@ from django.db.models.base import Model
 from django.forms import ModelForm
 from django.forms.utils import ErrorList
 
-from apps.models.client import Client
+from apps.models.location import Location
 
-class ClientForm(ModelForm):
+class LocationForm(ModelForm):
     class Meta:
-        model = Client
+        model = Location
         fields = '__all__'
     
     def __init__(self,*args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['name'].widget.attrs.update({'class':'form-control', 'placeholder':'Nom'})
-        self.fields['phone'].widget.attrs.update({'class':'form-control', 'placeholder':'Téléphone'})
-        self.fields['email'].widget.attrs.update({'class':'form-control', 'placeholder':'E-mail'})
-        self.fields['adress'].widget.attrs.update({'class':'form-control', 'placeholder':'Adresse'})
+        self.fields['stock'].widget.attrs.update({'class':'form-control', 'placeholder':'Stock'})

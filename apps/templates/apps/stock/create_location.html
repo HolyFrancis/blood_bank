@@ -10,30 +10,21 @@
         <div class="card">
             <div class="card-body">
                 <div class="border p-3 rounded">
-                    <h6 class="mb-0 text-uppercase">Nouveau Donneur</h6>
+                    <h6 class="mb-0 text-uppercase">Nouvel emplacement</h6>
                     <hr />
                     <form class="row g-3" method="POST">
                         {% csrf_token %}
+                        <div class="col-6">
+                            <label class="form-label">Stock</label>
+                            {{form.stock}}
+                        </div>
                         <div class="col-6">
                             <label class="form-label">Nom</label>
                             {{form.name}}
                         </div>
                         <div class="col-6">
-                            <label class="form-label">Téléphone</label>
-                            {{form.phone}}
-                        </div>
-                        <div class="col-6">
-                            <label class="form-label">Adresse</label>
-                            {{form.adress}}
-                        </div>
-                        <div class="col-6">
-                            <label class="form-label">E-mail</label>
-                            {{form.email}}
-                        </div>
-
-                        <div class="col-6">
                             <div class="d-grid">
-                                <a class="btn btn-outline-secondary" href="{% url 'client' %}">Annuler</a>
+                                <a class="btn btn-outline-secondary" href="{% url 'stock' %}">Annuler</a>
                             </div>
                         </div>
                         <div class="col-6">
