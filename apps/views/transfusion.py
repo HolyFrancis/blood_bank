@@ -19,8 +19,6 @@ def create_blood(request):
         if form.is_valid():
             form.save()
             return redirect("transfusion")
-        else:
-            print(form.errors)
 
     context = {"form": form}
     return render(request, "apps/transfusion/create_transfusion.html", context)
@@ -33,10 +31,10 @@ def update_blood(request, id):
         form = BloodForm(request.POST, instance=blood)
         if form.is_valid():
             form.save()
-            messages.success("blood has been updated succesfully")
+            messages.success(request, "La transfusion sanguine N°" + blood.serial + " a été modifiée avec succès")
             return redirect("transfusion")
         else:
-            messages.error(request, "An error occured wile updating")
+            messages.error(request, "Un problème est survenu lors de la modification")
 
     return render(
         request, "apps/transfusion/create_transfusion.html", context={"form": form}
@@ -53,5 +51,5 @@ def blood_details(request, id):
 def blood_delete(request, id):
     blood = Blood.objects.get(pk=id)
     blood.delete()
-    messages.success(request, "the blood transfusion has been deleted succesfully")
+    messages.success(request, "La transfusion sanguine a été supprimée avec succès")
     return redirect("transfusion")

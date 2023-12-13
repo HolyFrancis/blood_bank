@@ -4,70 +4,69 @@
 
 {% block content %}
 
-    <div class="row">
-        <div class="col-xl-12 mx-auto">
+<div class="row">
+    <div class="col-xl-12 mx-auto">
 
-            <div class="card">
-                <div class="card-body">
-                    <div class="border p-3 rounded">
-                        <h6 class="mb-0 text-uppercase">Nouvelle Transfusion de Sang</h6>
-                        <hr />
-                        <form class="row g-3" method="POST">
-                            {% csrf_token %}
-                            <div class="col-6">
-                                <label class="form-label">Numero de Serie</label>
-                                {{form.serial}}
-                            </div><br>
-                            <div class="col-6">
-                                <label class="form-select-label">Volume</label>
-                                {{form.volume}}
-                            </div><br>
-                            <div class="col-6">
-                                <label class="form-label">Echantillon</label>
-                                {{form.sample}}
-                            </div>
-                            <div class="col-12">
-                                <div class="form-check">
-                                    {{form.analysed}}
-                                    <label class="form-check-label" >
-                                        Transfusion analysée
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label">
-                                    Etat
+        <div class="card">
+            <div class="card-body">
+                <div class="border p-3 rounded">
+                    <h6 class="mb-0 text-uppercase">Nouvelle Transfusion de Sang</h6>
+                    <hr />
+                    <form class="row g-3" method="POST">
+                        {% csrf_token %}
+                        <div class="col-6">
+                            <label class="form-label">Numero de Serie</label>
+                            {{form.serial}}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-select-label">Volume</label>
+                            {{form.volume}}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Echantillon</label>
+                            {{form.sample}}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-select-label">Donneur</label>
+                            {{form.donor}}
+                        </div>
+                        <div class="col-6 d-none">
+                            <div class="form-check">
+                                {{form.analysed}}
+                                <label class="form-check-label">
+                                    Transfusion analysée
                                 </label>
-                                {{form.state}}
                             </div>
-                            <div class="col-12">
-                                <div class="form-check">
-                                    {{form.centrifuged}}
-                                    <label class="form-check-label">
-                                        Transfusion Centrifugée
-                                    </label>
-                                </div>
+                        </div>
+                        <div class="col-6 d-none">
+                            <div class="form-check">
+                                {{form.centrifuged}}
+                                <label class="form-check-label">
+                                    Transfusion Centrifugée
+                                </label>
                             </div>
-                            <div class="col-6">
-                                <label class="form-select-label">Donneur</label>
-                                {{form.donor}}
-                            </div><br><br>
-
-                            <div class="col-6">
-                                <div class="d-grid">
-                                    <a class="btn btn-outline-secondary" href="{% url 'transfusion' %}">Annuler</a>
-                                </div>
+                        </div>
+                        <div class="col-12 d-none">
+                            <label class="form-label">
+                                Etat
+                            </label>
+                            {{form.state}}
+                        </div>
+                        <div class="col-6">
+                            <div class="d-grid">
+                                <a class="btn btn-outline-secondary" href="{% url 'transfusion' %}">Annuler</a>
                             </div>
-                            <div class="col-6">
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary">Enregistrer</button>
-                                </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 {% endblock %}

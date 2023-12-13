@@ -9,12 +9,12 @@ class Blood(models.Model):
         ("Ineligible", "Ineligible"),
         ("Attente", "Analyse en Cours"),
     )
-    VOLUME = (("350", "350"), ("400", "400"), ("450", "450"), ("500", "500"))
+    VOLUME = ((350, 350), (400, 400), (450, 450), (500, 500))
     serial = models.CharField(max_length=255, blank=False, null=False)
-    volume = models.FloatField(null=False, blank=False, choices=VOLUME)
+    volume = models.FloatField(null=False, blank=False, choices=VOLUME, default=VOLUME[2])
     sample = models.CharField(max_length=255, null=False, blank=False)
     analysed = models.BooleanField(default=False)
-    state = models.CharField(max_length=255, choices=STATE)
+    state = models.CharField(max_length=255, choices=STATE, default=STATE[2])
     centrifuged = models.BooleanField(default=False)
     donor = models.ForeignKey(Donor, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
