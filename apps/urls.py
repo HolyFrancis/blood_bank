@@ -70,6 +70,9 @@ urlpatterns = [
     
     #-------------------------------analyse-------------------------------
     path("analyse", analyse.analyse, name="analyse"),
+    path("create-analysis", analyse.create_analysis, name="create_analysis"),
+    path("update-analysis/<str:id>", analyse.update_analysis, name="update_analysis"),
+    path("delete-analysis/<str:id>", analyse.delete_analysis, name="delete_analysis"),
     
     
     #-------------------------------equipment-type-------------------------------
