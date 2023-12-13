@@ -19,6 +19,8 @@ def create_blood(request):
         if form.is_valid():
             form.save()
             return redirect("transfusion")
+        else:
+            print(form.errors)
 
     context = {"form": form}
     return render(request, "apps/transfusion/create_transfusion.html", context)
