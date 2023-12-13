@@ -101,7 +101,13 @@
               <td>{{donor.weight}}</td>
               <td>{{donor.sex}}</td>
               <td>{{donor.blood_group}}</td>
+              {% if donor.status == "Eligible" %}
               <td><span class="badge bg-light-success text-success w-100">{{donor.status}}</span></td>
+              {% elif donor.status == "Ineligible" %}
+              <td><span class="badge bg-light-danger text-danger w-100">{{donor.status}}</span></td>
+              {% elif donor.status == "En Attente" %}
+              <td><span class="badge bg-light-secondary text-secondary w-100">{{donor.status}}</span></td>
+              {% endif %}
             </tr>
             {% endfor %}
           </tbody>
