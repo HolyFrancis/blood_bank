@@ -4,3 +4,4 @@ from .equipment import EquipmentForm  # noqa
 from .equipmentType import EquipmentTypeForm  # noqa
 from .psl import PslForm  # noqa
 from .type_psl import Type_pslForm  # noqa
+from .analyse import AnalysisForm  # noqa
