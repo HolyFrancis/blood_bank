@@ -10,9 +10,9 @@ class Blood(models.Model):
         ("Attente", "Analyse en Cours"),
     )
     VOLUME = ((350, 350), (400, 400), (450, 450), (500, 500))
-    serial = models.CharField(max_length=255, blank=False, null=False)
+    serial = models.CharField(max_length=255, blank=False, null=False, unique=True)
     volume = models.FloatField(null=False, blank=False, choices=VOLUME, default=VOLUME[2])
-    sample = models.CharField(max_length=255, null=False, blank=False)
+    sample = models.CharField(max_length=255, null=False, blank=False, unique=True)
     analysed = models.BooleanField(default=False)
     state = models.CharField(max_length=255, choices=STATE, default=STATE[2])
     centrifuged = models.BooleanField(default=False)

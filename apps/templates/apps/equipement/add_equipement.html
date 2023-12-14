@@ -6,7 +6,7 @@
     <div class="card">
         <div class="card-body">
             <div class="border p-3 rounded">
-                <h6 class="mb-0 text-uppercase">Nouveau equipement</h6>
+                <h6 class="mb-0 text-uppercase">Nouveau Produit</h6>
                 <hr />
                 <form class="row g-3" method="POST">
                     {% csrf_token %}
@@ -23,8 +23,8 @@
                         {% render_field form.type_psl class="form-select" %}
                     </div>
                     <div class="col-6">
-                        <label class="form-label">Types D'equipement</label>
-                        {% render_field form.equipmentType class="form-select" %}
+                        <label class="form-label">Types D'Produit</label>
+                        {% render_field form.productType class="form-select" %}
                     </div>
                     <div class="col-6">
                         <div class="d-grid">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-6">
                         <div class="d-grid">
-                            <a class="btn btn-outline-secondary" href="{% url 'equipement' %}">Annuler</a>
+                            <a class="btn btn-outline-secondary" href="{% url 'Produit' %}">Annuler</a>
                         </div>
                     </div>
                 </form>

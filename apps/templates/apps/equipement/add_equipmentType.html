@@ -6,7 +6,7 @@
     <div class="card">
         <div class="card-body">
             <div class="border p-3 rounded">
-                <h6 class="mb-0 text-uppercase">Nouveau Type d'equipement</h6>
+                <h6 class="mb-0 text-uppercase">Nouveau Type d'produit</h6>
                 <hr />
                 <form class="row g-3" method="POST">
                     {% csrf_token %}
@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-6">
                         <div class="d-grid">
-                            <a class="btn btn-outline-secondary" href="{% url 'equipement' %}">Annuler</a>
+                            <a class="btn btn-outline-secondary" href="{% url 'product' %}">Annuler</a>
                         </div>
                     </div>
                 </form>

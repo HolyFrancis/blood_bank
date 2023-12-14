@@ -44,7 +44,7 @@
 
     <div class="card">
         <div class="card-header py-3">
-            <h6 class="mb-0">Type d'equipements</h6>
+            <h6 class="mb-0">Type d'produits</h6>
         </div>
         <div class="card-body">
             <div class="row">
@@ -63,16 +63,16 @@
                                     </thead>
                                     <tbody>
 
-                                        {% for equipmentType in equipmentTypes %}
+                                        {% for productType in productTypes %}
                                             <tr>
-                                                <td>{{equipmentType.id}}</td>
-                                                <td>{{equipmentType.name}}</td>
-                                                <td>{{equipmentType.description}}</td>
+                                                <td>{{productType.id}}</td>
+                                                <td>{{productType.name}}</td>
+                                                <td>{{productType.description}}</td>
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3 fs-6">
-                                                        <a href="{% url "equipment_type_details" equipmentType.id %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="View detail" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                                                        <a href="{% url "update_equipment_type" equipmentType.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Edit info" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                                                        <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer {{equipmentType.name}} ?')" href="{% url 'equipment_type_delete' equipmentType.id %}"><i class="bi bi-trash-fill"></i></a>
+                                                        <a href="{% url "product_type_details" productType.id %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="View detail" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
+                                                        <a href="{% url "update_product_type" productType.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Edit info" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                                        <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer {{productType.name}} ?')" href="{% url 'product_type_delete' productType.id %}"><i class="bi bi-trash-fill"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <div class="btn-group">
-                            <a class="btn btn-primary" href="{% url 'create_equipment_type' %}" class="link-light"><i class="bi bi-plus-circle"></i> Ajouter un nouveau type d'equipment </a>
+                            <a class="btn btn-primary" href="{% url 'create_product_type' %}" class="link-light"><i class="bi bi-plus-circle"></i> Ajouter un nouveau type d'product </a>
                         </div>
                     </div>
                 </div>
@@ -108,18 +108,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for equipment in equipments %}
+                                    {% for product in products %}
                                         <tr>
-                                            <td>#{{equipment.id}}</td>
-                                            <td>{{equipment.name}}</td>
-                                            <td>{{equipment.description}}</td>
-                                            <td>{{equipment.type_psl}}</td>
-                                            <td>{{equipment.equipmentType}}</td>
+                                            <td>#{{product.id}}</td>
+                                            <td>{{product.name}}</td>
+                                            <td>{{product.description}}</td>
+                                            <td>{{product.type_psl}}</td>
+                                            <td>{{product.productType}}</td>
                                             <td>
                                                 <div class="d-flex align-items-center gap-3 fs-6">
-                                                    <a href="{% url "equipment_details" equipment.id %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="View detail" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                                                    <a href="{% url "update_equipment" equipment.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Edit info" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                                                    <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer {{equipment.name}} ?')" href="{% url 'equipment_delete' equipment.id %}"><i class="bi bi-trash-fill"></i></a>
+                                                    <a href="{% url "product_details" product.id %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="View detail" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
+                                                    <a href="{% url "update_product" product.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Edit info" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                                    <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer {{product.name}} ?')" href="{% url 'product_delete' product.id %}"><i class="bi bi-trash-fill"></i></a>
                                                 </div>
                                             </td>
                                     {% endfor %}
@@ -139,7 +139,7 @@
                         </nav>
                     </div>
                     <div class="btn-group">
-                        <a class="btn btn-primary" href="{% url 'create_equipment' %}" class="link-light"><i class="bi bi-plus-circle"></i> Ajouter un nouveau equipment </a>
+                        <a class="btn btn-primary" href="{% url 'create_product' %}" class="link-light"><i class="bi bi-plus-circle"></i> Ajouter un nouveau product </a>
                     </div>
                 </div>
             </div>

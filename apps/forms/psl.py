@@ -28,3 +28,4 @@ class PslForm(ModelForm):
             self.fields["blood"].widget.attrs.update(
                 {"class": "form-select"}, "multiple"
             )
+            self.fields["order"].widget.attrs.update({"class": "form-select"})

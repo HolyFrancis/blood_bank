@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from apps.views import analyse, client, donor, equipement, home, order, psl, stock, transfusion, user
+from apps.views import analyse, client, donor, product, home, order, psl, stock, transfusion, user
 
 urlpatterns = [
     #-------------------------------User related-------------------------------
@@ -75,46 +75,46 @@ urlpatterns = [
     path("delete-analysis/<str:id>", analyse.delete_analysis, name="delete_analysis"),
     
     
-    #-------------------------------equipment-type-------------------------------
+    #-------------------------------product-type-------------------------------
     path(
-        "save-equipment-type",
-        equipement.save_equipmentType,
-        name="create_equipment_type",
+        "save-product-type",
+        product.save_productType,
+        name="create_product_type",
     ),
     path(
-        "update-equipment-type/<int:id>",
-        equipement.update_equipmentType,
-        name="update_equipment_type",
+        "update-product-type/<int:id>",
+        product.update_productType,
+        name="update_product_type",
     ),
     path(
-        "equipment-type-details/<int:id>",
-        equipement.equipmentType_details,
-        name="equipment_type_details",
+        "product-type-details/<int:id>",
+        product.productType_details,
+        name="product_type_details",
     ),
     path(
-        "equipment-type-delete/<int:id>",
-        equipement.delete_equipmentType,
-        name="equipment_type_delete",
+        "product-type-delete/<int:id>",
+        product.delete_productType,
+        name="product_type_delete",
     ),
     
     
-    #-------------------------------Equipment-------------------------------
-    path("equipement", equipement.equipement, name="equipement"),
-    path("save-equipment", equipement.save_equipment, name="create_equipment"),
+    #-------------------------------Product-------------------------------
+    path("product", product.product, name="product"),
+    path("save-product", product.save_product, name="create_product"),
     path(
-        "update-equipment/<int:id>",
-        equipement.update_equipment,
-        name="update_equipment",
+        "update-product/<int:id>",
+        product.update_product,
+        name="update_product",
     ),
     path(
-        "equipment-details/<int:id>",
-        equipement.equipment_details,
-        name="equipment_details",
+        "product-details/<int:id>",
+        product.product_details,
+        name="product_details",
     ),
     path(
-        "equipment-delete/<int:id>",
-        equipement.delete_equipment,
-        name="equipment_delete",
+        "product-delete/<int:id>",
+        product.delete_product,
+        name="product_delete",
     ),
     
     
