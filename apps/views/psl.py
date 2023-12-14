@@ -21,6 +21,8 @@ def create_type_PSL(request):
         if form.is_valid():
             form.save()
             return redirect("psl")
+        else:
+            print(form.errors)
 
     context = {"form": form}
     return render(request, "apps/psl/create_type_psl.html", context)
@@ -36,7 +38,7 @@ def update_type_psl(request, id):
             form.save()
             return redirect("psl")
         else:
-            form.errors
+            print(form.errors)
 
     context = {"form": form, "type_psl": type_psl}
 
@@ -66,6 +68,8 @@ def create_psl(request):
         if form.is_valid():
             form.save()
             return redirect("psl")
+        else:
+            print(form.errors)
 
     context = {"form": form}
     return render(request, "apps/psl/create_psl.html", context)

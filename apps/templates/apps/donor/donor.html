@@ -27,7 +27,8 @@
       <div class="d-flex align-items-center">
         <h5 class="mb-0">Details des Donneurs</h5>
       </div>
-      <div class="table-responsive mt-3">{% if messages %}
+      <div class="table-responsive mt-3">
+        {% if messages %}
         {% for message in messages %}
             {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
             <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
