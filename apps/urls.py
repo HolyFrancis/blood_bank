@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from apps.views import analyse, client, donor, equipement, home, order, psl, stock, transfusion, user
+from apps.views import analyse, client, donor, product, home, order, psl, stock, transfusion, user
 
 urlpatterns = [
     #-------------------------------User related-------------------------------
@@ -78,42 +78,42 @@ urlpatterns = [
     #-------------------------------product-type-------------------------------
     path(
         "save-product-type",
-        equipement.save_productType,
+        product.save_productType,
         name="create_product_type",
     ),
     path(
         "update-product-type/<int:id>",
-        equipement.update_productType,
+        product.update_productType,
         name="update_product_type",
     ),
     path(
         "product-type-details/<int:id>",
-        equipement.productType_details,
+        product.productType_details,
         name="product_type_details",
     ),
     path(
         "product-type-delete/<int:id>",
-        equipement.delete_productType,
+        product.delete_productType,
         name="product_type_delete",
     ),
     
     
     #-------------------------------Product-------------------------------
-    path("equipement", equipement.equipement, name="equipement"),
-    path("save-product", equipement.save_product, name="create_product"),
+    path("product", product.product, name="product"),
+    path("save-product", product.save_product, name="create_product"),
     path(
         "update-product/<int:id>",
-        equipement.update_product,
+        product.update_product,
         name="update_product",
     ),
     path(
         "product-details/<int:id>",
-        equipement.product_details,
+        product.product_details,
         name="product_details",
     ),
     path(
         "product-delete/<int:id>",
-        equipement.delete_product,
+        product.delete_product,
         name="product_delete",
     ),
     

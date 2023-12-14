@@ -5,12 +5,12 @@ from apps.forms import ProductForm, ProductTypeForm
 from apps.models import Product, ProductType
 
 
-def equipement(request):
+def product(request):
     products = Product.objects.all()
     productTypes = ProductType.objects.all()
     context = {"products": products, "productTypes": productTypes}
 
-    return render(request, "apps/equipement/equipement.html", context)
+    return render(request, "apps/product/product.html", context)
 
 
 def save_productType(request):
@@ -20,10 +20,10 @@ def save_productType(request):
         form = ProductTypeForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("equipement")
+            return redirect("product")
 
     context = {"form": form}
-    return render(request, "apps/equipement/add_productType.html", context)
+    return render(request, "apps/product/add_productType.html", context)
 
 
 def update_productType(request, id):
@@ -34,11 +34,11 @@ def update_productType(request, id):
         form = ProductTypeForm(request.POST, instance=product_type)
         if form.is_valid():
             form.save()
-        return redirect("equipement")
+        return redirect("product")
 
     context = {"form": form, "productType": product_type}
 
-    return render(request, "apps/equipement/add_productType.html", context)
+    return render(request, "apps/product/add_productType.html", context)
 
 
 def productType_details(request, id):
@@ -53,7 +53,7 @@ def delete_productType(request, id):
     productType.delete()
     messages.success(request, "the product type was deleted succesfully")
 
-    return redirect("equipement")
+    return redirect("product")
 
 
 def save_product(request):
@@ -63,10 +63,10 @@ def save_product(request):
         form = ProductForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("equipement")
+            return redirect("product")
 
     context = {"form": form}
-    return render(request, "apps/equipement/add_equipement.html", context)
+    return render(request, "apps/product/add_product.html", context)
 
 
 def update_product(request, id):
@@ -77,10 +77,10 @@ def update_product(request, id):
         form = ProductForm(request.POST, instance=product)
         if form.is_valid():
             form.save()
-        return redirect("equipement")
+        return redirect("product")
 
     context = {"form": form, "product": product}
-    return render(request, "apps/equipement/add_equipement.html", context)
+    return render(request, "apps/product/add_product.html", context)
 
 
 def product_details(request, id):
@@ -95,4 +95,4 @@ def delete_product(request, id):
     product.delete()
     messages.success(request, "the product was deleted succesfully")
 
-    return redirect("equipement")
+    return redirect("product")
