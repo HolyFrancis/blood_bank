@@ -1,18 +1,19 @@
 from django.db import models
-from datetime import datetime
 
-from apps.models.type_psl import Type_psl
-from apps.models.blood import Blood
-from apps.models.order import Order
+from apps.models import Blood, Product
 
 class PSL(models.Model):
-    serial = models.CharField(max_length=255, null=False, blank=False,default=0)
-    volume = models.IntegerField(null=False, blank=False,default=0)
-    start_date = models.DateTimeField(null=False,blank=False, default=datetime.now)
-    end_date = models.DateTimeField(null=False,blank=False)
-    type_psl = models.ForeignKey(Type_psl, on_delete=models.CASCADE)
+    TYPE_PSL = (
+        ("GR","Globules Rouges"),
+        ("PFC","Plasma Frais Congelé"),
+        ("CPS","Concentré Plaquettaire Standard")
+    )
+    serial = models.CharField(max_length=255, null=False, blank=False, unique=True)
+    volume = models.IntegerField(null=False, blank=False)
+    type_psl = models.CharField(null=False, blank=False, choices=TYPE_PSL)
     blood = models.ManyToManyField(Blood)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE,null=True)
+    duration = models.IntegerField(null=False, blank=False)
+    product = models.ForeignKey(Product, null=False, blank=False)
     date_created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
