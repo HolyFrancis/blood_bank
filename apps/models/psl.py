@@ -1,6 +1,6 @@
 from django.db import models
 
-from apps.models import Blood, Product
+from apps.models.blood import Blood
 
 class PSL(models.Model):
     TYPE_PSL = (
@@ -13,7 +13,6 @@ class PSL(models.Model):
     type_psl = models.CharField(null=False, blank=False, choices=TYPE_PSL)
     blood = models.ManyToManyField(Blood)
     duration = models.IntegerField(null=False, blank=False)
-    product = models.ForeignKey(Product, null=False, blank=False)
     date_created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     

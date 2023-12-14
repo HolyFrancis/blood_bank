@@ -1,11 +1,11 @@
 from django.forms import ModelForm
 
-from apps.models import EquipmentType
+from apps.models import ProductType
 
 
-class EquipmentTypeForm(ModelForm):
+class ProductTypeForm(ModelForm):
     class Meta:
-        model = EquipmentType
+        model = ProductType
         fields = "__all__"
 
     def __init__(self, *args, **kwargs) -> None:

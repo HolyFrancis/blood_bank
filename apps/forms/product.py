@@ -1,11 +1,11 @@
 from django.forms import ModelForm
 
-from apps.models import Equipment
+from apps.models import Product
 
 
-class EquipmentForm(ModelForm):
+class ProductForm(ModelForm):
     class Meta:
-        model = Equipment
+        model = Product
         fields = "__all__"
 
     def __init__(self, *args, **kwargs) -> None:
@@ -17,4 +17,4 @@ class EquipmentForm(ModelForm):
             {"class": "form-control", "placeholder": "Description"}
         )
         self.fields["type_psl"].widget.attrs.update({"class": "form-select"})
-        self.fields["equipmentType"].widget.attrs.update({"class": "form-select"})
+        self.fields["productType"].widget.attrs.update({"class": "form-select"})

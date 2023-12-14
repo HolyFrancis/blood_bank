@@ -1,6 +1,7 @@
 from django.db import models
 
-from apps.models import PSL, ProductType
+from apps.models.psl import PSL
+from apps.models.productType import ProductType
 
 class Product(models.Model):
     name = models.CharField(null=False, blank=False, max_length=255)

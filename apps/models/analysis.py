@@ -1,6 +1,6 @@
 from django.db import models
 
-from apps.models import Product
+from apps.models.product import Product
 
 class Analysis(models.Model):
     typ = models.CharField(max_length=255, null=False, blank=False)
