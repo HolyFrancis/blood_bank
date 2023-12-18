@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="border p-3 rounded">
-                        <h5 class="mb-0 text-uppercase">Details de la Transfusion</h5>
+                        <h5 class="mb-0 text-uppercase">Détails du prélèvement</h5>
                         <hr>
                         <div class="card card-outline-secondary p-2">
                             <h6 class="mb-0 text-uppercase">Informations Générales</h6>
@@ -17,7 +17,7 @@
                                 <p class="form-label">Numero de Serie : <span class="ml-2">{{blood.serial}}</span></p>
                             </div>
                             <div class="col-6">
-                                <p class="form-label">Volume : {{blood.volume}}</p>
+                                <p class="form-label">Volume : {{blood.volume}} ml</p>
                             </div>
                             <div class="col-6">
                                 <p class="form-label">Echantillon: {{blood.sample}}</p>
@@ -34,9 +34,19 @@
                             <div class="col-6">
                                 <p class="form-label">Date de creation de la transfusion : {{blood.date_created}}</p>
                             </div>
+                            <div class="col-12">
+                                <p class="form-select-label">
+                                    Ajouté: {{blood.date_created}}
+                                </p>
+                            </div>
+                            <div class="col-12">
+                                <p class="form-select-label">
+                                    Modifié: {{blood.updated}}
+                                </p>
+                            </div>
                         </div>
                         <div class="card card-outline-secondary p-2">
-                            <h6 class="mb-0 text-uppercase">Informations sur le donneur de la transfusion</h6>
+                            <h6 class="mb-0 text-uppercase">Informations sur le donneur</h6>
                             <hr>
                             <div class="col-6">
                                 <p class="form-label">Nom : {{blood.donor.first_name}}</p>

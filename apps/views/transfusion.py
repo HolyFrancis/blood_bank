@@ -17,8 +17,18 @@ def create_blood(request):
     if request.method == "POST":
         form = BloodForm(request.POST)
         if form.is_valid():
+            blood = request.POST
             form.save()
-            return redirect("transfusion")
+            messages.success(request, "La transfusion sanguine N°" + blood['serial'] + " a été enregistrée avec succès")
+            return redirect('transfusion')
+        else:
+            current_blood = request.POST
+            bloods = Blood.objects.all()
+            for bl in bloods:
+                if bl.serial == current_blood['serial']:
+                    messages.error(request, "Le numéro de série saisi existe déjà!")
+                elif bl.sample == current_blood['sample']:
+                    messages.error(request, "L'échantillon saisi existe déjà!")
 
     context = {"form": form}
     return render(request, "apps/transfusion/create_transfusion.html", context)
@@ -34,7 +44,13 @@ def update_blood(request, id):
             messages.success(request, "La transfusion sanguine N°" + blood.serial + " a été modifiée avec succès")
             return redirect("transfusion")
         else:
-            messages.error(request, "Un problème est survenu lors de la modification")
+            current_blood = request.POST
+            bloods = Blood.objects.all()
+            for bl in bloods:
+                if bl.serial == current_blood['serial']:
+                    messages.error(request, "Le numéro de série saisi existe déjà!")
+                elif bl.sample == current_blood['sample']:
+                    messages.error(request, "L'échantillon saisi existe déjà!")
 
     return render(
         request, "apps/transfusion/create_transfusion.html", context={"form": form}

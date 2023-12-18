@@ -9,10 +9,10 @@ class DonorForm(ModelForm):
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['first_name'].widget.attrs.update({'class':'form-control', 'placeholder':'First Name'})
-        self.fields['last_name'].widget.attrs.update({'class':'form-control', 'placeholder':'Last Name'})
-        self.fields['cni'].widget.attrs.update({'class':'form-control', 'placeholder':'ID Card'})
-        self.fields['weight'].widget.attrs.update({'class':'form-control', 'placeholder':'Weight'})
+        self.fields['first_name'].widget.attrs.update({'class':'form-control', 'placeholder':'Nom'})
+        self.fields['last_name'].widget.attrs.update({'class':'form-control', 'placeholder':'Prénom(s)'})
+        self.fields['cni'].widget.attrs.update({'class':'form-control', 'placeholder':'CNI'})
+        self.fields['weight'].widget.attrs.update({'class':'form-control', 'placeholder':'Poids'})
         self.fields['sex'].widget.attrs.update({'class':'form-select'})
         self.fields['blood_group'].widget.attrs.update({'class':'form-select'})
         self.fields['last_donation'].widget.attrs.update({'class':'form-check-input'})

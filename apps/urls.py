@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from apps.views import analyse, client, donor, product, home, order, psl, stock, transfusion, user
+from apps.views import analyse, client, donor, reactant, home, order, psl, transfusion, solution, user
 
 urlpatterns = [
     #-------------------------------User related-------------------------------
@@ -53,68 +53,61 @@ urlpatterns = [
     path("blood-delete/<int:id>", transfusion.blood_delete, name="delete_blood"),
     
     
-    #-------------------------------Type-psl-------------------------------
-    path("create-type-psl", psl.create_type_PSL, name="create_type_psl"),
-    path("update-type-psl/<int:id>", psl.update_type_psl, name="update_type_psl"),
-    path("type-psl-details/<int:id>", psl.type_psl_details, name="type_psl_details"),
-    path("type-psl-delete/<int:id>", psl.type_psl_delete, name="type_psl_delete"),
-    
-    
     #-------------------------------psl-------------------------------
     path("psl", psl.psl, name="psl"),
     path("create-psl", psl.create_psl, name="create_psl"),
     path("update-psl/<int:id>", psl.update_psl, name="update_psl"),
-    path("psl-details/<int:id>", psl.psl_details, name="psl_details"),
     path("psl-delete/<int:id>", psl.psl_delete, name="psl_delete"),
+    
+    path("price", psl.price, name="price"),
+    path("create-price", psl.create_price, name="create_price"),
+    path("update-price/<int:id>", psl.update_price, name="update_price"),
+    path("delete-price/<int:id>", psl.delete_price, name="price_delete"),
     
     
     #-------------------------------analyse-------------------------------
+    path("create-type-analysis", analyse.create_type_analysis, name="create_type_analysis"),
+    path("update-type-analysis/<str:id>", analyse.update_type_analysis, name="update_type_analysis"),
+    path("type-analysis-details/<str:id>", analyse.type_analysis_details, name="type_analysis_details"),
+    path("delete-type-analysis/<str:id>", analyse.delete_type_analysis, name="delete_type_analysis"),
+    
     path("analyse", analyse.analyse, name="analyse"),
     path("create-analysis", analyse.create_analysis, name="create_analysis"),
     path("update-analysis/<str:id>", analyse.update_analysis, name="update_analysis"),
     path("delete-analysis/<str:id>", analyse.delete_analysis, name="delete_analysis"),
     
     
-    #-------------------------------product-type-------------------------------
+    #-------------------------------Solution-------------------------------
+    path("solution", solution.solution, name="solution"),
     path(
-        "save-product-type",
-        product.save_productType,
-        name="create_product_type",
+        "save-solution",
+        solution.save_solution,
+        name="create_solution",
     ),
     path(
-        "update-product-type/<int:id>",
-        product.update_productType,
-        name="update_product_type",
+        "update-solution/<int:id>",
+        solution.update_solution,
+        name="update_solution",
     ),
     path(
-        "product-type-details/<int:id>",
-        product.productType_details,
-        name="product_type_details",
-    ),
-    path(
-        "product-type-delete/<int:id>",
-        product.delete_productType,
-        name="product_type_delete",
+        "solution-delete/<int:id>",
+        solution.delete_solution,
+        name="solution_delete",
     ),
     
     
-    #-------------------------------Product-------------------------------
-    path("product", product.product, name="product"),
-    path("save-product", product.save_product, name="create_product"),
+    #-------------------------------Reactant-------------------------------
+    path("reactant", reactant.reactant, name="reactant"),
+    path("save-reactant", reactant.save_reactant, name="create_reactant"),
     path(
-        "update-product/<int:id>",
-        product.update_product,
-        name="update_product",
+        "update-reactant/<int:id>",
+        reactant.update_reactant,
+        name="update_reactant",
     ),
     path(
-        "product-details/<int:id>",
-        product.product_details,
-        name="product_details",
-    ),
-    path(
-        "product-delete/<int:id>",
-        product.delete_product,
-        name="product_delete",
+        "reactant-delete/<int:id>",
+        reactant.delete_reactant,
+        name="reactant_delete",
     ),
     
     
@@ -131,25 +124,5 @@ urlpatterns = [
     path("create-order", order.create_order, name="create_order"),
     path("update-order/<str:id>", order.update_order, name="update_order"),
     path("delete-order/<str:id>", order.delete_order, name="delete_order"),
-
-
-    path("stock", stock.stock, name="stock"),
-    path("create-stock", stock.create_stock, name="create_stock"),
-    path("update-stock/<str:id>", stock.update_stock, name="update_stock"),
-    path("delete-stock/<str:id>", stock.delete_stock, name="delete_stock"),
-
     
-    path("create-location", stock.create_location, name="create_location"),
-    path("update-location/<str:id>", stock.update_location, name="update_location"),
-    path("delete-location/<str:id>", stock.delete_location, name="delete_location"),
-    
-
-    
-    
-    #-------------------------------Stock-------------------------------
-    path("stock", stock.stock, name="stock"),
-    
-    
-    #-------------------------------Users-------------------------------
-    path("users", user.users, name="users"),
 ]

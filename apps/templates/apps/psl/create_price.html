@@ -1,0 +1,64 @@
+{% extends "apps/layouts/main.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-body">
+        <div class="border p-3 rounded">
+            <h6 class="mb-0 text-uppercase">Nouveau Prix</h6>
+            <hr />
+            <form class="row g-3" method="POST">
+                {% csrf_token %}
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+                    <div class="d-flex align-items-center">
+                        <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                        </div>
+                        <div class="ms-3">
+                            <div class="text-info">{{message}}</div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% else %}
+                <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                    <div class="d-flex align-items-center">
+                        <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+                        </div>
+                        <div class="ms-3">
+                            <div class="text-danger">{{message}}</div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                <div class="col-6">
+                    <label class="form-label">Type</label>
+                    {% render_field form.typ class="form-select" %}
+                </div>
+                <div class="col-6">
+                    <label class="form-label">Prix</label>
+                    {% render_field form.price class="form-control" %}
+                </div>
+                <div class="col-6">
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="d-grid">
+                        <a class="btn btn-outline-secondary" href="{% url 'psl' %}">Annuler</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

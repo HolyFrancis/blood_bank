@@ -1,11 +1,11 @@
 from django.forms import ModelForm
 
-from apps.models import Product
+from apps.models import Reactant
 
 
-class ProductForm(ModelForm):
+class ReactantForm(ModelForm):
     class Meta:
-        model = Product
+        model = Reactant
         fields = "__all__"
 
     def __init__(self, *args, **kwargs) -> None:
@@ -16,5 +16,3 @@ class ProductForm(ModelForm):
         self.fields["description"].widget.attrs.update(
             {"class": "form-control", "placeholder": "Description"}
         )
-        self.fields["type_psl"].widget.attrs.update({"class": "form-select"})
-        self.fields["productType"].widget.attrs.update({"class": "form-select"})

@@ -19,7 +19,15 @@ def create_donor(request):
         form = DonorForm(request.POST)
         if form.is_valid():
             form.save()
+            donor = request.POST
+            messages.success(request, donor['first_name'] + ' ' + donor['last_name'] + " ajouté avec succès")
             return redirect('donor')
+        else:
+            donor = request.POST
+            donors = Donor.objects.all()
+            for don in donors:
+                if don.cni == donor['cni']:
+                    messages.error(request, "La CNI saisie existe déjà!")
     
     context = {"form":form}
     
@@ -34,9 +42,15 @@ def update_donor(request, id):
         form = DonorForm(request.POST, instance=donor)
         if form.is_valid():
             form.save()
+            donor = request.POST
+            messages.success(request, donor['first_name'] + ' ' + donor['last_name'] + " modifié avec succès")
             return redirect('donor')
         else:
-            return form.errors
+            donor = request.POST
+            donors = Donor.objects.all()
+            for don in donors:
+                if don.cni == donor['cni']:
+                    messages.error(request, "La CNI saisie existe déjà!")
     
     context = {"form":form, 'donor':donor}
     
@@ -52,7 +66,7 @@ def donor_details(request, id):
 def delete_donor(request, id):
     donor = Donor.objects.get(id=id)
     donor.delete()
-    messages.success(request, "Donor deleted successefuly!")
+    messages.success(request, "Donneur supprimer avec succès!")
     
     context = {'donor':donor}
     

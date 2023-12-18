@@ -1,17 +1,17 @@
 from django.shortcuts import redirect, render
-from apps.models import Order
+from apps.models import Order, Order_psl
 from django.contrib import messages
-from apps.forms.order import OrderForm
+from apps.forms import OrderForm, OrderpslForm
 
 def order(request):
-    orders=Order.objects.all()
+    orders=Order_psl.objects.all()
     context = {"orders":orders}
     return render(request, "apps/order/order.html", context)
 
 def create_order(request):
-    form = OrderForm()
+    form = Order_psl()
     if request.method == "POST":
-        form = OrderForm(request.POST)
+        form = Order_psl(request.POST)
         if form.is_valid():
             form.save()
             return redirect('order')
@@ -19,12 +19,12 @@ def create_order(request):
     return render(request, "apps/order/create_order.html", context)
 
 def update_order(request, id):
-    order = Order.objects.get(id=id)
+    order = Order_psl.objects.get(id=id)
     
-    form = OrderForm(instance=order)
+    form = OrderpslForm(instance=order)
     
     if request.method == "POST":
-        form = OrderForm(request.POST, instance=order)
+        form = OrderpslForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
             return redirect('order')
@@ -37,7 +37,7 @@ def update_order(request, id):
 
 
 def delete_order(request, id):
-    order = Order.objects.get(id=id)
+    order = Order_psl.objects.get(id=id)
     order.delete()
     messages.success(request, "La commande a été supprimé avec succès!")
     

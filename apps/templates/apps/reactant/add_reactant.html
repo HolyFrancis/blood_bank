@@ -6,25 +6,17 @@
     <div class="card">
         <div class="card-body">
             <div class="border p-3 rounded">
-                <h6 class="mb-0 text-uppercase">Nouveau Produit</h6>
+                <h6 class="mb-0 text-uppercase">Nouveau Réactif</h6>
                 <hr />
                 <form class="row g-3" method="POST">
                     {% csrf_token %}
                     <div class="col-6">
                         <label class={% render"form-label">Nom</label>
-                        _field form.name class="form-control" %}
+                        {% render_field form.name class="form-control" %}
                     </div>
                     <div class="col-6">
                         <label class="form-label">Description</label>
                         {% render_field form.description class="form-control" %}
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label">Types PSL</label>
-                        {% render_field form.type_psl class="form-select" %}
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label">Types D'Produit</label>
-                        {% render_field form.productType class="form-select" %}
                     </div>
                     <div class="col-6">
                         <div class="d-grid">
@@ -33,7 +25,7 @@
                     </div>
                     <div class="col-6">
                         <div class="d-grid">
-                            <a class="btn btn-outline-secondary" href="{% url 'Produit' %}">Annuler</a>
+                            <a class="btn btn-outline-secondary" href="{% url 'reactant' %}">Annuler</a>
                         </div>
                     </div>
                 </form>

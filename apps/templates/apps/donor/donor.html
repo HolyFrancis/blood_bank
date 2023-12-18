@@ -25,7 +25,7 @@
   <div class="card">
     <div class="card-body">
       <div class="d-flex align-items-center">
-        <h5 class="mb-0">Details des Donneurs</h5>
+        <h5 class="mb-0">Détails des Donneurs</h5>
       </div>
       <div class="table-responsive mt-3">
         {% if messages %}
@@ -61,7 +61,7 @@
               <th>ID</th>
               <th>Actions</th>
               <th>Nom</th>
-              <th>Prénom</th>
+              <th>Prénom(s)</th>
               <th>CNI</th>
               <th>Naissance</th>
               <th>Poids</th>
@@ -99,7 +99,7 @@
               </td>
               <td>{{donor.cni}}</td>
               <td>{{donor.birthday}}</td>
-              <td>{{donor.weight}}</td>
+              <td>{{donor.weight}} kg</td>
               <td>{{donor.sex}}</td>
               <td>{{donor.blood_group}}</td>
               {% if donor.status == "Eligible" %}
