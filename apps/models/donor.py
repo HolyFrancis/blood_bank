@@ -15,7 +15,7 @@ class Donor(models.Model):
     )
     STATUS = (
         ("Eligible", "Eligible"),
-        ("En Attente", "Attente"),
+        ("Attente", "En Attente"),
         ("Ineligible", "Ineligible"),
     )
     first_name = models.CharField(null=False, blank=False, max_length=50)

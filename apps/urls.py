@@ -43,11 +43,14 @@ urlpatterns = [
     path("update-donor/<str:id>", donor.update_donor, name="update_donor"),
     path("donor-details/<str:id>", donor.donor_details, name="donor_details"),
     path("delete-donor/<str:id>", donor.delete_donor, name="delete_donor"),
+    path("donor-requests", donor.donor_requests, name="donor_requests"),
+    path("requests-decision/<str:id>", donor.request_decision, name="request_decision"),
+    path("donor-history", donor.donor_history, name="donor_history"),
     
     
     #-------------------------------Transfusion-------------------------------
     path("blood", transfusion.blood, name="transfusion"),
-    path("create-transfusion", transfusion.create_blood, name="create_blood"),
+    path("create-transfusion/<int:id>", transfusion.create_blood, name="create_blood"),
     path("update-transfusion/<int:id>/", transfusion.update_blood, name="update_blood"),
     path("blood-transfusion/<int:id>/", transfusion.blood_details, name="blood_details"),
     path("blood-delete/<int:id>", transfusion.blood_delete, name="delete_blood"),

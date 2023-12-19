@@ -71,3 +71,32 @@ def delete_donor(request, id):
     context = {'donor':donor}
     
     return redirect('donor')
+
+def donor_requests(request):
+    donors = Donor.objects.filter(status='Attente')
+    
+    context = {'donors':donors}
+    
+    return render(request, "apps/donor/requests.html", context)
+
+def request_decision(request, id):
+    donor = Donor.objects.get(id=id)
+    q = request.GET.get("q")
+    if q=='confirm':
+        donor.status = 'Eligible'
+        donor.save()
+        messages.success(request, donor.first_name + ' ' + donor.last_name + " désormais éligible au don de sang")
+    elif q=="reject":
+        donor.status = 'Ineligible'
+        donor.save()
+        messages.warning(request, donor.first_name + ' ' + donor.last_name + " désormais inéligible au don de sang")
+    return redirect('donor_requests')
+    
+def donor_history(request):
+    accepted = Donor.objects.filter(status='Eligible')
+    refused = Donor.objects.filter(status='Ineligible')
+    
+    context = {'accepted':accepted, 'refused':refused}
+    
+    return render(request, "apps/donor/history.html", context)
+    

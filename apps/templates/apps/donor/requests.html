@@ -5,7 +5,7 @@
 
   <!--breadcrumb-->
   <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Donneurs</div>
+    <div class="breadcrumb-title pe-3">Analyses</div>
     <div class="ps-3">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-0 p-0">
@@ -14,18 +14,13 @@
         </ol>
       </nav>
     </div>
-    <div class="ms-auto">
-      <div class="btn-group">
-        <a class="btn btn-primary" href="{% url 'create_donor' %}" class="link-light"><i class="bi bi-plus-circle"></i> Ajouter un Donneur</a>
-      </div>
-    </div>
   </div>
   <!--end breadcrumb-->
 
   <div class="card">
     <div class="card-body">
       <div class="d-flex align-items-center">
-        <h5 class="mb-0">Détails des Donneurs</h5>
+        <h5 class="mb-0">Requêtes pour analyse</h5>
       </div>
       <div class="table-responsive mt-3">
         {% if messages %}
@@ -37,6 +32,17 @@
                     </div>
                     <div class="ms-3">
                         <div class="text-info">{{message}}</div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+            <div class="alert border-0 bg-light-warning alert-dismissible fade show py-2">
+                <div class="d-flex align-items-center">
+                    <div class="fs-3 text-warning"><i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="text-warning">{{message}}</div>
                     </div>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -55,7 +61,7 @@
             {% endif %}
         {% endfor %}
     {% endif %}
-        <table id="example" class="table align-middle" style="width:100%">
+        <table id="example2" class="table align-middle" style="width:100%">
           <thead class="table-light">
             <tr>
               <th>ID</th>
@@ -63,11 +69,10 @@
               <th>Nom</th>
               <th>Prénom(s)</th>
               <th>CNI</th>
-              <th>GS</th>
-              <th>Status</th>
               <th>Naissance</th>
               <th>Poids</th>
               <th>Sexe</th>
+              <th>GS</th>
             </tr>
           </thead>
           <tbody>
@@ -77,10 +82,10 @@
               <td>
                 <div class="table-actions d-flex align-items-center gap-3 fs-6">
                   <a href="{% url 'donor_details' donor.id %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Views"><i class="bi bi-eye-fill"></i></a>
-                  <a href="{% url 'update_donor' donor.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Edit"><i class="bi bi-pencil-fill"></i></a>
-                  <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer {{donor.first_name}} {{donor.last_name}}?')" href="{% url 'delete_donor' donor.id %}"><i class="bi bi-trash-fill"></i></a>
+                    title="Voir"><i class="bi bi-eye-fill"></i></a>
+                  <a href="{% url 'request_decision' donor.id %}?q=confirm" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Accepter" onclick="return confirm('Accepter la demande de {{donor.first_name}} {{donor.last_name}}?')"><i class="bi bi-check-square-fill"></i></a>
+                  <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Refuser" onclick="return confirm('Refuser la demande de {{donor.first_name}} {{donor.last_name}}?')" href="{% url 'request_decision' donor.id %}?q=reject"><i class="bi bi-x-square-fill"></i></a>
                 </div>
               </td>
               <td>
@@ -98,17 +103,10 @@
                 </div>
               </td>
               <td>{{donor.cni}}</td>
-              <td>{{donor.blood_group}}</td>
-              {% if donor.status == "Eligible" %}
-              <td><span class="badge bg-light-success text-success w-100">{{donor.status}}</span></td>
-              {% elif donor.status == "Ineligible" %}
-              <td><span class="badge bg-light-danger text-danger w-100">{{donor.status}}</span></td>
-              {% elif donor.status == "Attente" %}
-              <td><span class="badge bg-light-secondary text-secondary w-100">{{donor.status}}</span></td>
-              {% endif %}
               <td>{{donor.birthday}}</td>
               <td>{{donor.weight}} kg</td>
-              <td>{{donor.sex}}</td>              
+              <td>{{donor.sex}}</td>
+              <td>{{donor.blood_group}}</td>
             </tr>
             {% endfor %}
           </tbody>
