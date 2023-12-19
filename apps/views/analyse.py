@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 
-from apps.models import Analysis, Blood_analysis
+from apps.models import Analysis, Blood_analysis, Blood
 from apps.forms import AnalysisForm, BloodAnalysisForm
 
 
@@ -69,15 +69,22 @@ def delete_type_analysis(request, id):
     return redirect('analyse')
 
 
-def create_analysis(request):
-    form = BloodAnalysisForm()
+def create_analysis(request, id):
+    blood = Blood.objects.get(id=id)
+    form = BloodAnalysisForm(initial={'blood':blood})
     
     if request.method == "POST":
         form = BloodAnalysisForm(request.POST)
         if form.is_valid():
             form.save()
+            if form.cleaned_data['result']=='Sain':
+                blood.state = 'Eligible'
+            elif form.cleaned_data["result"]=="Contaminé":
+                blood.state = 'Ineligible'
+            blood.analysed = True
+            blood.save()
             item = request.POST
-            messages.success(request, "Analyse : " + item['analysis'] + " pour " + item['blood'] + " créé avec succès")
+            messages.success(request, "Analyse créée avec succès")
             return redirect('analyse')
         else:
             print(form.errors)
@@ -113,3 +120,17 @@ def delete_analysis(request, id):
     context = {'analysis':analysis}
     
     return redirect('analyse')
+
+def request_analysis(request):
+    bloods = Blood.objects.filter(analysed=False)
+    
+    context = {'bloods':bloods}
+    
+    return render(request, "apps/analyse/requests.html", context)
+
+def analysis_history(request):
+    analyses = Blood_analysis.objects.all()
+    
+    context = {'analyses':analyses}
+    
+    return render(request, "apps/analyse/history.html", context)

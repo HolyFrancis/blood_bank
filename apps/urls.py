@@ -34,7 +34,7 @@ urlpatterns = [
     path("password_success/", user.password_success, name="password_success"),
     
     
-    path("", home.home, name="home"),
+    path("/", home.home, name="home"),
     
     
     #-------------------------------Donor-------------------------------
@@ -75,9 +75,11 @@ urlpatterns = [
     path("delete-type-analysis/<str:id>", analyse.delete_type_analysis, name="delete_type_analysis"),
     
     path("analyse", analyse.analyse, name="analyse"),
-    path("create-analysis", analyse.create_analysis, name="create_analysis"),
+    path("create-analysis/<str:id>", analyse.create_analysis, name="create_analysis"),
     path("update-analysis/<str:id>", analyse.update_analysis, name="update_analysis"),
     path("delete-analysis/<str:id>", analyse.delete_analysis, name="delete_analysis"),
+    path("request-analysis", analyse.request_analysis, name="request_analysis"),
+    path("analysis-history", analyse.analysis_history, name="analysis_history"),
     
     
     #-------------------------------Solution-------------------------------

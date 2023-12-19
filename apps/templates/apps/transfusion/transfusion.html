@@ -8,7 +8,7 @@
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href=""><i class="bx bx-home-alt"></i></a>
+                <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a>
                 </li>
             </ol>
         </nav>
@@ -54,11 +54,11 @@
                         <th>ID</th>
                         <th>Action</th>
                         <th>Numero de Serie</th>
-                        <th>Echantillon</th>
                         <th>Analysé</th>
-                        <th>Etat</th>
                         <th>centrifugé</th>
+                        <th>Etat</th>
                         <th>Donneur</th>
+                        <th>Echantillon</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,12 +86,12 @@
                         </td>
                         <td>
                             <div>
-                                <p class="mb-0 product-title">{{blood.sample}}</p>
+                                <p class="mb-0 product-title">{{blood.analysed}}</p>
                             </div>
                         </td>
                         <td>
                             <div>
-                                <p class="mb-0 product-title">{{blood.analysed}}</p>
+                                <p class="mb-0 product-title">{{blood.centrifuged}}</p>
                             </div>
                         </td>
                         <td>
@@ -107,12 +107,12 @@
                         </td>
                         <td>
                             <div>
-                                <p class="mb-0 product-title">{{blood.centrifuged}}</p>
+                                <p class="mb-0 product-title">{{blood.donor}}</p>
                             </div>
                         </td>
                         <td>
                             <div>
-                                <p class="mb-0 product-title">{{blood.donor}}</p>
+                                <p class="mb-0 product-title">{{blood.sample}}</p>
                             </div>
                         </td>
                     </tr>

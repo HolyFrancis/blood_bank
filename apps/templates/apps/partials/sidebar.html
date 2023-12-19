@@ -60,12 +60,12 @@
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-0">Requêtes</h5>
               </div>
-              <small class="mb-0">Ici sont affichées les dernières demandes</small>
+              <small class="mb-0">Ici sont affichées les dernières requêtes</small>
             </div>
             
             <a href="{% url 'donor_requests' %}" class="list-group-item"><i class="bi bi-person-circle"></i>Donneurs</a>
-            <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-droplet-fill"></i>Globules Rouges</a>
-            <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Plasma</a>
+            <a href="{% url 'request_analysis' %}" class="list-group-item"><i class="bi bi-droplet-fill"></i>Analyses</a>
+            <a href="{% url 'home' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Prélèvements</a>
             <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-droplet"></i>Plaquettes</a>
 
           </div>
@@ -77,11 +77,11 @@
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-0">Historique</h5>
               </div>
-              <small class="mb-0">Ici s'affiche un historique détaillé des demandes</small>
+              <small class="mb-0">Ici s'affiche un historique détaillé</small>
             </div>
 
             <a href="{% url 'donor_history' %}" class="list-group-item"><i class="bi bi-person-circle"></i>Donneurs</a>
-            <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-droplet-fill"></i>Globules Rouges</a>
+            <a href="{% url 'analysis_history' %}" class="list-group-item"><i class="bi bi-droplet-fill"></i>Analyses</a>
             <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Plasma</a>
             <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-droplet"></i>Plaquettes</a>
 
