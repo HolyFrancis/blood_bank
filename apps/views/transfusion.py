@@ -2,17 +2,21 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from apps.forms import BloodForm
-from apps.models import Blood
+from apps.models import Blood, Donor
 
 
 def blood(request):
+    accepted = Donor.objects.filter(status='Eligible')
     bloods = Blood.objects.all()
+    
+    context = {"bloods": bloods, "accepted":accepted}
 
-    return render(request, "apps/transfusion/transfusion.html", {"bloods": bloods})
+    return render(request, "apps/transfusion/transfusion.html", context)
 
 
-def create_blood(request):
-    form = BloodForm()
+def create_blood(request, id):
+    donor = Donor.objects.get(id=id)
+    form = BloodForm(initial={'donor':donor})
 
     if request.method == "POST":
         form = BloodForm(request.POST)
