@@ -13,54 +13,98 @@
             </ol>
         </nav>
     </div>
-    <div class="ms-auto">
-        <div class="btn-group">
-            <a class="btn btn-primary" href="{% url 'create_analysis' %}" class="link-light"><i
-                    class="bi bi-plus-circle"></i> Ajouter une Analyse</a>
-        </div>
-    </div>
 </div>
 <!--end breadcrumb-->
-
+{% if messages %}
+{% for message in messages %}
+{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+<div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+    <div class="d-flex align-items-center">
+        <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+        </div>
+        <div class="ms-3">
+            <div class="text-info">{{message}}</div>
+        </div>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% else %}
+<div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+    <div class="d-flex align-items-center">
+        <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+        </div>
+        <div class="ms-3">
+            <div class="text-danger">{{message}}</div>
+        </div>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
 <div class="card">
     <div class="card-body">
-        <div class="d-flex align-items-center">
-            <h5 class="mb-0">Details des Analyses</h5>
+        <div class="d-flex justify-content-between">
+            <h5 class="mb-0">Détails des Types d'Analyses</h5>
+            <div class="btn-group">
+                <a class="btn btn-primary" href="{% url 'create_type_analysis' %}" class="link-light"><i
+                        class="bi bi-plus-circle"></i> Ajouter un nouveau type d'analyse</a>
+            </div>
         </div>
-        <div class="table-responsive mt-3">{% if messages %}
-            {% for message in messages %}
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-            <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
-                <div class="d-flex align-items-center">
-                    <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
-                    </div>
-                    <div class="ms-3">
-                        <div class="text-info">{{message}}</div>
-                    </div>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% else %}
-            <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
-                <div class="d-flex align-items-center">
-                    <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
-                    </div>
-                    <div class="ms-3">
-                        <div class="text-danger">{{message}}</div>
-                    </div>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endif %}
-            {% endfor %}
-            {% endif %}
+        <div class="table-responsive mt-3">
             <table id="example" class="table align-middle" style="width:100%">
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
                         <th>Actions</th>
                         <th>Type</th>
-                        <th>Produit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for typ_analyse in typ_analyses %}
+                    <tr>
+                        <td>{{typ_analyse.id}}</td>
+                        <td>
+                            <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                                <a href="{% url 'type_analysis_details' typ_analyse.id %}" class="text-primary"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i
+                                        class="bi bi-eye-fill"></i></a>
+                                <a href="{% url 'update_type_analysis' typ_analyse.id %}" class="text-warning"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
+                                        class="bi bi-pencil-fill"></i></a>
+                                <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Delete" onclick="return confirm('Supprimer {{typ_analyse.typ}}?')"
+                                    href="{% url 'delete_type_analysis' typ_analyse.id %}"><i
+                                        class="bi bi-trash-fill"></i></a>
+                            </div>
+                        </td>
+                        <td>{{typ_analyse.typ}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h5 class="mb-0">Détails des Analyses</h5>
+            <div class="btn-group">
+                <a class="btn btn-primary" href="{% url 'create_analysis' %}" class="link-light"><i
+                        class="bi bi-plus-circle"></i> Ajouter une Analyse</a>
+            </div>
+        </div>
+        <div class="table-responsive mt-3">
+            <table id="example2" class="table align-middle" style="width:100%">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Actions</th>
+                        <th>Analyse</th>
+                        <th>Prélèvement</th>
+                        <th>Résultat</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,17 +113,18 @@
                         <td>{{analysis.id}}</td>
                         <td>
                             <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                                <a href="{% url 'update_analysis' donor.id %}" class="text-warning"
+                                <a href="{% url 'update_analysis' analysis.id %}" class="text-warning"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                         class="bi bi-pencil-fill"></i></a>
                                 <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Delete"
-                                    onclick="return confirm('Supprimer {{donor.first_name}} {{donor.last_name}}?')"
+                                    onclick="return confirm('Supprimer l\'analyse N°{{analysis.id}}?')"
                                     href="{% url 'delete_analysis' analysis.id %}"><i class="bi bi-trash-fill"></i></a>
                             </div>
                         </td>
-                        <td>{{analysis.type}}</td>
-                        <td>{{analysis.product}}</td>
+                        <td>{{analysis.analysis}}</td>
+                        <td>{{analysis.blood}}</td>
+                        <td>{{analysis.result}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

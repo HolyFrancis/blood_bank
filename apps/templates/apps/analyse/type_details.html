@@ -1,0 +1,33 @@
+{% extends "apps/layouts/main.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-12 mx-auto">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="border p-3 rounded">
+                    <div class="card card-outline-secondary p-2">
+                        <h5 class="mb-0 text-uppercase">Informations Détaillées</h5>
+                        <hr />
+                        <div class="col-6">
+                            <p class="form-label">Type : {{typ_analysis.typ}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Réactif(s) :</p>
+                            <ul>
+                                {% for reactant in reactants %}
+                                <li>{{reactant}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

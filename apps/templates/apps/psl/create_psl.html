@@ -11,35 +11,57 @@
                 <hr />
                 <form class="row g-3" method="POST">
                     {% csrf_token %}
+                    {% if messages %}
+{% for message in messages %}
+{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+<div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+    <div class="d-flex align-items-center">
+        <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+        </div>
+        <div class="ms-3">
+            <div class="text-info">{{message}}</div>
+        </div>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% else %}
+<div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+    <div class="d-flex align-items-center">
+        <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+        </div>
+        <div class="ms-3">
+            <div class="text-danger">{{message}}</div>
+        </div>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
                     <div class="col-6">
-                        <label class="form-label">Numerode de Serie</label>
-                        {% render_field form.serial class="form-control" %}
+                        <label class="form-label">Numéro de Série</label>
+                        {% render_field form.serial class="form-control" placeholder="Numéro de Série"%}
                     </div>
                     <div class="col-6">
-                        <label class="form-label">Volume</label>
-                        {% render_field form.volume class="form-control" %}
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label">Debut de Conservation </label>
-                        {% render_field form.start_date type="date" class="form-control" %}
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label">Fin de Conservation</label>
-                        {% render_field form.end_date type="date" class="form-control" %}
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label">Type PSL</label>
+                        <label class="form-label">Type</label>
                         {% render_field form.type_psl class="form-select" %}
                     </div>
                     <div class="col-6">
-                        <label class="form-label">Transfusion</label>
-                        {% render_field form.blood class="form-control" %}
+                        <label class="form-label">Volume(en ml)</label>
+                        {% render_field form.volume class="form-control" placeholder="Volume"%}
                     </div>
                     <div class="col-6">
-                        <label class="form-label">Commande</label>
-                        {% render_field form.order class="form-control" required='false'%}
+                        <label class="form-label">Prélèvement</label>
+                        {% render_field form.blood class="form-control" %}
                     </div>
-                    <div class="col-12" ></div>
+                    <div class="col-6 d-none">
+                        <label class="form-label">Durée de Conservation</label>
+                        {% render_field form.duration class="form-control" placeholder="Durée de Conservation"%}
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Solution</label>
+                        {% render_field form.solution class="form-select" %}
+                    </div>
                     <div class="col-6">
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary">Enregistrer</button>

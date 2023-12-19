@@ -3,7 +3,8 @@
 
 {% block content %}
 
-<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+<div class="d-flex justify-content-between">
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
     <div class="breadcrumb-title pe-3">Produits sanguins labiles</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
@@ -12,6 +13,11 @@
                 </li>
             </ol>
         </nav>
+    </div>
+    </div>
+    <div class="btn-group mb-3">
+        <a class="btn btn-primary" href="{% url 'create_psl' %}" class="link-light"><i
+                class="bi bi-plus-circle"></i> Gérer les prix </a>
     </div>
 </div>
 {% if messages %}
@@ -45,57 +51,7 @@
 <div class="card">
     <div class="card-header py-3">
         <div class="d-flex justify-content-between">
-            <h6 class="mb-0">Type de Produits sanguins labiles</h6>
-            <div class="btn-group">
-                <a class="btn btn-primary" href="{% url 'create_type_psl' %}" class="link-light"><i
-                        class="bi bi-plus-circle"></i> Ajouter un nouveau type PSL </a>
-            </div>
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table id="example" class="table align-middle" style="width:100%">
-                <thead class="table-light">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for type_psl in types_psl %}
-                    <tr>
-                        <td>{{type_psl.id}}</td>
-                        <td>{{type_psl.name}}</td>
-                        <td>{{type_psl.description}}</td>
-                        <td>
-                            <div class="d-flex align-items-center gap-3 fs-6">
-                                <a href="{% url 'type_psl_details' type_psl.id %}" class="text-primary"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
-                                    data-bs-original-title="View detail" aria-label="Views"><i
-                                        class="bi bi-eye-fill"></i></a>
-                                <a href="{% url 'update_type_psl' type_psl.id %}" class="text-warning"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
-                                    data-bs-original-title="Edit info" aria-label="Edit"><i
-                                        class="bi bi-pencil-fill"></i></a>
-                                <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    title="Delete" onclick="return confirm('Supprimer {{type_psl.name}} ?')"
-                                    href="{% url 'type_psl_delete' type_psl.id %}"><i class="bi bi-trash-fill"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div><!--end row-->
-
-<div class="card">
-    <div class="card-header py-3">
-        <div class="d-flex justify-content-between">
-            <h6 class="mb-0">Produits sanguins labiles</h6>
+            <h4 class="mb-0">Produits Sanguins Labiles</h4>
             <div class="btn-group">
                 <a class="btn btn-primary" href="{% url 'create_psl' %}" class="link-light"><i
                         class="bi bi-plus-circle"></i> Ajouter un nouveau PSL </a>
@@ -108,28 +64,23 @@
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
-                        <th>Numero Serie</th>
-                        <th>Volume</th>
-                        <th>Debut de Conservation</th>
-                        <th>Fin de Conservation</th>
-                        <th>Type PSL</th>
                         <th>Action</th>
+                        <th>Numéro de Série</th>
+                        <th>Type</th>
+                        <th>Volume</th>
+                        <th>Durée de Conservation</th>
+                        <th>Solution</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for psl in psls %}
                     <tr>
-                        <td>#{{psl.id}}</td>
-                        <td>{{psl.serial}}</td>
-                        <td>{{psl.volume}}</td>
-                        <td>{{psl.start_date}}</td>
-                        <td>{{psl.end_date}}</td>
-                        <td>{{psl.type_psl}}</td>
+                        <td>{{psl.id}}</td>
                         <td>
                             <div class="d-flex align-items-center gap-3 fs-6">
-                                <a href="{% url 'psl_details' psl.id %}" class="text-primary" data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom" title="" data-bs-original-title="View detail"
-                                    aria-label="Views"><i class="bi bi-eye-fill"></i></a>
+                                <a href="{% url 'psl_details' psl.id %}" class="text-primary"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i
+                                        class="bi bi-eye-fill"></i></a>
                                 <a href="{% url 'update_psl' psl.id %}" class="text-warning" data-bs-toggle="tooltip"
                                     data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
                                     aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
@@ -138,6 +89,56 @@
                                     href="{% url 'psl_delete' psl.id %}"><i class="bi bi-trash-fill"></i></a>
                             </div>
                         </td>
+                        <td>{{psl.serial}}</td>
+                        <td>{{psl.type_psl}}</td>
+                        <td>{{psl.volume}} ml</td>
+                        <td>{{psl.duration}}</td>
+                        <td>{{psl.solution}}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header py-3">
+        <div class="d-flex justify-content-between">
+            <h4 class="mb-0">Types de Produits Sanguins Labiles</h4>
+            <div class="btn-group">
+                <a class="btn btn-primary" href="{% url 'create_type' %}" class="link-light"><i
+                        class="bi bi-plus-circle"></i> Ajouter un nouveau type de PSL </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="example2" class="table align-middle" style="width:100%">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Action</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for typ in types %}
+                    <tr>
+                        <td>{{typ.id}}</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 fs-6">
+                                <a href="{% url 'update_type' typ.id %}" class="text-warning" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
+                                    aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Delete" onclick="return confirm('Supprimer {{typ.name}} ?')"
+                                    href="{% url 'delete_type' typ.id %}"><i class="bi bi-trash-fill"></i></a>
+                            </div>
+                        </td>
+                        <td>{{typ.name}}</td>
+                        <td>{{typ.price}}</td>
                         {% endfor %}
                     </tr>
                 </tbody>

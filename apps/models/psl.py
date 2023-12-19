@@ -1,15 +1,16 @@
 from django.db import models
 
 from apps.models.blood import Blood
-from apps.models.type_psl import Type_psl
+from apps.models.type_psl import Type_PSL
+from apps.models.solution import Solution
+
 
 class PSL(models.Model):
-    serial = models.CharField(max_length=255, null=False, blank=False, unique=True)
+    serial = models.CharField(max_length=50, null=False, blank=False, unique=True)
+    type_psl = models.ForeignKey(Type_PSL, on_delete=models.CASCADE)
     volume = models.IntegerField(null=False, blank=False)
-    type_psl = models.ForeignKey(Type_psl, on_delete=models.CASCADE)
     blood = models.ManyToManyField(Blood)
-    duration = models.IntegerField(null=False, blank=False)
+    duration = models.IntegerField(null=True, blank=True)
+    solution = models.ForeignKey(Solution, null=True, blank=True, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    
-    

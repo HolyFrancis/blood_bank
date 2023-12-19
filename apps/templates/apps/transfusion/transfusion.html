@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Transfusions sanguines</div>
+    <div class="breadcrumb-title pe-3">Prélèvements</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
@@ -16,7 +16,7 @@
     <div class="ms-auto">
         <div class="btn-group">
             <a class="btn btn-primary" href="{% url 'create_blood' %}" class="link-light"><i
-                    class="bi bi-plus-circle"></i> Ajouter une nouvelle transfusion </a>
+                    class="bi bi-plus-circle"></i> Ajouter un nouveau prélèvement </a>
         </div>
     </div>
 </div>
@@ -24,7 +24,7 @@
 
 <div class="card-body">
     <div class="d-flex align-items-center">
-        <h5 class="mb-0">Details des Transfusions</h5>
+        <h5 class="mb-0">Détails des Prélèvements</h5>
     </div>
     <div class="table-responsive mt-3">{% if messages %}
         {% for message in messages %}
@@ -60,7 +60,6 @@
                         <th>ID</th>
                         <th>Action</th>
                         <th>Numero de Serie</th>
-                        <th>Volume</th>
                         <th>Echantillon</th>
                         <th>Analysé</th>
                         <th>Etat</th>
@@ -81,7 +80,7 @@
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                         class="bi bi-pencil-fill"></i></a>
                                 <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    title="Delete" onclick="return confirm('Supprimer ?')"
+                                    title="Delete" onclick="return confirm('Supprimer la transfusion N°{{blood.serial}}?')"
                                     href="{% url 'delete_blood' blood.id %}"><i class="bi bi-trash-fill"></i></a>
                             </div>
                         </td>
@@ -89,11 +88,6 @@
                         <td class="d-flex align-items-center gap-2">
                             <div>
                                 <p class="mb-0 product-title">{{blood.serial}}</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <p class="mb-0 product-title">{{blood.volume}}</p>
                             </div>
                         </td>
                         <td>

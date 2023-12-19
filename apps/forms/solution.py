@@ -1,17 +1,20 @@
 from django.forms import ModelForm
 
-from apps.models import ProductType
+from apps.models import Solution
 
 
-class ProductTypeForm(ModelForm):
+class SolutionForm(ModelForm):
     class Meta:
-        model = ProductType
+        model = Solution
         fields = "__all__"
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.fields["name"].widget.attrs.update(
-            {"class": "form_control", "placeholder": "Nom"}
+            {"class": "form-control", "placeholder": "Nom"}
+        )
+        self.fields["duration"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Durée"}
         )
         self.fields["description"].widget.attrs.update(
             {"class": "form-control", "placeholder": "Description"}
