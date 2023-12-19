@@ -54,7 +54,7 @@ def type_analysis_details(request, id):
     
     reactants = typ_analysis.reactant.all()
     
-    context = {'reactants':reactants}
+    context = {'reactants':reactants, 'typ_analysis':typ_analysis}
     
     return render(request, "apps/analyse/type_details.html", context)
 

@@ -19,7 +19,8 @@ def save_solution(request):
         form = SolutionForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Type de produit ajouté avec succès")
+            item = request.POST
+            messages.success(request, item['name'] + " ajouté avec succès")
             return redirect("solution")
         else:
             print(form.errors)
@@ -36,7 +37,8 @@ def update_solution(request, id):
         form = SolutionForm(request.POST, instance=product_type)
         if form.is_valid():
             form.save()
-            messages.success(request, "Type de produit modifié avec succès")
+            item = request.POST
+            messages.success(request, item['name'] + " modifié avec succès")
         return redirect("solution")
 
     context = {"form": form, "solution": product_type}
@@ -47,6 +49,6 @@ def update_solution(request, id):
 def delete_solution(request, id):
     solution = Solution.objects.get(id=id)
     solution.delete()
-    messages.success(request, "Type de produit supprimé avec succès")
+    messages.success(request, "Solution supprimé avec succès")
 
     return redirect("solution")

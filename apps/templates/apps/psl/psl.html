@@ -69,7 +69,6 @@
                         <th>Type</th>
                         <th>Volume</th>
                         <th>Durée de Conservation</th>
-                        <th>Prix</th>
                         <th>Solution</th>
                     </tr>
                 </thead>
@@ -79,6 +78,9 @@
                         <td>{{psl.id}}</td>
                         <td>
                             <div class="d-flex align-items-center gap-3 fs-6">
+                                <a href="{% url 'psl_details' psl.id %}" class="text-primary"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i
+                                        class="bi bi-eye-fill"></i></a>
                                 <a href="{% url 'update_psl' psl.id %}" class="text-warning" data-bs-toggle="tooltip"
                                     data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
                                     aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
@@ -88,11 +90,55 @@
                             </div>
                         </td>
                         <td>{{psl.serial}}</td>
-                        <td>{{psl.typ}}</td>
+                        <td>{{psl.type_psl}}</td>
                         <td>{{psl.volume}} ml</td>
                         <td>{{psl.duration}}</td>
-                        <td>{{psl.price}}</td>
                         <td>{{psl.solution}}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header py-3">
+        <div class="d-flex justify-content-between">
+            <h4 class="mb-0">Types de Produits Sanguins Labiles</h4>
+            <div class="btn-group">
+                <a class="btn btn-primary" href="{% url 'create_type' %}" class="link-light"><i
+                        class="bi bi-plus-circle"></i> Ajouter un nouveau type de PSL </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="example2" class="table align-middle" style="width:100%">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Action</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for typ in types %}
+                    <tr>
+                        <td>{{typ.id}}</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 fs-6">
+                                <a href="{% url 'update_type' typ.id %}" class="text-warning" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
+                                    aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Delete" onclick="return confirm('Supprimer {{typ.name}} ?')"
+                                    href="{% url 'delete_type' typ.id %}"><i class="bi bi-trash-fill"></i></a>
+                            </div>
+                        </td>
+                        <td>{{typ.name}}</td>
+                        <td>{{typ.price}}</td>
                         {% endfor %}
                     </tr>
                 </tbody>

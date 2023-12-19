@@ -1,15 +1,16 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from apps.forms import PslForm, PriceForm
-from apps.models import PSL, Price
+from apps.forms import PslForm, TypepslForm
+from apps.models import PSL, Type_PSL
 
 #TODO: Set calculation on durée de conservation and set default values for volume
 
 
 def psl(request):
     psl = PSL.objects.all()
-    context = {"psls": psl}
+    types = Type_PSL.objects.all()
+    context = {"psls": psl, "types":types}
 
     return render(request, "apps/psl/psl.html", context)
 
@@ -21,30 +22,35 @@ def create_psl(request):
         form = PslForm(request.POST)
         if form.is_valid():
             psl = form.save(commit=False)
-            psl.price = Price.objects.get(typ=psl.typ)
-            if psl.typ == "GR":
+            if psl.type_psl.name == "GR":
                 if psl.solution == None:
                     context = {"form": form}
                     messages.error(request, "Veuillez choisir une solution avant de continuer!")
                     return render(request, "apps/psl/create_psl.html", context)
                 psl.duration = psl.solution.duration
-            elif psl.typ == "PFC":
+            elif psl.type_psl.name == "PFC":
                 psl.duration = 365
                 if psl.solution != None:
                     context = {"form": form}
                     messages.error(request, "Un PSL de type PFC n'est mélangé avec aucune solution!")
                     return render(request, "apps/psl/create_psl.html", context)
-            elif psl.typ == "CPS":
+            elif psl.type_psl.name == "CPS":
                 psl.duration = 3
                 if psl.solution != None:
                     context = {"form": form}
                     messages.error(request, "Un PSL de type CPS n'est mélangé avec aucune solution!")
                     return render(request, "apps/psl/create_psl.html", context)
             psl.save()
+            form.save_m2m()
             item = request.POST
             messages.success(request, item['serial'] + " créé avec succès")
             return redirect("psl")
         else:
+            psl = request.POST
+            psls = PSL.objects.all()
+            for p in psls:
+                if p.serial == psl['serial']:
+                    messages.error(request, p.serial + " existe déjà!")
             print(form.errors)
 
     context = {"form": form}
@@ -71,6 +77,14 @@ def update_psl(request, id):
     return render(request, "apps/psl/create_psl.html", context)
 
 
+def psl_details(request, id):
+    psl = PSL.objects.get(id=id)
+    bloods = psl.blood.all()
+    
+    context = {"psl":psl, "bloods":bloods}
+    
+    return render(request, "apps/psl/psl-details.html", context)
+
 def psl_delete(request, id):
     psl = PSL.objects.get(id=id)
     psl.delete()
@@ -79,62 +93,55 @@ def psl_delete(request, id):
     return redirect("psl")
 
 
-def price(request):
-    prices = Price.objects.all()
-    context = {"prices": prices}
-
-    return render(request, "apps/psl/price.html", context)
-
-
-def create_price(request):
-    form = PriceForm()
+def create_type(request):
+    form = TypepslForm()
 
     if request.method == "POST":
-        form = PriceForm(request.POST)
+        form = TypepslForm(request.POST)
         if form.is_valid():
             form.save()
             item = request.POST
-            messages.success(request, item['typ'] + ":" +item['price'] + " Enregistré avec succès")
-            return redirect("price")
+            messages.success(request, item['name'] + " Enregistré avec succès")
+            return redirect("psl")
         else:
-            price = request.POST
-            prices = Price.objects.all()
-            for pri in prices:
-                if pri.typ == price['typ']:
-                    messages.error(request, "Un prix pour " + pri.typ + " existe déjà!")
+            typ = request.POST
+            types = Type_PSL.objects.all()
+            for ty in types:
+                if ty.name == typ['name']:
+                    messages.error(request, typ['name'] + " existe déjà!")
             print(form.errors)
     
     context = {"form": form}
-    return render(request, "apps/psl/create_price.html", context)
+    return render(request, "apps/psl/create_type.html", context)
     
             
-def update_price(request, id):
-    price = Price.objects.get(id=id)
+def update_type(request, id):
+    typ = Type_PSL.objects.get(id=id)
     
-    form = PriceForm(instance=price)
+    form = TypepslForm(instance=typ)
 
     if request.method == "POST":
-        form = PriceForm(request.POST, instance=price)
+        form = TypepslForm(request.POST, instance=typ)
         if form.is_valid():
             form.save()
             item = request.POST
-            messages.success(request, item['typ'] + ":" +item['price'] + " Modifié avec succès")
-            return redirect("price")
+            messages.success(request, item['name'] + " Modifié avec succès")
+            return redirect("psl")
         else:
-            price = request.POST
-            prices = Price.objects.all()
-            for pri in prices:
-                if pri.typ == price['typ']:
-                    messages.error(request, "Un prix pour " + pri.typ + " existe déjà!")
+            typ = request.POST
+            types = Type_PSL.objects.all()
+            for ty in types:
+                if ty.name == typ['name']:
+                    messages.error(request, ty.name + " existe déjà!")
             print(form.errors)
     
     context = {"form": form}
-    return render(request, "apps/psl/create_price.html", context)
+    return render(request, "apps/psl/create_type.html", context)
 
 
-def delete_price(request, id):
-    price = Price.objects.get(id=id)
-    price.delete()
-    messages.success(request, "Prix supprimé avec succès")
+def delete_type(request, id):
+    typ = Type_PSL.objects.get(id=id)
+    typ.delete()
+    messages.success(request, "Type de PSL supprimé avec succès")
 
-    return redirect("price")
+    return redirect("psl")

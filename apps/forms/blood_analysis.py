@@ -19,5 +19,5 @@ class BloodAnalysisForm(ModelForm):
             }
         )
         self.fields["result"].widget.attrs.update(
-            {"class": "form-control", "placeholder": "Résultat"}
+            {"class": "form-select"}
         )

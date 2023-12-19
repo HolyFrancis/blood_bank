@@ -60,7 +60,9 @@
               <th>ID</th>
               <th>Actions</th>
               <th>Client</th>
+              <th>Type de PSL</th>
               <th>Quantité</th>
+              <th>Status</th>
               <th>Date de la commande</th>
             </tr>
           </thead>
@@ -85,11 +87,31 @@
               <td>
                 <div class="d-flex align-items-center gap-3 cursor-pointer">
                   <div class="">
+                    <p class="mb-0">{{order.type_psl}}</p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3 cursor-pointer">
+                  <div class="">
                     <p class="mb-0">{{order.quantity}}</p>
                   </div>
                 </div>
               </td>
-              <td>{{order.date_created}}</td>
+              <td>
+                <div class="d-flex align-items-center gap-3 cursor-pointer">
+                  <div class="">
+                    <p class="mb-0">{{order.status}}</p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3 cursor-pointer">
+                  <div class="">
+                    <p class="mb-0">{{order.date_created}}</p>
+                  </div>
+                </div>
+              </td>
             </tr>
             {% endfor %}
           </tbody>

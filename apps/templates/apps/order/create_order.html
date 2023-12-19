@@ -19,10 +19,17 @@
                             {{form.client}}
                         </div>
                         <div class="col-6">
+                            <label class="form-label">Produit Sanguin</label>
+                            {{form.type_psl}}
+                        </div>
+                        <div class="col-6">
                             <label class="form-label">Quantité</label>
                             {{form.quantity}}
                         </div>
-
+                        <div class="col-6">
+                            <label class="form-label">Status</label>
+                            {{form.status}}
+                        </div>
                         <div class="col-6">
                             <div class="d-grid">
                                 <a class="btn btn-outline-secondary" href="{% url 'order' %}">Annuler</a>

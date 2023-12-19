@@ -57,12 +57,12 @@ urlpatterns = [
     path("psl", psl.psl, name="psl"),
     path("create-psl", psl.create_psl, name="create_psl"),
     path("update-psl/<int:id>", psl.update_psl, name="update_psl"),
+    path("psl-details/<int:id>", psl.psl_details, name="psl_details"),
     path("psl-delete/<int:id>", psl.psl_delete, name="psl_delete"),
     
-    path("price", psl.price, name="price"),
-    path("create-price", psl.create_price, name="create_price"),
-    path("update-price/<int:id>", psl.update_price, name="update_price"),
-    path("delete-price/<int:id>", psl.delete_price, name="price_delete"),
+    path("create-type", psl.create_type, name="create_type"),
+    path("update-type/<int:id>", psl.update_type, name="update_type"),
+    path("delete-type/<int:id>", psl.delete_type, name="delete_type"),
     
     
     #-------------------------------analyse-------------------------------

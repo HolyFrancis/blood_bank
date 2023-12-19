@@ -1,0 +1,48 @@
+{% extends "apps/layouts/main.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-12 mx-auto">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="border p-3 rounded">
+                    <div class="card card-outline-secondary p-2">
+                        <h5 class="mb-0 text-uppercase">Informations Détaillées</h5>
+                        <hr />
+                        <div class="col-6">
+                            <p class="form-label">Numéro de série : {{psl.serial}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Type : {{psl.type_psl}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Volume : {{psl.volume}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Prix : {{psl.type_psl.price}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Durée de conservation : {{psl.duration}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Solution : {{psl.solution}}</p>
+                        </div>
+                        <div class="col-12">
+                            <p class="form-label">Prélèvement(s) :</p>
+                            <ul>
+                                {% for blood in bloods %}
+                                <li>{{blood}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
