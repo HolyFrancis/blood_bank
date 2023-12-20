@@ -33,7 +33,7 @@ def create_analysis(request, id):
         else:
             print(form.errors)
     
-    context = {"form":form}
+    context = {"form":form, "blood":blood}
     
     return render(request, "apps/analyse/create_analyse.html", context)
 
