@@ -21,14 +21,14 @@ def create_analysis(request, id):
         form = AnalysisForm(request.POST)
         if form.is_valid():
             form.save()
-            if form.cleaned_data['result']=='Positif':
+            if form.cleaned_data['result']=='Négatif':
                 blood.state = 'Eligible'
-            elif form.cleaned_data["result"]=="Négatifé":
+            elif form.cleaned_data["result"]=="Positif":
                 blood.state = 'Ineligible'
             blood.analysed = True
             blood.save()
             item = request.POST
-            messages.success(request, "Analyse pour " + item['blood'] + " créée avec succès")
+            messages.success(request, "Analyse pour créée avec succès")
             return redirect('analyse')
         else:
             print(form.errors)
@@ -47,7 +47,7 @@ def update_analysis(request, id):
         if form.is_valid():
             form.save()
             item = request.POST
-            messages.success(request, "Analyse pour " + item['blood'] + " modifiée avec succès")
+            messages.success(request, "Analyse pour modifiée avec succès")
             return redirect('analyse')
         else:
             return form.errors
