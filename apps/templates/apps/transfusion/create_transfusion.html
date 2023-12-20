@@ -10,7 +10,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="border p-3 rounded">
-                    <h6 class="mb-0 text-uppercase">Nouveau Prélèvement</h6>
+                    <h6 class="mb-0 text-uppercase">Nouveau Prélèvement provenant de {{donor}}</h6>
                     <hr />
                     <form class="row g-3" method="POST">
                         {% csrf_token %}
@@ -46,7 +46,7 @@
                             {{form.serial}}
                         </div>
                         <div class="col-6">
-                            <label class="form-select-label">Volume(en ml)</label>
+                            <label class="form-label">Volume(en ml)</label>
                             {{form.volume}}
                         </div>
                         <div class="col-12">
@@ -81,7 +81,7 @@
                         </div>
                         <div class="col-6">
                             <div class="d-grid">
-                                <a class="btn btn-outline-secondary" href="{% url 'transfusion' %}">Annuler</a>
+                                <button class="btn btn-outline-secondary" onclick="history.back()">Annuler</button>
                             </div>
                         </div>
                         <div class="col-6">

@@ -35,7 +35,7 @@ def create_blood(request, id):
                     messages.error(request, "L'échantillon saisi existe déjà!")
             print(form.errors)
 
-    context = {"form": form}
+    context = {"form": form, "donor":donor}
     return render(request, "apps/transfusion/create_transfusion.html", context)
 
 
