@@ -68,21 +68,21 @@
                         <td>
                             <div class="table-actions d-flex align-items-center gap-3 fs-6">
                                 {% if blood.gr == 'False' %}
-                                <a href="{% url 'create_gr' blood.id %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views">
+                                <a href="{% url 'create_psl' blood.id %}?of=gr" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views">
                                     <span class="btn btn-sm btn-primary">
                                         <i class="bi bi-plus-circle"></i>GR
                                     </span>
                                 </a>
                                 {% endif %}
                                 {% if blood.pfc == 'False' %}
-                                <a href="{% url 'create_pfc' blood.id %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views">
+                                <a href="{% url 'create_psl' blood.id %}?of=pfc" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views">
                                     <span class="btn btn-sm btn-primary">
                                         <i class="bi bi-plus-circle" ></i>PFC
                                     </span>
                                 </a>
                                 {% endif %}
                                 {% if blood.cps == 'False' %}
-                                <a href="{% url 'create_cps' blood.id %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views">
+                                <a href="{% url 'create_psl' blood.id %}?of=cps" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views">
                                     <span class="btn btn-sm btn-primary">
                                         <i class="bi bi-plus-circle" ></i>CPS
                                     </span>

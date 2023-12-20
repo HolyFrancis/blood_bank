@@ -77,7 +77,7 @@ def blood_delete(request, id):
 
 
 def blood_request(request):
-    bloods = Blood.objects.filter(centrifuged=False, analysed=True, state='Eligible').exclude(gr='True',pfc='True',cps='True')
+    bloods = Blood.objects.filter(centrifuged=False, analysed=True, state='Eligible').exclude(gr=True, pfc=True, cps=True)
     
     context = {"bloods": bloods}
     

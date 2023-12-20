@@ -60,9 +60,10 @@ urlpatterns = [
     
     #-------------------------------psl-------------------------------
     path("psl", psl.psl, name="psl"),
-    path("create-gr/<int:id>", psl.create_gr, name="create_gr"),
-    path("create-pfc/<int:id>", psl.create_pfc, name="create_pfc"),
-    path("create-cps/<int:id>", psl.create_cps, name="create_cps"),
+    # path("create-gr/<int:id>", psl.create_gr, name="create_gr"),
+    # path("create-pfc/<int:id>", psl.create_pfc, name="create_pfc"),
+    # path("create-cps/<int:id>", psl.create_cps, name="create_cps"),
+    path("create-psl/<int:id>", psl.create_psl, name="create_psl"),
     path("update-psl/<int:id>", psl.update_psl, name="update_psl"),
     path("psl-details/<int:id>", psl.psl_details, name="psl_details"),
     path("psl-delete/<int:id>", psl.psl_delete, name="psl_delete"),
