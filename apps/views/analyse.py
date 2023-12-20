@@ -1,90 +1,34 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 
-from apps.models import Analysis, Blood_analysis, Blood
-from apps.forms import AnalysisForm, BloodAnalysisForm
+from apps.models import Analysis, Blood
+from apps.forms import AnalysisForm
 
 
 def analyse(request):
-    analyses = Blood_analysis.objects.all()
-    typ_analyses = Analysis.objects.all()
+    analyses = Analysis.objects.all()
     
-    context = {'analyses':analyses, 'typ_analyses':typ_analyses}
+    context = {'analyses':analyses}
     
     return render(request, "apps/analyse/analyse.html", context)
 
 
-def create_type_analysis(request):
-    form = AnalysisForm()
+def create_analysis(request, id):
+    blood = Blood.objects.get(id=id)
+    form = AnalysisForm(initial={'blood':blood})
     
     if request.method == "POST":
         form = AnalysisForm(request.POST)
         if form.is_valid():
             form.save()
-            item = request.POST
-            messages.success(request, item['typ'] + " créé avec succès")
-            return redirect('analyse')
-    
-    context = {"form":form}
-    
-    return render(request, "apps/analyse/create_type.html", context)
-
-def update_type_analysis(request, id):
-    typ_analysis = Analysis.objects.get(id=id)
-    
-    form = AnalysisForm(instance=typ_analysis)
-    
-    if request.method == "POST":
-        form = AnalysisForm(request.POST, instance=typ_analysis)
-        if form.is_valid():
-            form.save()
-            item = request.POST
-            messages.success(request, item['typ'] + " modifié avec succès")
-            return redirect('analyse')
-        else:
-            return form.errors
-    
-    context = {"form":form, 'typ_analysis':typ_analysis}
-    
-    return render(request, "apps/analyse/create_type.html", context)
-
-
-def type_analysis_details(request, id):
-    typ_analysis = Analysis.objects.get(id=id)
-    
-    reactants = typ_analysis.reactant.all()
-    
-    context = {'reactants':reactants, 'typ_analysis':typ_analysis}
-    
-    return render(request, "apps/analyse/type_details.html", context)
-
-
-def delete_type_analysis(request, id):
-    typ_analysis = Analysis.objects.get(id=id)
-    typ_analysis.delete()
-    messages.success(request, "Type d'analyse supprimé avec succès")
-    
-    context = {'typ_analysis':typ_analysis}
-    
-    return redirect('analyse')
-
-
-def create_analysis(request, id):
-    blood = Blood.objects.get(id=id)
-    form = BloodAnalysisForm(initial={'blood':blood})
-    
-    if request.method == "POST":
-        form = BloodAnalysisForm(request.POST)
-        if form.is_valid():
-            form.save()
-            if form.cleaned_data['result']=='Sain':
+            if form.cleaned_data['result']=='Positif':
                 blood.state = 'Eligible'
-            elif form.cleaned_data["result"]=="Contaminé":
+            elif form.cleaned_data["result"]=="Négatifé":
                 blood.state = 'Ineligible'
             blood.analysed = True
             blood.save()
             item = request.POST
-            messages.success(request, "Analyse créée avec succès")
+            messages.success(request, "Analyse pour " + item['blood'] + " créée avec succès")
             return redirect('analyse')
         else:
             print(form.errors)
@@ -94,16 +38,16 @@ def create_analysis(request, id):
     return render(request, "apps/analyse/create_analyse.html", context)
 
 def update_analysis(request, id):
-    analysis = Blood_analysis.objects.get(id=id)
+    analysis = Analysis.objects.get(id=id)
     
-    form = BloodAnalysisForm(instance=analysis)
+    form = AnalysisForm(instance=analysis)
     
     if request.method == "POST":
-        form = BloodAnalysisForm(request.POST, instance=analysis)
+        form = AnalysisForm(request.POST, instance=analysis)
         if form.is_valid():
             form.save()
             item = request.POST
-            messages.success(request, "Analyse : " + item['analysis'] + " pour " + item['blood'] + " modifié avec succès")
+            messages.success(request, "Analyse pour " + item['blood'] + " modifiée avec succès")
             return redirect('analyse')
         else:
             return form.errors
@@ -113,11 +57,9 @@ def update_analysis(request, id):
     return render(request, "apps/analyse/create_analyse.html", context)
 
 def delete_analysis(request, id):
-    analysis = Blood_analysis.objects.get(id=id)
+    analysis = Analysis.objects.get(id=id)
     analysis.delete()
     messages.success(request, "Analyse supprimée avec succès")
-    
-    context = {'analysis':analysis}
     
     return redirect('analyse')
 
@@ -129,7 +71,7 @@ def request_analysis(request):
     return render(request, "apps/analyse/requests.html", context)
 
 def analysis_history(request):
-    analyses = Blood_analysis.objects.all()
+    analyses = Analysis.objects.all()
     
     context = {'analyses':analyses}
     

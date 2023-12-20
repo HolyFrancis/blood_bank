@@ -7,5 +7,4 @@ from .order import Order
 from .psl import PSL
 from .reactant import Reactant
 from .solution import Solution
-from .blood_analysis import Blood_analysis
 from .type_psl import Type_PSL

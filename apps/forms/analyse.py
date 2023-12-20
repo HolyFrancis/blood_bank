@@ -9,5 +9,5 @@ class AnalysisForm(ModelForm):
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['typ'].widget.attrs.update({'class':'form-control', 'placeholder':'Type'})
-        self.fields['reactant'].widget.attrs.update({'class':'form-select',})
+        self.fields['result'].widget.attrs.update({'class':'form-control', 'placeholder':'Résultat'})
+        self.fields['blood'].widget.attrs.update({'class':'form-select',})
