@@ -29,7 +29,7 @@ def create_analysis(request, id):
             blood.save()
             item = request.POST
             messages.success(request, "Analyse pour créée avec succès")
-            return redirect('analyse')
+            return redirect('request_analysis')
         else:
             print(form.errors)
     
