@@ -42,15 +42,11 @@
                     <label class="form-label">Numéro de Série</label>
                     {% render_field form.serial class="form-control" placeholder="Numéro de Série"%}
                 </div>
-                <div class="col-6 d-none">
-                    <label class="form-label">Type</label>
-                    {% render_field form.type_psl class="form-select" %}
-                </div>
                 <div class="col-6">
                     <label class="form-label">Volume(en ml)</label>
                     {% render_field form.volume class="form-control" placeholder="Volume"%}
                 </div>
-                <div class="col-6 d-none">
+                <div class="col-6">
                     <label class="form-label">Prélèvement</label>
                     {% render_field form.blood class="form-control" %}
                 </div>
@@ -58,12 +54,10 @@
                     <label class="form-label">Durée de Conservation</label>
                     {% render_field form.duration class="form-control" placeholder="Durée de Conservation"%}
                 </div>
-                {% if of == 'gr' %}
                 <div class="col-12">
                     <label class="form-label">Solution</label>
                     {% render_field form.solution class="form-select" %}
                 </div>
-                {% endif %}
                 <div class="col-6">
                     <div class="d-grid">
                         <button type="submit" class="btn btn-primary">Enregistrer</button>

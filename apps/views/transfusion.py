@@ -33,6 +33,7 @@ def create_blood(request, id):
                     messages.error(request, "Le numéro de série saisi existe déjà!")
                 elif bl.sample == current_blood['sample']:
                     messages.error(request, "L'échantillon saisi existe déjà!")
+            print(form.errors)
 
     context = {"form": form}
     return render(request, "apps/transfusion/create_transfusion.html", context)
@@ -73,3 +74,17 @@ def blood_delete(request, id):
     blood.delete()
     messages.success(request, "La transfusion sanguine a été supprimée avec succès")
     return redirect("transfusion")
+
+
+def blood_request(request):
+    bloods = Blood.objects.filter(centrifuged=False, analysed=True, state='Eligible').exclude(gr='True',pfc='True',cps='True')
+    
+    context = {"bloods": bloods}
+    
+    return render(request, "apps/transfusion/requests.html", context)
+
+def blood_history(request):
+    
+    context = {}
+    
+    return render(request, "apps/transfusion/requests.html", context)

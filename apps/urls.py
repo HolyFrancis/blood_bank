@@ -34,7 +34,7 @@ urlpatterns = [
     path("password_success/", user.password_success, name="password_success"),
     
     
-    path("/", home.home, name="home"),
+    path("", home.home, name="home"),
     
     
     #-------------------------------Donor-------------------------------
@@ -54,11 +54,15 @@ urlpatterns = [
     path("update-transfusion/<int:id>/", transfusion.update_blood, name="update_blood"),
     path("blood-transfusion/<int:id>/", transfusion.blood_details, name="blood_details"),
     path("blood-delete/<int:id>", transfusion.blood_delete, name="delete_blood"),
+    path("blood-request", transfusion.blood_request, name="blood_request"),
+    path("blood-history", transfusion.blood_history, name="blood_history"),
     
     
     #-------------------------------psl-------------------------------
     path("psl", psl.psl, name="psl"),
-    path("create-psl", psl.create_psl, name="create_psl"),
+    path("create-gr/<int:id>", psl.create_gr, name="create_gr"),
+    path("create-pfc/<int:id>", psl.create_pfc, name="create_pfc"),
+    path("create-cps/<int:id>", psl.create_cps, name="create_cps"),
     path("update-psl/<int:id>", psl.update_psl, name="update_psl"),
     path("psl-details/<int:id>", psl.psl_details, name="psl_details"),
     path("psl-delete/<int:id>", psl.psl_delete, name="psl_delete"),
@@ -69,11 +73,6 @@ urlpatterns = [
     
     
     #-------------------------------analyse-------------------------------
-    path("create-type-analysis", analyse.create_type_analysis, name="create_type_analysis"),
-    path("update-type-analysis/<str:id>", analyse.update_type_analysis, name="update_type_analysis"),
-    path("type-analysis-details/<str:id>", analyse.type_analysis_details, name="type_analysis_details"),
-    path("delete-type-analysis/<str:id>", analyse.delete_type_analysis, name="delete_type_analysis"),
-    
     path("analyse", analyse.analyse, name="analyse"),
     path("create-analysis/<str:id>", analyse.create_analysis, name="create_analysis"),
     path("update-analysis/<str:id>", analyse.update_analysis, name="update_analysis"),

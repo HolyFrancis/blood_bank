@@ -17,6 +17,9 @@ class Blood(models.Model):
     state = models.CharField(max_length=50, choices=STATE, default=STATE[2])
     centrifuged = models.BooleanField(default=False)
     donor = models.ForeignKey(Donor, on_delete=models.CASCADE)
+    gr = models.CharField(max_length=6, default='False', blank=True)
+    pfc = models.CharField(max_length=6, default='False', blank=True)
+    cps = models.CharField(max_length=6, default='False', blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
