@@ -11,7 +11,7 @@ class BloodForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["serial"].widget.attrs.update(
-            {"class": "form-control", "placeholder": "Numero de serie"}
+            {"class": "form-control", "placeholder": "Numéro de série"}
         )
         self.fields["volume"].widget.attrs.update(
             {
@@ -21,11 +21,3 @@ class BloodForm(ModelForm):
         self.fields["sample"].widget.attrs.update(
             {"class": "form-control", "placeholder": "Echantillon"}
         )
-        self.fields["analysed"].widget.attrs.update(
-            {
-                "class": "form-check-input",
-            }
-        )
-        self.fields["state"].widget.attrs.update({"class": "form-select"})
-        self.fields["centrifuged"].widget.attrs.update({"class": "form-ckeck-input"})
-        self.fields["donor"].widget.attrs.update({"class": "form-select"})

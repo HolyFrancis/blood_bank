@@ -53,34 +53,22 @@
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
-                        <th>Actions</th>
+                        <th>Analyse</th>
                         <th>Prélèvement</th>
                         <th>Résultat</th>
+                        <th>Créé le</th>
+                        <th>Modifié le</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for analysis in analyses %}
                     <tr>
                         <td>{{analysis.id}}</td>
-                        <td>
-                            <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                                <a href="{% url 'update_analysis' analysis.id %}" class="text-warning"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
-                                        class="bi bi-pencil-fill"></i></a>
-                                <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    title="Delete"
-                                    onclick="return confirm('Supprimer l\'analyse N°{{analysis.id}}?')"
-                                    href="{% url 'delete_analysis' analysis.id %}"><i class="bi bi-trash-fill"></i></a>
-                            </div>
-                        </td>
+                        <td>{{analysis.analysis}}</td>
                         <td>{{analysis.blood}}</td>
-                        <td>
-                            {% if analysis.result == "Positif" %}
-                            <p class="mb-0 product-title"><span class="badge bg-light-danger text-danger w-100">{{analysis.result}}</span></p>
-                            {% elif analysis.result == "Négatif" %}
-                            <p class="mb-0 product-title"><span class="badge bg-light-success text-success w-100">{{analysis.result}}</span></p>
-                            {% endif %}
-                        </td>
+                        <td>{{analysis.result}}</td>
+                        <td>{{analysis.date_created}}</td>
+                        <td>{{analysis.updated}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

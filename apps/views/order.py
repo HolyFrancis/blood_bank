@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from apps.models import Order
 from django.contrib import messages
-from apps.forms.order import OrderForm
+from apps.forms import OrderForm
 
 def order(request):
     orders=Order.objects.all()
@@ -27,9 +27,8 @@ def update_order(request, id):
         form = OrderForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
+            item = request.POST
             return redirect('order')
-        else:
-            return form.errors
     
     context = {"form":form, 'order':order}
     
@@ -40,7 +39,5 @@ def delete_order(request, id):
     order = Order.objects.get(id=id)
     order.delete()
     messages.success(request, "La commande a été supprimé avec succès!")
-    
-    context = {'order':order}
     
     return redirect('order')

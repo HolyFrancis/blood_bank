@@ -1,6 +1,9 @@
-from .blood import BloodForm  # noqa
-from .donor import DonorForm  # noqa
-from .equipment import EquipmentForm  # noqa
-from .equipmentType import EquipmentTypeForm  # noqa
-from .psl import PslForm  # noqa
-from .type_psl import Type_pslForm  # noqa
+from .blood import BloodForm 
+from .donor import DonorForm  
+from .reactant import ReactantForm  
+from .psl import PslForm
+from .analyse import AnalysisForm
+from .client import ClientForm
+from .order import OrderForm
+from .solution import SolutionForm
+from .type_psl import TypepslForm

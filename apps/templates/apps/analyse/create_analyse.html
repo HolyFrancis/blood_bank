@@ -10,29 +10,21 @@
         <div class="card">
             <div class="card-body">
                 <div class="border p-3 rounded">
-                    <h6 class="mb-0 text-uppercase">Nouvel Commande</h6>
+                    <h6 class="mb-0 text-uppercase">Nouvelle Analyse pour la {{blood}}</h6>
                     <hr />
                     <form class="row g-3" method="POST">
                         {% csrf_token %}
-                        <div class="col-6">
-                            <label class="form-label">Client</label>
-                            {{form.client}}
+                        <div class="col-6 d-none">
+                            <label class="form-label">Prélèvement</label>
+                            {{form.blood}}
                         </div>
-                        <div class="col-6">
-                            <label class="form-label">Produit Sanguin</label>
-                            {{form.type_psl}}
-                        </div>
-                        <div class="col-6">
-                            <label class="form-label">Quantité</label>
-                            {{form.quantity}}
-                        </div>
-                        <div class="col-6">
-                            <label class="form-label">Status</label>
-                            {{form.status}}
+                        <div class="col-12">
+                            <label class="form-label">Résultat</label>
+                            {{form.result}}
                         </div>
                         <div class="col-6">
                             <div class="d-grid">
-                                <a class="btn btn-outline-secondary" href="{% url 'order' %}">Annuler</a>
+                                <a class="btn btn-outline-secondary" href="{% url 'analyse' %}">Annuler</a>
                             </div>
                         </div>
                         <div class="col-6">
