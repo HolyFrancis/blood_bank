@@ -1,5 +1,6 @@
 {% extends "apps/layouts/main.html" %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block content %}
 
@@ -54,7 +55,16 @@
             </div>
             {% endif %}
         {% endfor %}
-    {% endif %}
+        {% endif %}
+        <form  method="GET">
+          <div class="input-group input-group-sm">
+            <label class="form-label d-inline m-2">Groupe Sanguin</label>
+            {% render_field filtre.form.blood_group class="form-select d-inline m-2"%}
+            <label class="form-label d-inline m-2">Status</label>
+            {% render_field filtre.form.status class="form-select d-inline m-2"%}
+            <button type="Submit" class="btn btn-primary btn-sm m-2">Filtrer</button>
+          </div>
+        </form>
         <table id="example" class="table align-middle" style="width:100%">
           <thead class="table-light">
             <tr>
