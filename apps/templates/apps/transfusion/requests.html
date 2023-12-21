@@ -67,21 +67,21 @@
                         <td>{{blood.id}}</td>
                         <td>
                             <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                                {% if blood.gr == 'False' %}
+                                {% if blood.gr is False %}
                                 <a href="{% url 'create_psl' blood.id %}?of=gr" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views">
                                     <span class="btn btn-sm btn-primary">
                                         <i class="bi bi-plus-circle"></i>GR
                                     </span>
                                 </a>
                                 {% endif %}
-                                {% if blood.pfc == 'False' %}
+                                {% if blood.pfc is False %}
                                 <a href="{% url 'create_psl' blood.id %}?of=pfc" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views">
                                     <span class="btn btn-sm btn-primary">
                                         <i class="bi bi-plus-circle" ></i>PFC
                                     </span>
                                 </a>
                                 {% endif %}
-                                {% if blood.cps == 'False' %}
+                                {% if blood.cps is False %}
                                 <a href="{% url 'create_psl' blood.id %}?of=cps" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views">
                                     <span class="btn btn-sm btn-primary">
                                         <i class="bi bi-plus-circle" ></i>CPS
