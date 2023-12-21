@@ -3,11 +3,14 @@ from django.contrib import messages
 
 from apps.models import Donor
 from apps.forms import DonorForm
+from apps.filters import DonorFilter
 
 def donor(request):
     donors = Donor.objects.all()
+    filtre = DonorFilter(request.GET, queryset=donors)
+    donors = filtre.qs
     
-    context = {"donors":donors}
+    context = {"donors":donors, "filtre":filtre}
     
     return render(request, "apps/donor/donor.html", context)
 
