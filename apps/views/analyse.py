@@ -3,12 +3,15 @@ from django.contrib import messages
 
 from apps.models import Analysis, Blood
 from apps.forms import AnalysisForm
+from apps.filters import AnalysisFilter
 
 
 def analyse(request):
     analyses = Analysis.objects.all()
+    filtre = AnalysisFilter(request.GET, queryset=analyses)
+    analyses = filtre.qs
     
-    context = {'analyses':analyses}
+    context = {'analyses':analyses, "filtre":filtre}
     
     return render(request, "apps/analyse/analyse.html", context)
 

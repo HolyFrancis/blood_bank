@@ -1,5 +1,6 @@
 {% extends "apps/layouts/main.html" %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block content %}
 
@@ -52,6 +53,15 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
+            <form  method="GET">
+              <div class="input-group input-group-sm">
+                <label class="form-label d-inline m-2">Type de PSL: </label>
+                {% render_field filtre.form.type_psl class="form-select d-inline m-2"%}
+                <label class="form-label d-inline m-2">Solution: </label>
+                {% render_field filtre.form.solution class="form-select d-inline m-2"%}
+                <button type="Submit" class="btn btn-primary btn-sm m-2">Filtrer</button>
+              </div>
+            </form>
             <table id="example" class="table align-middle" style="width:100%">
                 <thead class="table-light">
                     <tr>

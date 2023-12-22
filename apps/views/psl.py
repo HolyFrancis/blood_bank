@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 
 from apps.forms import PslForm, TypepslForm
 from apps.models import PSL, Type_PSL, Blood
+from apps.filters import PSLFilter
 
 #TODO: Set calculation on durée de conservation and set default values for volume
 
@@ -10,7 +11,10 @@ from apps.models import PSL, Type_PSL, Blood
 def psl(request):
     psl = PSL.objects.all()
     types = Type_PSL.objects.all()
-    context = {"psls": psl, "types":types}
+    filtre = PSLFilter(request.GET, queryset=psl)
+    psl = filtre.qs
+    
+    context = {"psls": psl, "types":types, "filtre": filtre}
 
     return render(request, "apps/psl/psl.html", context)
 
@@ -93,9 +97,9 @@ def update_psl(request, id):
 
 def psl_details(request, id):
     psl = PSL.objects.get(id=id)
-    bloods = psl.blood.all()
+    blood = psl.blood
     
-    context = {"psl":psl, "bloods":bloods}
+    context = {"psl":psl, "blood":blood}
     
     return render(request, "apps/psl/psl-details.html", context)
 
