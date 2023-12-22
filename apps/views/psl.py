@@ -97,9 +97,9 @@ def update_psl(request, id):
 
 def psl_details(request, id):
     psl = PSL.objects.get(id=id)
-    bloods = psl.blood.all()
+    blood = psl.blood
     
-    context = {"psl":psl, "bloods":bloods}
+    context = {"psl":psl, "blood":blood}
     
     return render(request, "apps/psl/psl-details.html", context)
 
