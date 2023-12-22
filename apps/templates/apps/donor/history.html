@@ -25,64 +25,28 @@
   <div class="card">
     <div class="card-body">
       <div class="d-flex align-items-center">
-        <h5 class="mb-0">Détails des Donneurs</h5>
+        <h5 class="mb-0">Donneurs Eligibles</h5>
       </div>
       <div class="table-responsive mt-3">
-        {% if messages %}
-        {% for message in messages %}
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-            <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
-                <div class="d-flex align-items-center">
-                    <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
-                    </div>
-                    <div class="ms-3">
-                        <div class="text-info">{{message}}</div>
-                    </div>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% else %}
-            <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
-                <div class="d-flex align-items-center">
-                    <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
-                    </div>
-                    <div class="ms-3">
-                        <div class="text-danger">{{message}}</div>
-                    </div>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
         <table id="example" class="table align-middle" style="width:100%">
           <thead class="table-light">
             <tr>
               <th>ID</th>
-              <th>Actions</th>
               <th>Nom</th>
               <th>Prénom(s)</th>
               <th>CNI</th>
+              <th>Naissance</th>
+              <th>Sexe</th>
               <th>GS</th>
               <th>Status</th>
-              <th>Naissance</th>
-              <th>Poids</th>
-              <th>Sexe</th>
+              <th>Créé le</th>
+              <th>Modifié le</th>
             </tr>
           </thead>
           <tbody>
-            {% for donor in donors %}
+            {% for donor in accepted %}
             <tr>
               <td>{{donor.id}}</td>
-              <td>
-                <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                  <a href="{% url 'donor_details' donor.id %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Views"><i class="bi bi-eye-fill"></i></a>
-                  <a href="{% url 'update_donor' donor.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Edit"><i class="bi bi-pencil-fill"></i></a>
-                  <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer {{donor.first_name}} {{donor.last_name}}?')" href="{% url 'delete_donor' donor.id %}"><i class="bi bi-trash-fill"></i></a>
-                </div>
-              </td>
               <td>
                 <div class="d-flex align-items-center gap-3 cursor-pointer">
                   <div class="">
@@ -98,6 +62,8 @@
                 </div>
               </td>
               <td>{{donor.cni}}</td>
+              <td>{{donor.birthday}}</td>
+              <td>{{donor.sex}}</td>
               <td>{{donor.blood_group}}</td>
               {% if donor.status == "Eligible" %}
               <td><span class="badge bg-light-success text-success w-100">{{donor.status}}</span></td>
@@ -106,9 +72,68 @@
               {% elif donor.status == "Attente" %}
               <td><span class="badge bg-light-secondary text-secondary w-100">{{donor.status}}</span></td>
               {% endif %}
+              <td>{{donor.date_created}}</td>
+              <td>{{donor.updated}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex align-items-center">
+        <h5 class="mb-0">Donneurs Ineligibles</h5>
+      </div>
+      <div class="table-responsive mt-3">
+        <table id="example" class="table align-middle" style="width:100%">
+          <thead class="table-light">
+            <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Prénom(s)</th>
+              <th>CNI</th>
+              <th>Naissance</th>
+              <th>Sexe</th>
+              <th>GS</th>
+              <th>Status</th>
+              <th>Créé le</th>
+              <th>Modifié le</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for donor in refused %}
+            <tr>
+              <td>{{donor.id}}</td>
+              <td>
+                <div class="d-flex align-items-center gap-3 cursor-pointer">
+                  <div class="">
+                    <p class="mb-0">{{donor.first_name}}</p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3 cursor-pointer">
+                  <div class="">
+                    <p class="mb-0">{{donor.last_name}}</p>
+                  </div>
+                </div>
+              </td>
+              <td>{{donor.cni}}</td>
               <td>{{donor.birthday}}</td>
-              <td>{{donor.weight}} kg</td>
-              <td>{{donor.sex}}</td>              
+              <td>{{donor.sex}}</td>
+              <td>{{donor.blood_group}}</td>
+              {% if donor.status == "Eligible" %}
+              <td><span class="badge bg-light-success text-success w-100">{{donor.status}}</span></td>
+              {% elif donor.status == "Ineligible" %}
+              <td><span class="badge bg-light-danger text-danger w-100">{{donor.status}}</span></td>
+              {% elif donor.status == "Attente" %}
+              <td><span class="badge bg-light-secondary text-secondary w-100">{{donor.status}}</span></td>
+              {% endif %}
+              <td>{{donor.date_created}}</td>
+              <td>{{donor.updated}}</td>
             </tr>
             {% endfor %}
           </tbody>

@@ -15,18 +15,16 @@ class Donor(models.Model):
     )
     STATUS = (
         ("Eligible", "Eligible"),
-        ("En Attente", "Attente"),
+        ("Attente", "En Attente"),
         ("Ineligible", "Ineligible"),
     )
-    first_name = models.CharField(null=False, blank=False, max_length=255)
-    last_name = models.CharField(null=False, blank=False, max_length=255)
-    cni = models.CharField(null=False, blank=False, max_length=255, unique=True)
+    first_name = models.CharField(null=False, blank=False, max_length=50)
+    last_name = models.CharField(null=False, blank=False, max_length=50)
+    cni = models.CharField(null=False, blank=False, max_length=50, unique=True)
     birthday = models.DateField(null=False, blank=False)
     weight = models.IntegerField(null=False, blank=False)
-    sex = models.CharField(null=False, blank=False, max_length=255, choices=SEX)
-    blood_group = models.CharField(
-        null=False, blank=False, choices=BLOOD_GROUP, max_length=255
-    )
+    sex = models.CharField(null=False, blank=False, max_length=50, choices=SEX)
+    blood_group = models.CharField(null=False, blank=False, choices=BLOOD_GROUP, max_length=50)
     last_donation = models.BooleanField(null=False, blank=False)
     drugs = models.BooleanField(default=False)
     tattoo_piercing = models.BooleanField(default=False)
@@ -40,9 +38,7 @@ class Donor(models.Model):
     anemia = models.BooleanField(default=False)
     infections = models.BooleanField(default=False)
     examens = models.BooleanField(default=False)
-    status = models.CharField(
-        null=True, blank=True, choices=STATUS, default=STATUS[1], max_length=255
-    )
+    status = models.CharField(null=True, blank=True, choices=STATUS, default=STATUS[1], max_length=50)
     date_created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

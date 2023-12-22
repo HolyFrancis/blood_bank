@@ -1,6 +1,5 @@
 {% extends "apps/layouts/main.html" %}
 {% load static %}
-{% load widget_tweaks %}
 
 {% block content %}
 
@@ -10,18 +9,25 @@
         <div class="card">
             <div class="card-body">
                 <div class="border p-3 rounded">
-                    <h6 class="mb-0 text-uppercase">Nouveau Stock</h6>
+                    <h6 class="mb-0 text-uppercase">Nouvelle Solution</h6>
                     <hr />
                     <form class="row g-3" method="POST">
                         {% csrf_token %}
                         <div class="col-6">
-                            <label class="form-label">Client</label>
+                            <label class="form-label">Nom</label>
                             {{form.name}}
                         </div>
-                        <div class="col-6"></div>
+                        <div class="col-6">
+                            <label class="form-label">Durée</label>
+                            {{form.duration}}
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Description</label>
+                            {{form.description}}
+                        </div>
                         <div class="col-6">
                             <div class="d-grid">
-                                <a class="btn btn-outline-secondary" href="{% url 'stock' %}">Annuler</a>
+                                <a class="btn btn-outline-secondary" href="{% url 'solution' %}">Annuler</a>
                             </div>
                         </div>
                         <div class="col-6">

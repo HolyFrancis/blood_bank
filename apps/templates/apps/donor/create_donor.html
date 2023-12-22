@@ -14,12 +14,39 @@
                     <hr />
                     <form class="row g-3" method="POST">
                         {% csrf_token %}
+                        {% if messages %}
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+                <div class="d-flex align-items-center">
+                    <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="text-info">{{message}}</div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% else %}
+            <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                <div class="d-flex align-items-center">
+                    <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="text-danger">{{message}}</div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
                         <div class="col-6">
                             <label class="form-label">Nom</label>
                             {{form.first_name}}
                         </div>
                         <div class="col-6">
-                            <label class="form-label">Prénom</label>
+                            <label class="form-label">Prénom(s)</label>
                             {{form.last_name}}
                         </div>
                         <div class="col-6">
@@ -27,11 +54,11 @@
                             {{form.cni}}
                         </div>
                         <div class="col-6">
-                            <label class="form-label">Date de Naissance:</label>
+                            <label class="form-label">Date de Naissance</label>
                             {% render_field form.birthday type="date" class="form-control" %}
                         </div>
                         <div class="col-6">
-                            <label class="form-label">Poids</label>
+                            <label class="form-label">Poids(en kg)</label>
                             {{form.weight}}
                         </div>
                         <div class="col-6">
@@ -159,7 +186,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 d-none">
                             <label class="form-select-label">
                                 Status
                             </label>

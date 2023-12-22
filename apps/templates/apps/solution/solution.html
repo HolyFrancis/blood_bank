@@ -5,7 +5,7 @@
 
   <!--breadcrumb-->
   <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Commandes</div>
+    <div class="breadcrumb-title pe-3">Solution</div>
     <div class="ps-3">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-0 p-0">
@@ -16,7 +16,7 @@
     </div>
     <div class="ms-auto">
       <div class="btn-group">
-        <a class="btn btn-primary" href="{% url 'create_order' %}" class="link-light"><i class="bi bi-plus-circle"></i> Ajouter une commande</a>
+        <a class="btn btn-primary" href="{% url 'create_solution' %}" class="link-light"><i class="bi bi-plus-circle"></i>Ajouter une solution</a>
       </div>
     </div>
   </div>
@@ -25,7 +25,7 @@
   <div class="card">
     <div class="card-body">
       <div class="d-flex align-items-center">
-        <h5 class="mb-0">Détails des Commandes</h5>
+        <h5 class="mb-0">Détails des solutions</h5>
       </div>
       <div class="table-responsive mt-3">{% if messages %}
         {% for message in messages %}
@@ -58,60 +58,36 @@
           <thead class="table-light">
             <tr>
               <th>ID</th>
+              <th>Nom</th>
+              <th>Description</th>
               <th>Actions</th>
-              <th>Client</th>
-              <th>Type de PSL</th>
-              <th>Quantité</th>
-              <th>Status</th>
-              <th>Date de la commande</th>
             </tr>
           </thead>
           <tbody>
-            {% for order in orders %}
+            {% for solution in solutions %}
             <tr>
-              <td>{{order.id}}</td>
-              <td>
-                <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                  <a href="{% url 'update_order' order.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Edit"><i class="bi bi-pencil-fill"></i></a>
-                  <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer la commande de {{order.client}} ?')" href="{% url 'delete_order' order.id %}"><i class="bi bi-trash-fill"></i></a>
-                </div>
-              </td>
+              <td>{{solution.id}}</td>
               <td>
                 <div class="d-flex align-items-center gap-3 cursor-pointer">
                   <div class="">
-                    <p class="mb-0">{{order.client}}</p>
+                    <p class="mb-0">{{solution.name}}</p>
                   </div>
                 </div>
               </td>
               <td>
                 <div class="d-flex align-items-center gap-3 cursor-pointer">
                   <div class="">
-                    <p class="mb-0">{{order.type_psl}}</p>
+                    <p class="mb-0">{{solution.description}}</p>
                   </div>
                 </div>
               </td>
-              <td>
-                <div class="d-flex align-items-center gap-3 cursor-pointer">
-                  <div class="">
-                    <p class="mb-0">{{order.quantity}}</p>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center gap-3 cursor-pointer">
-                  <div class="">
-                    <p class="mb-0">{{order.status}}</p>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center gap-3 cursor-pointer">
-                  <div class="">
-                    <p class="mb-0">{{order.date_created}}</p>
-                  </div>
-                </div>
-              </td>
+                <td>
+                    <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                    <a href="{% url 'update_solution' solution.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        title="Edit"><i class="bi bi-pencil-fill"></i></a>
+                    <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer la solution {{solution.name}} ?')" href="{% url 'solution_delete' solution.id %}"><i class="bi bi-trash-fill"></i></a>
+                    </div>
+                </td>
             </tr>
             {% endfor %}
           </tbody>
@@ -119,5 +95,7 @@
       </div>
     </div>
   </div>
+
+
 
 {% endblock %}
