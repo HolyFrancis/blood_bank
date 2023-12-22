@@ -3,13 +3,16 @@ from django.shortcuts import redirect, render
 
 from apps.forms import BloodForm
 from apps.models import Blood, Donor
+from apps.filters import BloodFilter
 
 
 def blood(request):
     accepted = Donor.objects.filter(status='Eligible')
     bloods = Blood.objects.all()
+    filtre = BloodFilter(request.GET, queryset=bloods)
+    bloods = filtre.qs
     
-    context = {"bloods": bloods, "accepted":accepted}
+    context = {"bloods": bloods, "accepted":accepted, "filtre":filtre}
 
     return render(request, "apps/transfusion/transfusion.html", context)
 

@@ -1,14 +1,16 @@
 from django.shortcuts import redirect, render
-from django.http import HttpRequest
 from django.contrib import messages
 
 from apps.models import Donor
 from apps.forms import DonorForm
+from apps.filters import DonorFilter
 
 def donor(request):
     donors = Donor.objects.all()
+    filtre = DonorFilter(request.GET, queryset=donors)
+    donors = filtre.qs
     
-    context = {"donors":donors}
+    context = {"donors":donors, "filtre":filtre}
     
     return render(request, "apps/donor/donor.html", context)
 
@@ -27,7 +29,7 @@ def create_donor(request):
             donors = Donor.objects.all()
             for don in donors:
                 if don.cni == donor['cni']:
-                    messages.error(request, "La CNI saisie existe déjà!")
+                    messages.error(request, "Un donneur avec la CNI saisie saisie existe déjà!")
     
     context = {"form":form}
     
@@ -90,6 +92,11 @@ def request_decision(request, id):
         donor.status = 'Ineligible'
         donor.save()
         messages.warning(request, donor.first_name + ' ' + donor.last_name + " désormais inéligible au don de sang")
+    waiting_donors = Donor.objects.filter(status='Attente')
+        
+    if waiting_donors.count() == 0:
+        return redirect("donor")
+    
     return redirect('donor_requests')
     
 def donor_history(request):

@@ -245,7 +245,20 @@
                             </div>
                         </div>
                     </div>
-                    <br>
+                    {% if donor.status == "Attente" %}
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <div class="d-grid">
+                                <a href="{% url 'request_decision' donor.id %}?q=confirm" onclick="return confirm('Accepter la demande de {{donor.first_name}} {{donor.last_name}}?')" class="btn btn-primary">Accepter</a>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-grid">
+                                <a onclick="return confirm('Refuser la demande de {{donor.first_name}} {{donor.last_name}}?')" href="{% url 'request_decision' donor.id %}?q=reject" class="btn btn-danger">Refuser</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
                     <div class="col-12">
                         <div class="d-grid">
                             <button class="btn btn-outline-secondary" onclick="history.back()">Retour</button>

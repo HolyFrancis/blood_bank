@@ -1,5 +1,6 @@
 {% extends "apps/layouts/main.html" %}
 {% load static %}
+{% load widget_tweaks%}
 
 {% block content %}
 <!--breadcrumb-->
@@ -49,6 +50,13 @@
             <h5 class="mb-0">Détails des Analyses</h5>
         </div>
         <div class="table-responsive mt-3">
+            <form  method="GET">
+              <div class="input-group input-group-sm">
+                <label class="form-label d-inline m-2">Résultat :</label>
+                {% render_field filtre.form.result class="form-select d-inline m-2"%}
+                <button type="Submit" class="btn btn-primary btn-sm m-2">Filtrer</button>
+              </div>
+            </form>
             <table id="example2" class="table align-middle" style="width:100%">
                 <thead class="table-light">
                     <tr>
