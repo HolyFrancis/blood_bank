@@ -59,6 +59,13 @@ def update_analysis(request, id):
     
     return render(request, "apps/analyse/create_analyse.html", context)
 
+def analysis_details(request, id):
+    analysis = Analysis.objects.get(id=id)
+    
+    context = {'analysis':analysis}
+    
+    return render(request, "apps/analyse/details.html", context)
+
 def delete_analysis(request, id):
     analysis = Analysis.objects.get(id=id)
     analysis.delete()
