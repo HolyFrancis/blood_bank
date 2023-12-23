@@ -114,11 +114,11 @@ def request_decision(request, id):
     if q=='confirm':
         donor.status = 'Eligible'
         donor.save()
-        messages.success(request, donor.first_name + ' ' + donor.last_name + " désormais éligible au don de sang")
+        messages.success(request, donor.first_name + ' ' + donor.last_name + " désormais éligible aux dons de sang")
     elif q=="reject":
         donor.status = 'Ineligible'
         donor.save()
-        messages.warning(request, donor.first_name + ' ' + donor.last_name + " désormais inéligible au don de sang")
+        messages.warning(request, donor.first_name + ' ' + donor.last_name + " désormais inéligible aux dons de sang")
     waiting_donors = Donor.objects.filter(status='Attente')
         
     if waiting_donors.count() == 0:
