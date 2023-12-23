@@ -1756,9 +1756,9 @@ var options = {
   $('#chart21').easyPieChart({
     
         easing: 'easeOutBounce',
-		barColor : '#e72e7a',
+		barColor : '#12bf24',
 		lineWidth: 8,
-		trackColor : 'rgb(231 46 122 / 15%)',
+		trackColor : 'rgb(18 191 36 / 15%)',
 		scaleColor: false,
         onStep: function(from, to, percent) {
 			$(this.el).find('.w_percent').text(Math.round(percent));
@@ -1770,9 +1770,9 @@ var options = {
   $('#chart22').easyPieChart({
     
     easing: 'easeOutBounce',
-    barColor : '#3461ff',
+    barColor : '#e72e2e',
     lineWidth: 8,
-    trackColor : 'rgb(52 97 255 / 15%)',
+    trackColor : 'rgb(231 46 46 / 15%)',
     scaleColor: false,
     onStep: function(from, to, percent) {
         $(this.el).find('.w_percent').text(Math.round(percent));
@@ -1784,9 +1784,9 @@ var options = {
 $('#chart23').easyPieChart({
     
     easing: 'easeOutBounce',
-    barColor : '#12bf24',
+    barColor : '#6c757d',
     lineWidth: 8,
-    trackColor : 'rgb(18 191 36 / 15%)',
+    trackColor : 'rgb(108 117 25 / 15%)',
     scaleColor: false,
     onStep: function(from, to, percent) {
         $(this.el).find('.w_percent').text(Math.round(percent));
@@ -1799,9 +1799,35 @@ $('#chart23').easyPieChart({
 $('#chart24').easyPieChart({
     
     easing: 'easeOutBounce',
-    barColor : '#ff6632',
+    barColor : '#ffffff',
     lineWidth: 8,
-    trackColor : 'rgb(255 102 50 / 15%)',
+    trackColor : 'rgb(255 255 255 / 15%)',
+    scaleColor: false,
+    onStep: function(from, to, percent) {
+        $(this.el).find('.w_percent').text(Math.round(percent));
+    }
+
+});
+
+$('#chart25').easyPieChart({
+    
+    easing: 'easeOutBounce',
+    barColor : '#ffffff',
+    lineWidth: 8,
+    trackColor : 'rgb(255 255 255 / 15%)',
+    scaleColor: false,
+    onStep: function(from, to, percent) {
+        $(this.el).find('.w_percent').text(Math.round(percent));
+    }
+
+});
+
+$('#chart26').easyPieChart({
+    
+    easing: 'easeOutBounce',
+    barColor : '#ffffff',
+    lineWidth: 8,
+    trackColor : 'rgb(255 255 255 / 15%)',
     scaleColor: false,
     onStep: function(from, to, percent) {
         $(this.el).find('.w_percent').text(Math.round(percent));
