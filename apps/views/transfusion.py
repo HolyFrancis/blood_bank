@@ -113,7 +113,14 @@ def blood_request(request):
     return render(request, "apps/transfusion/requests.html", context)
 
 def blood_history(request):
+    centrifuged = Blood.objects.filter(centrifuged=True)
     
-    context = {}
+    blood_psls={}
     
-    return render(request, "apps/transfusion/requests.html", context)
+    for blood in centrifuged:
+        for psl in blood.psl_set.all():
+            blood_psls.update({psl:blood})
+    
+    context = {'centrifuged':centrifuged, 'blood_psls':blood_psls}
+    
+    return render(request, "apps/transfusion/history.html", context)
