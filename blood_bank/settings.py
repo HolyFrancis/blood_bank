@@ -38,15 +38,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    
     "apps",
-    
     "widget_tweaks",
-    
-    'crispy_forms',
+    "crispy_forms",
     "crispy_bootstrap5",
-    
-    "django_filters"
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -128,11 +124,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
-MEDIA_URL = '/image/'
+MEDIA_URL = "/image/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/assets/images')
+MEDIA_ROOT = os.path.join(BASE_DIR, "static/assets/images")
 
 
 # Default primary key field type
@@ -142,14 +138,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "apps.Users"
 
 try:
-    from .local_settings import DATABASES, email_host_user, email_host_password# noqa: F401,F403
+    from .local_settings import DATABASES  # , email_host_user, email_host_password  # noqa: F401,F403
 except ImportError:
     pass
 
-#SMTP Configuration
+# SMTP Configuration
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = email_host_user
-EMAIL_HOST_PASSWORD = email_host_password
+# EMAIL_HOST_USER = email_host_user
+# EMAIL_HOST_PASSWORD = email_host_password
 EMAIL_USE_TLS = True
