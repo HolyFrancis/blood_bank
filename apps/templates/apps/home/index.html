@@ -2,298 +2,259 @@
 {% load static %}
 
 {% block content %}
-<!--breadcrumb-->
-<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-  <div class="breadcrumb-title pe-3">Accueil</div>
-  <div class="ps-3">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0 p-0">
-        <li class="breadcrumb-item"><a href="{%url 'logout' %}">Déconnexion</a></li>
-      </ol>
-    </nav>
-  </div>
-  <div class="ms-auto">
-    <div class="btn-group">
-      <a class="btn btn-primary" href="{% url 'create_donor' %}" class="link-light"><i class="bi bi-plus-circle"></i>
-        Ajouter un Donneur</a>
-    </div>
-  </div>
-</div>
-<!--end breadcrumb-->
-
-<h6 class="mb-0 text-uppercase">Donneurs</h6>
-<hr>
-<div class="row">
-  <div class="col">
-    <div class="card radius-10 border-0 border-start border-primary border-3">
-      <div class="card-body text-center">
-        <div class="widget-icon mx-auto mb-3 bg-primary text-white">
-          <i class="bi bi-file-person"></i>
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Accueil</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="{%url 'logout' %}">Déconnexion</a></li>
+                </ol>
+            </nav>
         </div>
-        <h3 class="text-primary">{{donors_count}}</h3>
-        {% if donors_count == 1 %}
-        <p class="mb-1 text-primary">Donneur Inscrit</p>
-        {% else %}
-        <p class="mb-1 text-primary">Donneurs Inscrits</p>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card radius-10 border-0 border-start border-success border-3">
-      <div class="card-body text-center">
-        <div class="d-flex align-items-center">
-          <h3 class="text-success">{{eligible_donors}}</h3>
-          <div class="ms-auto">
-            <div class="w_chart" id="chart21" data-percent="{{eligible_donors_percent}}">
-              <span class="w_percent"></span>
+        <div class="ms-auto">
+            <div class="btn-group">
+                <a class="btn btn-primary" href="{% url 'create_donor' %}" class="link-light"><i class="bi bi-plus-circle"></i>
+                    Ajouter un Donneur</a>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="card-title text-center m-1">
-        {% if eligible_donors == 1 %}
-        <p class="mb-0 text-success">Donneur Eligible aux Dons de Sang</p>
-        {% else %}
-        <p class="mb-0 text-success">Donneurs Eligibles aux Dons de Sang</p>
-        {% endif %}
-      </div>
     </div>
-  </div>
-  <div class="col">
-    <div class="card radius-10 border-0 border-start border-danger border-3">
-      <div class="card-body text-center">
-        <div class="d-flex align-items-center">
-          <h3 class="text-danger">{{ineligible_donors}}</h3>
-          <div class="ms-auto">
-            <div class="w_chart" id="chart22" data-percent="{{ineligible_donors_percent}}">
-              <span class="w_percent"></span>
+    <!--end breadcrumb-->
+
+    <h6 class="mb-0 text-uppercase">Donneurs</h6>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <div class="card radius-10 border-0 border-start border-primary border-3">
+                <div class="card-body text-center">
+                    <div class="widget-icon mx-auto mb-3 bg-primary text-white">
+                        <i class="bi bi-file-person"></i>
+                    </div>
+                    <h3 class="text-primary">{{donors_count}}</h3>
+                    {% if donors_count == 1 %}
+                        <p class="mb-1 text-primary">Donneur Inscrit</p>
+                    {% else %}
+                        <p class="mb-1 text-primary">Donneurs Inscrits</p>
+                    {% endif %}
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="card-title text-center">
-        {% if ineligible_donors == 1 %}
-        <p class="mb-0 text-danger">Donneur Ineligible aux Dons de Sang</p>
-        {% else %}
-        <p class="mb-0 text-danger">Donneurs Ineligibles aux Dons de Sang</p>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card radius-10 border-0 border-start border-secondary border-3">
-      <div class="card-body text-center">
-        <div class="d-flex align-items-center">
-          <h3 class="text-secondary">{{pending_donors}}</h3>
-          <div class="ms-auto">
-            <div class="w_chart" id="chart23" data-percent="{{pending_donors_percent}}">
-              <span class="w_percent"></span>
+        <div class="col">
+            <div class="card radius-10 border-0 border-start border-success border-3">
+                <div class="card-body text-center">
+                    <div class="d-flex align-items-center">
+                        <h3 class="text-success">{{eligible_donors}}</h3>
+                        <div class="ms-auto">
+                            <div class="w_chart" id="chart21" data-percent="{{eligible_donors_percent}}">
+                                <span class="w_percent"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-title text-center m-1">
+                    {% if eligible_donors == 1 %}
+                        <p class="mb-0 text-success">Donneur Eligible au Don de Sang</p>
+                    {% else %}
+                        <p class="mb-0 text-success">Donneurs Eligibles au Don de Sang</p>
+                    {% endif %}
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="card-title text-center">
-        {% if pending_donors == 1 %}
-        <p class="mb-0 text-secondary">Donneur En Attente d'une Evaluation</p>
-        {% else %}
-        <p class="mb-0 text-secondary">Donneurs En Attente d'une Evaluation</p>
-        {% endif %}
-      </div>
+        <div class="col">
+            <div class="card radius-10 border-0 border-start border-danger border-3">
+                <div class="card-body text-center">
+                    <div class="d-flex align-items-center">
+                        <h3 class="text-danger">{{ineligible_donors}}</h3>
+                        <div class="ms-auto">
+                            <div class="w_chart" id="chart22" data-percent="{{ineligible_donors_percent}}">
+                                <span class="w_percent"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-title text-center">
+                    {% if ineligible_donors == 1 %}
+                        <p class="mb-0 text-danger">Donneur Ineligible au Don de Sang</p>
+                    {% else %}
+                        <p class="mb-0 text-danger">Donneurs Ineligibles au Don de Sang</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 border-0 border-start border-secondary border-3">
+                <div class="card-body text-center">
+                    <div class="d-flex align-items-center">
+                        <h3 class="text-secondary">{{pending_donors}}</h3>
+                        <div class="ms-auto">
+                            <div class="w_chart" id="chart23" data-percent="{{pending_donors_percent}}">
+                                <span class="w_percent"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-title text-center">
+                    {% if pending_donors == 1 %}
+                        <p class="mb-0 text-secondary">Donneur En Attente d'une Evaluation</p>
+                    {% else %}
+                        <p class="mb-0 text-secondary">Donneurs En Attente d'une Evaluation</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card radius-10 bg-primary">
+                <div class="card-body text-center">
+                    <div class="widget-icon mx-auto mb-3 bg-white-1 text-white">
+                        <i class="bi bi-heart-pulse mt-2"></i>
+                    </div>
+                    <h3 class="text-white">{{bloods_count}}</h3>
+                    {% if bloods_count == 1 %}
+                        <p class="mb-0 text-white">Poche de Sang Total</p>
+                    {% else %}
+                        <p class="mb-0 text-white">Poches de Sang Total</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 bg-success">
+                <div class="card-body text-center">
+                    <div class="widget-icon mx-auto mb-3 bg-white-1 text-white">
+                        <i class="bi bi-heart-pulse mt-2"></i>
+                    </div>
+                    <h3 class="text-white">{{eligible_bloods}}</h3>
+                    {% if eligible_bloods == 1 %}
+                        <p class="mb-0 text-white">Poche Saine</p>
+                    {% else %}
+                        <p class="mb-0 text-white">Poches Saines</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 bg-danger">
+                <div class="card-body text-center">
+                    <div class="widget-icon mx-auto mb-3 bg-white-1 text-white">
+                        <i class="bi bi-heart-pulse mt-2"></i>
+                    </div>
+                    <h3 class="text-white">{{ineligible_bloods}}</h3>
+                    {% if ineligible_bloods == 1 %}
+                        <p class="mb-0 text-white">Poche Non Utilisable</p>
+                    {% else %}
+                        <p class="mb-0 text-white">Poches Non Utilisables</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 bg-secondary">
+                <div class="card-body text-center">
+                    <div class="widget-icon mx-auto mb-3 bg-white-1 text-white">
+                        <i class="bi bi-heart-pulse mt-2"></i>
+                    </div>
+                    <h3 class="text-white">{{pending_bloods}}</h3>
+                    {% if pending_bloods == 1 %}
+                        <p class="mb-0 text-white">Poche Entrain d'Etre Analysée</p>
+                    {% else %}
+                        <p class="mb-0 text-white">Poches Entrain d'Etre Analysée</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-3 row-cols-md-3 row-cols-xl-3 row-cols-xxl-6">
+        <div class="col">
+            <div class="card radius-10 border-0 border-start border-end border-danger border-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <h4 class="mb-0 text-danger">{{gr_count}}</h4>
+                            {% if gr_count == 1 %}
+                                <p class="mb-1">Poche de Globules Rouges</p>
+                            {% else %}
+                                <p class="mb-1">Poches de Globules Rouges</p>
+                            {% endif %}
+                        </div>
+                        <div class="ms-auto widget-icon bg-danger text-white">
+                            <i class="bi bi-droplet-half"></i>
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+
+                </div>
+                <a href="{% url "create_order"%}?of=gr" ><i class="bi bi-bag-plus"></i>commander</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 border-0 border-start border-end border-secondary border-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <h4 class="mb-0 text-secondary">{{pfc_count}}</h4>
+                            {% if gr_count == 1 %}
+                                <p class="mb-1">Poche de Plasma Frais Congelé</p>
+                            {% else %}
+                                <p class="mb-1">Poches de Plasma Frais Congelé</p>
+                            {% endif %}
+                        </div>
+                        <div class="ms-auto widget-icon bg-secondary text-white">
+                            <i class="bi bi-droplet-half"></i>
+                        </div>
+                    </div>
+                </div>
+                <a href="{% url "create_order"%}?of=pfc" ><i class="bi bi-bag-plus"></i>commander</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 border-0 border-start border-end border-warning border-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <h4 class="mb-0 text-warning">{{cps_count}}</h4>
+                            {% if gr_count == 1 %}
+                                <p class="mb-1">Poche de Concentré Plaquettaire</p>
+                            {% else %}
+                                <p class="mb-1">Poches de Concentré Plaquettaire</p>
+                            {% endif %}
+                        </div>
+                        <div class="ms-auto widget-icon bg-warning text-white">
+                            <i class="bi bi-droplet-half"></i>
+                        </div>
+                    </div>
+                </div>
+                <a href="{% url "create_order"%}?of=cps"><i class="bi bi-bag-plus"></i>commander</a>
+            </div>
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 row-cols-xl-4 row-cols-xxl-8">
+        {% for blood_group, count in bags_counts_items %}
+            <div class="col">
+                <div class="card radius-10 border-0 border-start border-pink border-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="widget-icon bg-pink text-white">
+                                <span>{{blood_group}}</span>
+                            </div>
+                            <div class="ms-auto">
+                                <h4 class="mb-0 text-pink">{{count}}</h4>
+                                <p class="mb-1">Poches</p>
+                            </div>
+                        </div>
+                        <hr class="my-2 border-top border-pink">
+                        <small class="mb-0 text-pink"><span>+12.3% from last week</span></small>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    </div>
 
 
-<h6 class="mb-0 text-uppercase">Poches de sang total</h6>
-<hr>
-<div class="row">
-  <div class="col">
-    <div class="card radius-10 bg-primary">
-      <div class="card-body text-center">
-        <div class="widget-icon mx-auto mb-3 bg-white-1 text-white">
-          <i class="bi bi-heart-pulse mt-2"></i>
-        </div>
-        <h3 class="text-white">{{bloods_count}}</h3>
-        {% if bloods_count == 1 %}
-        <p class="mb-0 text-white">Poche de Sang Total</p>
-        {% else %}
-        <p class="mb-0 text-white">Poches de Sang Total</p>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card radius-10 bg-success">
-      <div class="card-body text-center">
-        <div class="d-flex align-items-center">
-          <h3 class="text-white ms-auto">{{eligible_bloods}}</h3>
-          <div class="ms-auto">
-            <div class="w_chart" id="chart24" data-percent="{{eligible_bloods_percent}}">
-              <span class="w_percent text-white"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-title text-center">
-        {% if eligible_bloods == 1 %}
-        <p class="text-white">Poche Saine</p>
-        {% else %}
-        <p class="text-white">Poches Saines</p>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card radius-10 bg-danger">
-      <div class="card-body text-center">
-        <div class="d-flex align-items-center">
-          <h3 class="text-white ms-auto">{{ineligible_bloods}}</h3>
-          <div class="ms-auto">
-            <div class="w_chart" id="chart25" data-percent="{{ineligible_bloods_percent}}">
-              <span class="w_percent text-white"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-title text-center">
-        {% if ineligible_bloods == 1 %}
-        <p class="text-white">Poche Non Utilisable</p>
-        {% else %}
-        <p class="text-white">Poches Non Utilisables</p>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card radius-10 bg-secondary">
-      <div class="card-body text-center">
-        <div class="d-flex align-items-center">
-          <h3 class="text-white ms-auto">{{pending_bloods}}</h3>
-          <div class="ms-auto">
-            <div class="w_chart" id="chart26" data-percent="{{pending_bloods_percent}}">
-              <span class="w_percent text-white"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-title text-center">
-        {% if pending_bloods == 1 %}
-        <p class="text-white">Poche En Attente d'Analyse</p>
-        {% else %}
-        <p class="text-white">Poches En Attente d'Analyse</p>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<h6 class="mb-0 text-uppercase">Produits sanguins labiles</h6>
-<hr>
-<div class="row row-cols-1 row-cols-sm-3 row-cols-md-3 row-cols-xl-3 row-cols-xxl-6">
-  <div class="col">
-    <div class="card radius-10 border-0 border-start border-end border-danger border-3">
-      <div class="card-body">
-        <div class="d-flex align-items-center">
-          <div class="">
-            <h4 class="mb-0 text-danger">{{gr_count}}</h4>
-            {% if gr_count == 1 %}
-            <p class="mb-1">Poche de Globules Rouges</p>
-            {% else %}
-            <p class="mb-1">Poches de Globules Rouges</p>
-            {% endif %}
-          </div>
-          <div class="ms-auto widget-icon bg-danger text-white">
-            <i class="bi bi-droplet-half"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card radius-10 border-0 border-start border-end border-secondary border-3">
-      <div class="card-body">
-        <div class="d-flex align-items-center">
-          <div class="">
-            <h4 class="mb-0 text-secondary">{{pfc_count}}</h4>
-            {% if gr_count == 1 %}
-            <p class="mb-1">Poche de Plasma Frais Congelé</p>
-            {% else %}
-            <p class="mb-1">Poches de Plasma Frais Congelé</p>
-            {% endif %}
-          </div>
-          <div class="ms-auto widget-icon bg-secondary text-white">
-            <i class="bi bi-droplet-half"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card radius-10 border-0 border-start border-end border-warning border-3">
-      <div class="card-body">
-        <div class="d-flex align-items-center">
-          <div class="">
-            <h4 class="mb-0 text-warning">{{cps_count}}</h4>
-            {% if gr_count == 1 %}
-            <p class="mb-1">Poche de Concentré Plaquettaire</p>
-            {% else %}
-            <p class="mb-1">Poches de Concentré Plaquettaire</p>
-            {% endif %}
-          </div>
-          <div class="ms-auto widget-icon bg-warning text-white">
-            <i class="bi bi-droplet-half"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<h6 class="mb-0 text-uppercase">Poches par groupe sanguin</h6>
-<hr>
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-2 row-cols-xxl-4">
-  {% for blood_group, count in psls_bags_count %}
-  <div class="col">
-    <div class="card radius-10 border-0 border-start border-pink border-3">
-      <div class="card-body">
-        <div class="d-flex align-items-center">
-          <div class="widget-icon bg-pink text-white">
-            <span>{{blood_group}}</span>
-          </div>
-          <div class="ms-auto">
-            <h4 class="mb-0 text-pink">{{count}}</h4>
-            <p class="mb-1">Poches</p>
-          </div>
-        </div>
-        <hr class="my-2 border-top border-pink">
-        <small class="mb-0 text-dark d-flex flex-row-reverse">
-          <span>
-            {% for blood_group_gr, count_gr in gr_bags_count %}
-            {% if blood_group == blood_group_gr %}
-            {{count_gr}} {% if count_gr == 1 %}<span class="text-pink">Poche de GR </span>{% else %}<span
-              class="text-pink">Poches de GR </span>{% endif %} |
-            {% endif %}
-            {% endfor %}
-            {% for blood_group_pfc, count_pfc in pfc_bags_count %}
-            {% if blood_group == blood_group_pfc %}
-            {{count_pfc}} {% if count_pfc == 1 %}<span class="text-pink">Poche de PFC </span>{% else %}<span
-              class="text-pink">Poches de PFC </span>{% endif %}|
-            {% endif %}
-            {% endfor %}
-            {% for blood_group_cps, count_cps in cps_bags_count %}
-            {% if blood_group == blood_group_cps %}
-            {{count_cps}} {% if count_cps == 1 %}<span class="text-pink">Poche de CPS</span>{% else %}<span
-              class="text-pink">Poches de CPS </span>{% endif %}
-            {% endif %}
-            {% endfor %}
-          </span>
-        </small>
-      </div>
-    </div>
-  </div>
-  {% endfor %}
-</div>
 
 {% endblock %}
