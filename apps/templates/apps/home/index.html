@@ -4,7 +4,7 @@
 {% block content %}
 
 <h6 class="mb-0 text-uppercase">Donneurs</h6>
-            <hr>
+<hr>
 <div class="row">
   <div class="col">
     <div class="card radius-10 border-0 border-start border-primary border-3">
@@ -77,9 +77,9 @@
       </div>
       <div class="card-title text-center">
         {% if pending_donors == 1 %}
-        <p class="mb-0 text-secondary">Donneur En Attente de l'Evaluation</p>
+        <p class="mb-0 text-secondary">Donneur En Attente d'une Evaluation</p>
         {% else %}
-        <p class="mb-0 text-secondary">Donneurs En Attente de l'Evaluation</p>
+        <p class="mb-0 text-secondary">Donneurs En Attente d'une Evaluation</p>
         {% endif %}
       </div>
     </div>
@@ -88,7 +88,7 @@
 
 
 <h6 class="mb-0 text-uppercase">Poches de sang total</h6>
-            <hr>
+<hr>
 <div class="row">
   <div class="col">
     <div class="card radius-10 bg-primary">
@@ -172,7 +172,7 @@
 
 
 <h6 class="mb-0 text-uppercase">Produits sanguins labiles</h6>
-            <hr>
+<hr>
 <div class="row row-cols-1 row-cols-sm-3 row-cols-md-3 row-cols-xl-3 row-cols-xxl-6">
   <div class="col">
     <div class="card radius-10 border-0 border-start border-end border-danger border-3">
@@ -234,7 +234,7 @@
 </div>
 
 <h6 class="mb-0 text-uppercase">Poches par groupe sanguin</h6>
-            <hr>
+<hr>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-2 row-cols-xxl-4">
   {% for blood_group, count in psls_bags_count %}
   <div class="col">
@@ -254,17 +254,20 @@
           <span>
             {% for blood_group_gr, count_gr in gr_bags_count %}
             {% if blood_group == blood_group_gr %}
-            {{count_gr}} {% if count_gr == 1 %}<span class="text-pink">Poche de GR </span>{% else %}<span class="text-pink">Poches de GR </span>{% endif %} | 
+            {{count_gr}} {% if count_gr == 1 %}<span class="text-pink">Poche de GR </span>{% else %}<span
+              class="text-pink">Poches de GR </span>{% endif %} |
             {% endif %}
             {% endfor %}
             {% for blood_group_pfc, count_pfc in pfc_bags_count %}
             {% if blood_group == blood_group_pfc %}
-            {{count_pfc}} {% if count_pfc == 1 %}<span class="text-pink">Poche de PFC </span>{% else %}<span class="text-pink">Poches de PFC </span>{% endif %}|
+            {{count_pfc}} {% if count_pfc == 1 %}<span class="text-pink">Poche de PFC </span>{% else %}<span
+              class="text-pink">Poches de PFC </span>{% endif %}|
             {% endif %}
             {% endfor %}
             {% for blood_group_cps, count_cps in cps_bags_count %}
             {% if blood_group == blood_group_cps %}
-            {{count_cps}} {% if count_cps == 1 %}<span class="text-pink">Poche de CPS</span>{% else %}<span class="text-pink">Poches de CPS </span>{% endif %}
+            {{count_cps}} {% if count_cps == 1 %}<span class="text-pink">Poche de CPS</span>{% else %}<span
+              class="text-pink">Poches de CPS </span>{% endif %}
             {% endif %}
             {% endfor %}
           </span>
