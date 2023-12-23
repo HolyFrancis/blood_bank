@@ -60,9 +60,6 @@ urlpatterns = [
     
     #-------------------------------psl-------------------------------
     path("psl", psl.psl, name="psl"),
-    # path("create-gr/<int:id>", psl.create_gr, name="create_gr"),
-    # path("create-pfc/<int:id>", psl.create_pfc, name="create_pfc"),
-    # path("create-cps/<int:id>", psl.create_cps, name="create_cps"),
     path("create-psl/<int:id>", psl.create_psl, name="create_psl"),
     path("update-psl/<int:id>", psl.update_psl, name="update_psl"),
     path("psl-details/<int:id>", psl.psl_details, name="psl_details"),
@@ -77,6 +74,7 @@ urlpatterns = [
     path("analyse", analyse.analyse, name="analyse"),
     path("create-analysis/<str:id>", analyse.create_analysis, name="create_analysis"),
     path("update-analysis/<str:id>", analyse.update_analysis, name="update_analysis"),
+    path("analysis-details", analyse.analysis_details, name="analysis_details"),
     path("delete-analysis/<str:id>", analyse.delete_analysis, name="delete_analysis"),
     path("request-analysis", analyse.request_analysis, name="request_analysis"),
     path("analysis-history", analyse.analysis_history, name="analysis_history"),

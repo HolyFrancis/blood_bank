@@ -5,18 +5,99 @@
 {% block content %}
 
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Prélèvements</div>
+    <div class="breadcrumb-title pe-3">Table</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a>
-                </li>
+                <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a></li>
+                <li class="breadcrumb-item breadcrumb-item-active">Prélèvements</li>
             </ol>
         </nav>
     </div>
 </div>
 
+<div class="row">
+    <div class="col">
+      <div class="card radius-10 bg-primary">
+        <div class="card-body text-center">
+          <div class="widget-icon mx-auto mb-3 bg-white-1 text-white">
+            <i class="bi bi-heart-pulse mt-2"></i>
+          </div>
+          <h3 class="text-white">{{bloods_count}}</h3>
+          {% if bloods_count == 1 %}
+          <p class="mb-0 text-white">Poche de Sang Total</p>
+          {% else %}
+          <p class="mb-0 text-white">Poches de Sang Total</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card radius-10 bg-success">
+        <div class="card-body text-center">
+          <div class="d-flex align-items-center">
+            <h3 class="text-white ms-auto">{{eligible_bloods}}</h3>
+            <div class="ms-auto">
+              <div class="w_chart" id="chart24" data-percent="{{eligible_bloods_percent}}">
+                <span class="w_percent text-white"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-title text-center">
+          {% if eligible_bloods == 1 %}
+          <p class="text-white">Poche Saine</p>
+          {% else %}
+          <p class="text-white">Poches Saines</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card radius-10 bg-danger">
+        <div class="card-body text-center">
+          <div class="d-flex align-items-center">
+            <h3 class="text-white ms-auto">{{ineligible_bloods}}</h3>
+            <div class="ms-auto">
+              <div class="w_chart" id="chart25" data-percent="{{ineligible_bloods_percent}}">
+                <span class="w_percent text-white"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-title text-center">
+          {% if ineligible_bloods == 1 %}
+          <p class="text-white">Poche Non Utilisable</p>
+          {% else %}
+          <p class="text-white">Poches Non Utilisables</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card radius-10 bg-secondary">
+        <div class="card-body text-center">
+          <div class="d-flex align-items-center">
+            <h3 class="text-white ms-auto">{{pending_bloods}}</h3>
+            <div class="ms-auto">
+              <div class="w_chart" id="chart26" data-percent="{{pending_bloods_percent}}">
+                <span class="w_percent text-white"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-title text-center">
+          {% if pending_bloods == 1 %}
+          <p class="text-white">Poche Entrain d'Etre Analysée</p>
+          {% else %}
+          <p class="text-white">Poches Entrain d'Etre Analysée</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
 
+<div class="card">
 <div class="card-body">
     <div class="d-flex align-items-center">
         <h5 class="mb-0">Détails des Prélèvements</h5>
@@ -65,9 +146,9 @@
                     <tr>
                         <th>ID</th>
                         <th>Action</th>
-                        <th>Numero de Serie</th>
+                        <th>Numéro de Série</th>
                         <th>Analysé</th>
-                        <th>centrifugé</th>
+                        <th>Centrifugé</th>
                         <th>Etat</th>
                         <th>Donneur</th>
                         <th>Echantillon</th>
@@ -133,6 +214,7 @@
             </table>
         </div>
     </div>
+</div>
 </div>
 
 {% endblock %}

@@ -72,6 +72,8 @@
                         <td>{{analysis.id}}</td>
                         <td>
                             <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                                <a href="{% url 'analysis_details' %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Views"><i class="bi bi-eye-fill"></i></a>
                                 <a href="{% url 'update_analysis' analysis.id %}" class="text-warning"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                         class="bi bi-pencil-fill"></i></a>
