@@ -9,4 +9,10 @@ class AnalysisForm(ModelForm):
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['irregular_antibodies'].widget.attrs.update({'class':'form-select'})
+        self.fields['hiv_test'].widget.attrs.update({'class':'form-select'})
+        self.fields['hepatites_test'].widget.attrs.update({'class':'form-select'})
+        self.fields['anti_hlv1_test'].widget.attrs.update({'class':'form-select'})
+        self.fields['anti_htlv2_test'].widget.attrs.update({'class':'form-select'})
+        self.fields['malaria_test'].widget.attrs.update({'class':'form-select'})
         self.fields['result'].widget.attrs.update({'class':'form-select'})
