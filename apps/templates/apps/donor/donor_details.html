@@ -10,12 +10,19 @@
             <ol class="breadcrumb mb-0 p-0">
                 <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a>
                 </li>
+                <li class="breadcrumb-item"><a href="{% url 'donor' %}">Donneurs</a></li>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Détails Donneur</li>
+                </li>
             </ol>
         </nav>
     </div>
+</div>
+<!--end breadcrumb-->
 
+<div class="row mb-2">
     {% if donor.status == "Eligible" %}
-    <div class="breadcrumb-title pe-3">
+    <div class="h4 pe-3">
         {{donor.first_name}} {{donor.last_name}}:
         <span class="text text-success">{{donor.status}}</span>
     </div>
@@ -26,18 +33,17 @@
         </div>
     </div>
     {% elif donor.status == "Ineligible" %}
-    <div class="breadcrumb-title pe-3">
+    <div class="h4 pe-3">
         {{donor.first_name}} {{donor.last_name}}:
         <span class="text text-danger">{{donor.status}}</span>
     </div>
     {% elif donor.status == "Attente" %}
-    <div class="breadcrumb-title pe-3">
+    <div class="h4 pe-3">
         {{donor.first_name}} {{donor.last_name}}:
         <span class="text text-secondary">{{donor.status}}</span>
     </div>
     {% endif %}
 </div>
-<!--end breadcrumb-->
 
 <div class="row">
     <div class="col-xl-12 mx-auto">
@@ -249,12 +255,16 @@
                     <div class="row mb-3">
                         <div class="col-6">
                             <div class="d-grid">
-                                <a href="{% url 'request_decision' donor.id %}?q=confirm" onclick="return confirm('Accepter la demande de {{donor.first_name}} {{donor.last_name}}?')" class="btn btn-primary">Accepter</a>
+                                <a href="{% url 'request_decision' donor.id %}?q=confirm"
+                                    onclick="return confirm('Accepter la demande de {{donor.first_name}} {{donor.last_name}}?')"
+                                    class="btn btn-primary">Accepter</a>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="d-grid">
-                                <a onclick="return confirm('Refuser la demande de {{donor.first_name}} {{donor.last_name}}?')" href="{% url 'request_decision' donor.id %}?q=reject" class="btn btn-danger">Refuser</a>
+                                <a onclick="return confirm('Refuser la demande de {{donor.first_name}} {{donor.last_name}}?')"
+                                    href="{% url 'request_decision' donor.id %}?q=reject"
+                                    class="btn btn-danger">Refuser</a>
                             </div>
                         </div>
                     </div>

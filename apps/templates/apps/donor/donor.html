@@ -4,128 +4,212 @@
 
 {% block content %}
 
-  <!--breadcrumb-->
-  <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Tableau de Bord</div>
-    <div class="ps-3">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb mb-0 p-0">
-          <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a>
-          <li class="breadcrumb-item active" aria-current="page">Donneurs</li>
-          </li>
-        </ol>
-      </nav>
-    </div>
-    <div class="ms-auto">
-      <div class="btn-group">
-        <a class="btn btn-primary" href="{% url 'create_donor' %}" class="link-light"><i class="bi bi-plus-circle"></i> Ajouter un Donneur</a>
-      </div>
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+  <div class="breadcrumb-title pe-3">Tableau de Bord</div>
+  <div class="ps-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 p-0">
+        <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a>
+        <li class="breadcrumb-item active" aria-current="page">Donneurs</li>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <div class="ms-auto">
+    <div class="btn-group">
+      <a class="btn btn-primary" href="{% url 'create_donor' %}" class="link-light"><i class="bi bi-plus-circle"></i>
+        Ajouter un Donneur</a>
     </div>
   </div>
-  <!--end breadcrumb-->
+</div>
+<!--end breadcrumb-->
 
-  <div class="card">
-    <div class="card-body">
-      <div class="d-flex align-items-center">
-        <h5 class="mb-0">Détails des Donneurs</h5>
-      </div>
-      <div class="table-responsive mt-3">
-        {% if messages %}
-        {% for message in messages %}
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-            <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
-                <div class="d-flex align-items-center">
-                    <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
-                    </div>
-                    <div class="ms-3">
-                        <div class="text-info">{{message}}</div>
-                    </div>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% else %}
-            <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
-                <div class="d-flex align-items-center">
-                    <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
-                    </div>
-                    <div class="ms-3">
-                        <div class="text-danger">{{message}}</div>
-                    </div>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endif %}
-        {% endfor %}
+<div class="row">
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-primary border-3">
+      <div class="card-body text-center">
+        <div class="widget-icon mx-auto mb-3 bg-primary text-white">
+          <i class="bi bi-file-person"></i>
+        </div>
+        <h3 class="text-primary">{{donors_count}}</h3>
+        {% if donors_count == 1 %}
+        <p class="mb-1 text-primary">Donneur Inscrit</p>
+        {% else %}
+        <p class="mb-1 text-primary">Donneurs Inscrits</p>
         {% endif %}
-        <form  method="GET">
-          <div class="input-group input-group-sm">
-            <label class="form-label d-inline m-2">Groupe Sanguin: </label>
-            {% render_field filtre.form.blood_group class="form-select d-inline m-2"%}
-            <label class="form-label d-inline m-2">Status: </label>
-            {% render_field filtre.form.status class="form-select d-inline m-2"%}
-            <button type="Submit" class="btn btn-primary btn-sm m-2">Filtrer</button>
-          </div>
-        </form>
-        <table id="example" class="table align-middle" style="width:100%">
-          <thead class="table-light">
-            <tr>
-              <th>ID</th>
-              <th>Actions</th>
-              <th>Nom</th>
-              <th>Prénom(s)</th>
-              <th>CNI</th>
-              <th>GS</th>
-              <th>Status</th>
-              <th>Naissance</th>
-              <th>Poids</th>
-              <th>Sexe</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for donor in donors %}
-            <tr>
-              <td>{{donor.id}}</td>
-              <td>
-                <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                  <a href="{% url 'donor_details' donor.id %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Views"><i class="bi bi-eye-fill"></i></a>
-                  <a href="{% url 'update_donor' donor.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Edit"><i class="bi bi-pencil-fill"></i></a>
-                  <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer {{donor.first_name}} {{donor.last_name}}?')" href="{% url 'delete_donor' donor.id %}"><i class="bi bi-trash-fill"></i></a>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center gap-3 cursor-pointer">
-                  <div class="">
-                    <p class="mb-0">{{donor.first_name}}</p>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center gap-3 cursor-pointer">
-                  <div class="">
-                    <p class="mb-0">{{donor.last_name}}</p>
-                  </div>
-                </div>
-              </td>
-              <td>{{donor.cni}}</td>
-              <td>{{donor.blood_group}}</td>
-              {% if donor.status == "Eligible" %}
-              <td><span class="badge bg-light-success text-success w-100">{{donor.status}}</span></td>
-              {% elif donor.status == "Ineligible" %}
-              <td><span class="badge bg-light-danger text-danger w-100">{{donor.status}}</span></td>
-              {% elif donor.status == "Attente" %}
-              <td><span class="badge bg-light-secondary text-secondary w-100">{{donor.status}}</span></td>
-              {% endif %}
-              <td>{{donor.birthday}}</td>
-              <td>{{donor.weight}} kg</td>
-              <td>{{donor.sex}}</td>              
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
       </div>
     </div>
   </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-success border-3">
+      <div class="card-body text-center">
+        <div class="d-flex align-items-center">
+          <h3 class="text-success">{{eligible_donors}}</h3>
+          <div class="ms-auto">
+            <div class="w_chart" id="chart21" data-percent="{{eligible_donors_percent}}">
+              <span class="w_percent"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-title text-center m-1">
+        {% if eligible_donors == 1 %}
+        <p class="mb-0 text-success">Donneur Eligible au Don de Sang</p>
+        {% else %}
+        <p class="mb-0 text-success">Donneurs Eligibles au Don de Sang</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-danger border-3">
+      <div class="card-body text-center">
+        <div class="d-flex align-items-center">
+          <h3 class="text-danger">{{ineligible_donors}}</h3>
+          <div class="ms-auto">
+            <div class="w_chart" id="chart22" data-percent="{{ineligible_donors_percent}}">
+              <span class="w_percent"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-title text-center">
+        {% if ineligible_donors == 1 %}
+        <p class="mb-0 text-danger">Donneur Ineligible au Don de Sang</p>
+        {% else %}
+        <p class="mb-0 text-danger">Donneurs Ineligibles au Don de Sang</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-secondary border-3">
+      <div class="card-body text-center">
+        <div class="d-flex align-items-center">
+          <h3 class="text-secondary">{{pending_donors}}</h3>
+          <div class="ms-auto">
+            <div class="w_chart" id="chart23" data-percent="{{pending_donors_percent}}">
+              <span class="w_percent"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-title text-center">
+        {% if pending_donors == 1 %}
+        <p class="mb-0 text-secondary">Donneur En Attente d'une Evaluation</p>
+        {% else %}
+        <p class="mb-0 text-secondary">Donneurs En Attente d'une Evaluation</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex align-items-center">
+      <h5 class="mb-0">Détails des Donneurs</h5>
+    </div>
+    <div class="table-responsive mt-3">
+      {% if messages %}
+      {% for message in messages %}
+      {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+      <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+        <div class="d-flex align-items-center">
+          <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+          </div>
+          <div class="ms-3">
+            <div class="text-info">{{message}}</div>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% else %}
+      <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+        <div class="d-flex align-items-center">
+          <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+          </div>
+          <div class="ms-3">
+            <div class="text-danger">{{message}}</div>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+      <form method="GET">
+        <div class="input-group input-group-sm">
+          <label class="form-label d-inline m-2">Groupe Sanguin: </label>
+          {% render_field filtre.form.blood_group class="form-select d-inline m-2"%}
+          <label class="form-label d-inline m-2">Status: </label>
+          {% render_field filtre.form.status class="form-select d-inline m-2"%}
+          <button type="Submit" class="btn btn-primary btn-sm m-2">Filtrer</button>
+        </div>
+      </form>
+      <table id="example" class="table align-middle" style="width:100%">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th>
+            <th>Actions</th>
+            <th>Nom</th>
+            <th>Prénom(s)</th>
+            <th>CNI</th>
+            <th>GS</th>
+            <th>Status</th>
+            <th>Naissance</th>
+            <th>Poids</th>
+            <th>Sexe</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for donor in donors %}
+          <tr>
+            <td>{{donor.id}}</td>
+            <td>
+              <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                <a href="{% url 'donor_details' donor.id %}" class="text-primary" data-bs-toggle="tooltip"
+                  data-bs-placement="bottom" title="Views"><i class="bi bi-eye-fill"></i></a>
+                <a href="{% url 'update_donor' donor.id %}" class="text-warning" data-bs-toggle="tooltip"
+                  data-bs-placement="bottom" title="Edit"><i class="bi bi-pencil-fill"></i></a>
+                <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
+                  onclick="return confirm('Supprimer {{donor.first_name}} {{donor.last_name}}?')"
+                  href="{% url 'delete_donor' donor.id %}"><i class="bi bi-trash-fill"></i></a>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex align-items-center gap-3 cursor-pointer">
+                <div class="">
+                  <p class="mb-0">{{donor.first_name}}</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex align-items-center gap-3 cursor-pointer">
+                <div class="">
+                  <p class="mb-0">{{donor.last_name}}</p>
+                </div>
+              </div>
+            </td>
+            <td>{{donor.cni}}</td>
+            <td>{{donor.blood_group}}</td>
+            {% if donor.status == "Eligible" %}
+            <td><span class="badge bg-light-success text-success w-100">{{donor.status}}</span></td>
+            {% elif donor.status == "Ineligible" %}
+            <td><span class="badge bg-light-danger text-danger w-100">{{donor.status}}</span></td>
+            {% elif donor.status == "Attente" %}
+            <td><span class="badge bg-light-secondary text-secondary w-100">{{donor.status}}</span></td>
+            {% endif %}
+            <td>{{donor.birthday}}</td>
+            <td>{{donor.weight}} kg</td>
+            <td>{{donor.sex}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

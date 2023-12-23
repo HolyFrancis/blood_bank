@@ -3,11 +3,13 @@ from django.shortcuts import redirect, render
 from apps.models import Donor, Blood, PSL, Type_PSL
 
 def home(request):
+    #--------------------------------------Donors Stats----------------------------------------
+
     donors_count = Donor.objects.all().count()
     eligible_donors = Donor.objects.filter(status = 'Eligible').count()
     ineligible_donors = Donor.objects.filter(status='Ineligible').count()
     pending_donors = Donor.objects.filter(status='Attente').count()
-    
+
     eligible_donors_percent = 0
     ineligible_donors_percent = 0
     pending_donors_percent = 0
@@ -15,13 +17,15 @@ def home(request):
         eligible_donors_percent = eligible_donors/donors_count*100
         ineligible_donors_percent = ineligible_donors/donors_count*100
         pending_donors_percent = pending_donors/donors_count*100
-    
+        
+        
+    #--------------------------------------Bloods Stats----------------------------------------
     not_yet_centrifuged_bloods = Blood.objects.filter(centrifuged=False)
     bloods_count = not_yet_centrifuged_bloods.count()
     eligible_bloods = not_yet_centrifuged_bloods.filter(state='Eligible').count()
     ineligible_bloods = not_yet_centrifuged_bloods.filter(state='Ineligible').count()
     pending_bloods = not_yet_centrifuged_bloods.filter(state='Attente').count()
-    
+
     eligible_bloods_percent = 0
     ineligible_bloods_percent = 0
     pending_bloods_percent = 0
@@ -29,7 +33,9 @@ def home(request):
         eligible_bloods_percent = eligible_bloods/bloods_count*100
         ineligible_bloods_percent = ineligible_bloods/bloods_count*100
         pending_bloods_percent = pending_bloods/bloods_count*100
-    
+        
+
+    #--------------------------------------PSLs Stats----------------------------------------
     try:
         gr = Type_PSL.objects.get(name='GR')
         cps = Type_PSL.objects.get(name='CPS')
@@ -39,16 +45,15 @@ def home(request):
         cps = None
         pfc = None
         pass
-    
-    gr_count = PSL.objects.filter(type_psl=gr).count()
-    cps_count = PSL.objects.filter(type_psl=cps).count()
-    pfc_count = PSL.objects.filter(type_psl=pfc).count()
-    
-    
-    psls = PSL.objects.all()
-    psls_gr = PSL.objects.filter(type_psl=gr)
-    psls_pfc = PSL.objects.filter(type_psl=pfc)
-    psls_cps = PSL.objects.filter(type_psl=cps)
+        
+        gr_count = PSL.objects.filter(type_psl=gr).count()
+        cps_count = PSL.objects.filter(type_psl=cps).count()
+        pfc_count = PSL.objects.filter(type_psl=pfc).count()
+        
+        psls = PSL.objects.all()
+        psls_gr = PSL.objects.filter(type_psl=gr)
+        psls_pfc = PSL.objects.filter(type_psl=pfc)
+        psls_cps = PSL.objects.filter(type_psl=cps)
     
     def counts(modelObject):
         a_plus_bags = 0
@@ -172,6 +177,8 @@ def home(request):
     gr_bags_count = counts(psls_gr)
     pfc_bags_count = counts(psls_pfc)
     cps_bags_count = counts(psls_cps)
+
+    #-------------------------------------------End Stats---------------------------------------
         
     context = {'donors_count':donors_count,
                'eligible_donors':eligible_donors,

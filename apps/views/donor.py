@@ -5,16 +5,39 @@ from apps.models import Donor
 from apps.forms import DonorForm
 from apps.filters import DonorFilter
 
+
 def donor(request):
+    donors_count = Donor.objects.all().count()
+    eligible_donors = Donor.objects.filter(status = 'Eligible').count()
+    ineligible_donors = Donor.objects.filter(status='Ineligible').count()
+    pending_donors = Donor.objects.filter(status='Attente').count()
+
+    eligible_donors_percent = 0
+    ineligible_donors_percent = 0
+    pending_donors_percent = 0
+    if donors_count is not 0:
+        eligible_donors_percent = eligible_donors/donors_count*100
+        ineligible_donors_percent = ineligible_donors/donors_count*100
+        pending_donors_percent = pending_donors/donors_count*100
+    
     donors = Donor.objects.all()
     filtre = DonorFilter(request.GET, queryset=donors)
     donors = filtre.qs
     
-    context = {"donors":donors, "filtre":filtre}
+    context = {
+        "donors":donors, 
+        "filtre":filtre,
+        'donors_count':donors_count,
+        'eligible_donors':eligible_donors,
+        'ineligible_donors':ineligible_donors,
+        'pending_donors':pending_donors,
+        'eligible_donors_percent':eligible_donors_percent, 'ineligible_donors_percent':ineligible_donors_percent,'pending_donors_percent':pending_donors_percent,
+        }
     
     return render(request, "apps/donor/donor.html", context)
 
 def create_donor(request):
+    create = True
     form = DonorForm()
     
     if request.method == "POST":
@@ -31,11 +54,15 @@ def create_donor(request):
                 if don.cni == donor['cni']:
                     messages.error(request, "Un donneur avec la CNI saisie saisie existe déjà!")
     
-    context = {"form":form}
+    context = {
+        "form":form,
+        "create":create
+        }
     
     return render(request, "apps/donor/create_donor.html", context)
 
 def update_donor(request, id):
+    create = False
     donor = Donor.objects.get(id=id)
     
     form = DonorForm(instance=donor)
@@ -54,7 +81,7 @@ def update_donor(request, id):
                 if don.cni == donor['cni']:
                     messages.error(request, "La CNI saisie existe déjà!")
     
-    context = {"form":form, 'donor':donor}
+    context = {"form":form, 'donor':donor, 'create':create}
     
     return render(request, "apps/donor/create_donor.html", context)
 
