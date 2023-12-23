@@ -23,6 +23,14 @@ def create_psl(request, id):
     
     of = request.GET.get("of")
     
+    try:
+        gr = Type_PSL.objects.get(name='GR')
+        cps = Type_PSL.objects.get(name='CPS')
+        pfc = Type_PSL.objects.get(name='PFC')
+    except Type_PSL.DoesNotExist:
+        messages.error(request, "Veuillez d'abord ajouter tous les types de produits sanguins labiles")
+        return redirect(request.META.get('HTTP_REFERER'))
+    
     if of == "gr":
         type_psl = Type_PSL.objects.get(name='GR')
     elif of == "pfc":

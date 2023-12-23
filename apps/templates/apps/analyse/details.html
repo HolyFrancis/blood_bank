@@ -25,6 +25,51 @@
                                 {% endif %}
                             </p>
                         </div>
+                        <div class="col-6">
+                            <p class="form-label">Dépistage du VIH : 
+                                {% if analysis.hiv_test == 'Positif' %}
+                                <span class="text-danger bg-danger-1">{{}}</span>
+                                {% elif analysis.hiv_test == 'Négatif' %}
+                                <span class="text-success bg-success-1">{{}}</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Dépistage des Hépaties B et C : 
+                                {% if analysis.hepatites_test == 'Positif' %}
+                                <span class="text-danger bg-danger-1">{{}}</span>
+                                {% elif analysis.hepatites_test == 'Négatif' %}
+                                <span class="text-success bg-success-1">{{}}</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Présence d'anticorps anti-HLV1 : 
+                                {% if analysis.anti_hlv1_test == 'Positif' %}
+                                <span class="text-danger bg-danger-1">{{}}</span>
+                                {% elif analysis.anti_hlv1_test == 'Négatif' %}
+                                <span class="text-success bg-success-1">{{}}</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Présence d'anticorps anti-HLV2 : 
+                                {% if analysis.anti_hlv2_test == 'Positif' %}
+                                <span class="text-danger bg-danger-1">{{}}</span>
+                                {% elif analysis.anti_hlv2_test == 'Négatif' %}
+                                <span class="text-success bg-success-1">{{}}</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Dépistage du Paludisme : 
+                                {% if analysis.malaria_test == 'Positif' %}
+                                <span class="text-danger bg-danger-1">{{}}</span>
+                                {% elif analysis.malaria_test == 'Négatif' %}
+                                <span class="text-success bg-success-1">{{}}</span>
+                                {% endif %}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

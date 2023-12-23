@@ -7,17 +7,42 @@ from apps.filters import BloodFilter
 
 
 def blood(request):
-    accepted = Donor.objects.filter(status='Eligible')
     bloods = Blood.objects.all()
+    bloods_count = bloods.all().count()
+    eligible_bloods = bloods.filter(state='Eligible').count()
+    ineligible_bloods = bloods.filter(state='Ineligible').count()
+    pending_bloods = bloods.filter(state='Attente').count()
+
+    eligible_bloods_percent = 0
+    ineligible_bloods_percent = 0
+    pending_bloods_percent = 0
+    if eligible_bloods is not 0:
+        eligible_bloods_percent = eligible_bloods/bloods_count*100
+        ineligible_bloods_percent = ineligible_bloods/bloods_count*100
+        pending_bloods_percent = pending_bloods/bloods_count*100
+    
+    accepted = Donor.objects.filter(status='Eligible')
     filtre = BloodFilter(request.GET, queryset=bloods)
     bloods = filtre.qs
     
-    context = {"bloods": bloods, "accepted":accepted, "filtre":filtre}
+    context = {
+        "bloods": bloods, 
+        "accepted":accepted, 
+        "filtre":filtre,
+        'bloods_count':bloods_count,
+        'eligible_bloods':eligible_bloods,
+        'ineligible_bloods':ineligible_bloods,
+        'pending_bloods':pending_bloods, 
+        'eligible_bloods_percent':eligible_bloods_percent,
+        'ineligible_bloods_percent':ineligible_bloods_percent,
+        'pending_bloods_percent':pending_bloods_percent,
+        }
 
     return render(request, "apps/transfusion/transfusion.html", context)
 
 
 def create_blood(request, id):
+    create = True
     donor = Donor.objects.get(id=id)
     form = BloodForm(initial={'donor':donor})
 
@@ -27,7 +52,7 @@ def create_blood(request, id):
             blood = request.POST
             form.save()
             messages.success(request, "La transfusion sanguine N°" + blood['serial'] + " a été enregistrée avec succès")
-            return redirect('transfusion')
+            return redirect('donor')
         else:
             current_blood = request.POST
             bloods = Blood.objects.all()
@@ -38,11 +63,12 @@ def create_blood(request, id):
                     messages.error(request, "L'échantillon saisi existe déjà!")
             print(form.errors)
 
-    context = {"form": form, "donor":donor}
+    context = {"form": form, "donor":donor, 'create':create}
     return render(request, "apps/transfusion/create_transfusion.html", context)
 
 
 def update_blood(request, id):
+    create = False
     blood = Blood.objects.get(pk=id)
     form = BloodForm(instance=blood)
     if request.method == "POST":
@@ -61,7 +87,7 @@ def update_blood(request, id):
                     messages.error(request, "L'échantillon saisi existe déjà!")
 
     return render(
-        request, "apps/transfusion/create_transfusion.html", context={"form": form}
+        request, "apps/transfusion/create_transfusion.html", context={"form": form, 'create':create}
     )
 
 

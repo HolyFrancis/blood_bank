@@ -23,15 +23,24 @@ def create_analysis(request, id):
     if request.method == "POST":
         form = AnalysisForm(request.POST)
         if form.is_valid():
-            form.save()
-            if form.cleaned_data['result']=='Négatif':
+            analysis = form.save(commit=False)
+            
+            if analysis.irregular_antibodies == 'Négatif' and analysis.hiv_test == 'Négatif' and analysis.hepatites_test == 'Négatif' and analysis.anti_hlv1_test == 'Négatif' and analysis.anti_hlv2_test == 'Négatif' and analysis.malaria_test == 'Négatif':
+                analysis.result = 'Négatif'
+            else:
+                analysis.result = 'Positif'
+                
+            analysis.save()
+            
+            if analysis.result=='Négatif':
                 blood.state = 'Eligible'
-            elif form.cleaned_data["result"]=="Positif":
+            elif analysis.result=="Positif":
                 blood.state = 'Ineligible'
+                
             blood.analysed = True
             blood.save()
             item = request.POST
-            messages.success(request, "Analyse pour créée avec succès")
+            messages.success(request, "Analyse pour la " + str(blood) + " créée avec succès")
             return redirect('request_analysis')
         else:
             print(form.errors)
@@ -42,6 +51,7 @@ def create_analysis(request, id):
 
 def update_analysis(request, id):
     analysis = Analysis.objects.get(id=id)
+    blood = Blood.objects.get(id=analysis.blood)
     
     form = AnalysisForm(instance=analysis)
     
@@ -50,7 +60,7 @@ def update_analysis(request, id):
         if form.is_valid():
             form.save()
             item = request.POST
-            messages.success(request, "Analyse pour modifiée avec succès")
+            messages.success(request, "Analyse pour la " + str(blood) + " modifiée avec succès")
             return redirect('analyse')
         else:
             return form.errors

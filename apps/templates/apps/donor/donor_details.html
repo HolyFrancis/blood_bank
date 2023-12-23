@@ -22,14 +22,18 @@
 
 <div class="row mb-2">
     {% if donor.status == "Eligible" %}
-    <div class="h4 pe-3">
-        {{donor.first_name}} {{donor.last_name}}:
-        <span class="text text-success">{{donor.status}}</span>
+    <div class="col">
+        <div class="h4 pe-3">
+            {{donor.first_name}} {{donor.last_name}}:
+            <span class="text text-success">{{donor.status}}</span>
+        </div>
     </div>
-    <div class="ms-auto">
-        <div class="btn-group">
-            <a class="btn btn-primary" href="{% url 'create_blood' donor.id %}" class="link-light"><i
-                    class="bi bi-plus-circle"></i> Ajouter un nouveau prélèvement</a>
+    <div class="col d-flex">
+        <div class="ms-auto">
+            <div class="btn-group">
+                <a class="btn btn-primary" href="{% url 'create_blood' donor.id %}" class="link-light"><i
+                        class="bi bi-plus-circle"></i> Ajouter un nouveau prélèvement</a>
+            </div>
         </div>
     </div>
     {% elif donor.status == "Ineligible" %}
