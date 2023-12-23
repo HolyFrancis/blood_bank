@@ -13,6 +13,7 @@ def solution(request):
 
 
 def save_solution(request):
+    create = True
     form = SolutionForm()
 
     if request.method == "POST":
@@ -25,11 +26,12 @@ def save_solution(request):
         else:
             print(form.errors)
 
-    context = {"form": form}
+    context = {"form": form, "create":create}
     return render(request, "apps/solution/create_solution.html", context)
 
 
 def update_solution(request, id):
+    create = False
     product_type = Solution.objects.get(id=id)
     form = SolutionForm(instance=product_type)
 
@@ -41,7 +43,7 @@ def update_solution(request, id):
             messages.success(request, item['name'] + " modifié avec succès")
         return redirect("solution")
 
-    context = {"form": form, "solution": product_type}
+    context = {"form": form, "solution": product_type, "create":create}
 
     return render(request, "apps/solution/create_solution.html", context)
 
