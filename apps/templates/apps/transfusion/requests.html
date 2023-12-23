@@ -2,14 +2,13 @@
 {% load static %}
 
 {% block content %}
-
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Prélèvements</div>
+    <div class="breadcrumb-title pe-3">Requêtes</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a>
-                </li>
+                <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a></li>
+                <li class="breadcrumb-item breadcrumb-item-active">Centrifugation</li>
             </ol>
         </nav>
     </div>
@@ -18,7 +17,7 @@
 
 <div class="card-body">
     <div class="d-flex align-items-center">
-        <h5 class="mb-0">Détails des Prélèvements</h5>
+        <h5 class="mb-0">Requêtes pour la Centrifugation</h5>
     </div>
     <div class="table-responsive mt-3">{% if messages %}
         {% for message in messages %}
