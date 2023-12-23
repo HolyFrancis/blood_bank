@@ -4,7 +4,7 @@ from django.urls import path
 from apps.views import analyse, client, donor, reactant, home, order, psl, transfusion, solution, user
 
 urlpatterns = [
-    #-------------------------------User related-------------------------------
+    # -------------------------------User related-------------------------------
     path("login", user.loginview, name="login"),
     path("register", user.register, name="register"),
     path("logout", user.logoutview, name="logout"),
@@ -30,14 +30,10 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(template_name="apps/user/password_reset_complete.html"),
         name="password_reset_complete",
     ),
-    path("change_password/", auth_views.PasswordChangeView.as_view(template_name = "apps/user/change_password.html"), name="change-password"),
+    path("change_password/", auth_views.PasswordChangeView.as_view(template_name="apps/user/change_password.html"), name="change-password"),
     path("password_success/", user.password_success, name="password_success"),
-    
-    
     path("", home.home, name="home"),
-    
-    
-    #-------------------------------Donor-------------------------------
+    # -------------------------------Donor-------------------------------
     path("donor", donor.donor, name="donor"),
     path("create-donor", donor.create_donor, name="create_donor"),
     path("update-donor/<str:id>", donor.update_donor, name="update_donor"),
@@ -46,9 +42,7 @@ urlpatterns = [
     path("donor-requests", donor.donor_requests, name="donor_requests"),
     path("requests-decision/<str:id>", donor.request_decision, name="request_decision"),
     path("donor-history", donor.donor_history, name="donor_history"),
-    
-    
-    #-------------------------------Transfusion-------------------------------
+    # -------------------------------Transfusion-------------------------------
     path("blood", transfusion.blood, name="transfusion"),
     path("create-transfusion/<int:id>", transfusion.create_blood, name="create_blood"),
     path("update-transfusion/<int:id>/", transfusion.update_blood, name="update_blood"),
@@ -56,9 +50,7 @@ urlpatterns = [
     path("blood-delete/<int:id>", transfusion.blood_delete, name="delete_blood"),
     path("blood-request", transfusion.blood_request, name="blood_request"),
     path("blood-history", transfusion.blood_history, name="blood_history"),
-    
-    
-    #-------------------------------psl-------------------------------
+    # -------------------------------psl-------------------------------
     path("psl", psl.psl, name="psl"),
     # path("create-gr/<int:id>", psl.create_gr, name="create_gr"),
     # path("create-pfc/<int:id>", psl.create_pfc, name="create_pfc"),
@@ -67,22 +59,17 @@ urlpatterns = [
     path("update-psl/<int:id>", psl.update_psl, name="update_psl"),
     path("psl-details/<int:id>", psl.psl_details, name="psl_details"),
     path("psl-delete/<int:id>", psl.psl_delete, name="psl_delete"),
-    
     path("create-type", psl.create_type, name="create_type"),
     path("update-type/<int:id>", psl.update_type, name="update_type"),
     path("delete-type/<int:id>", psl.delete_type, name="delete_type"),
-    
-    
-    #-------------------------------analyse-------------------------------
+    # -------------------------------analyse-------------------------------
     path("analyse", analyse.analyse, name="analyse"),
     path("create-analysis/<str:id>", analyse.create_analysis, name="create_analysis"),
     path("update-analysis/<str:id>", analyse.update_analysis, name="update_analysis"),
     path("delete-analysis/<str:id>", analyse.delete_analysis, name="delete_analysis"),
     path("request-analysis", analyse.request_analysis, name="request_analysis"),
     path("analysis-history", analyse.analysis_history, name="analysis_history"),
-    
-    
-    #-------------------------------Solution-------------------------------
+    # -------------------------------Solution-------------------------------
     path("solution", solution.solution, name="solution"),
     path(
         "save-solution",
@@ -99,9 +86,7 @@ urlpatterns = [
         solution.delete_solution,
         name="solution_delete",
     ),
-    
-    
-    #-------------------------------Reactant-------------------------------
+    # -------------------------------Reactant-------------------------------
     path("reactant", reactant.reactant, name="reactant"),
     path("save-reactant", reactant.save_reactant, name="create_reactant"),
     path(
@@ -114,20 +99,20 @@ urlpatterns = [
         reactant.delete_reactant,
         name="reactant_delete",
     ),
-    
-    
-    #-------------------------------Client-------------------------------
+    # -------------------------------Client-------------------------------
     path("client", client.client, name="client"),
     path("create-client", client.create_client, name="create_client"),
     path("update-client/<str:id>", client.update_client, name="update_client"),
     path("client-details/<str:id>", client.client_details, name="client_details"),
     path("delete-client/<str:id>", client.delete_client, name="delete_client"),
-    
-    
-    #-------------------------------Order-------------------------------
+    # -------------------------------Order-------------------------------
     path("order", order.order, name="order"),
     path("create-order", order.create_order, name="create_order"),
     path("update-order/<str:id>", order.update_order, name="update_order"),
     path("delete-order/<str:id>", order.delete_order, name="delete_order"),
-    
+    path("blood-order-quantity/<str:id>", order.BloodQantityOrderDetatils, name="blood_quantity"),
+    path("blood-order-requests", order.order_request, name="order_requests"),
+    path("blood-order-decision/<str:id>", order.blood_order_decision, name="order_decision"),
+    path("blood-order-history", order.blood_order_history, name="order_history"),
+    path("blood-order-history-decision/<int:id>", order.blood_history_decision, name="order_history_decision"),
 ]
