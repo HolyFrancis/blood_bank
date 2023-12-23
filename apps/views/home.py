@@ -44,16 +44,15 @@ def home(request):
         gr = None
         cps = None
         pfc = None
-        pass
         
-        gr_count = PSL.objects.filter(type_psl=gr).count()
-        cps_count = PSL.objects.filter(type_psl=cps).count()
-        pfc_count = PSL.objects.filter(type_psl=pfc).count()
-        
-        psls = PSL.objects.all()
-        psls_gr = PSL.objects.filter(type_psl=gr)
-        psls_pfc = PSL.objects.filter(type_psl=pfc)
-        psls_cps = PSL.objects.filter(type_psl=cps)
+    gr_count = PSL.objects.filter(type_psl=gr).count()
+    cps_count = PSL.objects.filter(type_psl=cps).count()
+    pfc_count = PSL.objects.filter(type_psl=pfc).count()
+    
+    psls = PSL.objects.all()
+    psls_gr = PSL.objects.filter(type_psl=gr)
+    psls_pfc = PSL.objects.filter(type_psl=pfc)
+    psls_cps = PSL.objects.filter(type_psl=cps)
     
     def counts(modelObject):
         a_plus_bags = 0
@@ -197,6 +196,7 @@ def home(request):
         'gr_count':gr_count, 
         'cps_count':cps_count,
         'pfc_count':pfc_count,
+        
         'psls_bags_count':psls_bags_count,
         'gr_bags_count':gr_bags_count,
         'pfc_bags_count':pfc_bags_count,

@@ -9,16 +9,37 @@ from apps.filters import PSLFilter
 
 
 def psl(request):
+    try:
+        gr = Type_PSL.objects.get(name='GR')
+        cps = Type_PSL.objects.get(name='CPS')
+        pfc = Type_PSL.objects.get(name='PFC')
+    except Type_PSL.DoesNotExist:
+        gr = None
+        cps = None
+        pfc = None
+        
+    gr_count = PSL.objects.filter(type_psl=gr).count()
+    cps_count = PSL.objects.filter(type_psl=cps).count()
+    pfc_count = PSL.objects.filter(type_psl=pfc).count()
+    
     psl = PSL.objects.all()
     types = Type_PSL.objects.all()
     filtre = PSLFilter(request.GET, queryset=psl)
     psl = filtre.qs
     
-    context = {"psls": psl, "types":types, "filtre": filtre}
+    context = {
+        "psls": psl, 
+        "types":types, 
+        "filtre": filtre,
+        'gr_count':gr_count, 
+        'cps_count':cps_count,
+        'pfc_count':pfc_count,
+        }
 
     return render(request, "apps/psl/psl.html", context)
 
 def create_psl(request, id):
+    create = True
     blood = Blood.objects.get(id=id)
     
     of = request.GET.get("of")
@@ -78,12 +99,13 @@ def create_psl(request, id):
                     messages.error(request, p.serial + " existe déjà!")
             print(form.errors)
             
-    context = {'form':form, 'of':of}
+    context = {'form':form, 'of':of, 'create':create}
     
     return render(request, "apps/psl/create_psl.html", context)
 
 
 def update_psl(request, id):
+    create = False
     psl = PSL.objects.get(id=id)
 
     form = PslForm(instance=psl)
@@ -98,7 +120,7 @@ def update_psl(request, id):
         else:
             return form.errors
 
-    context = {"form": form, "psls": psl}
+    context = {"form": form, "psls": psl, 'create':create}
 
     return render(request, "apps/psl/create_psl.html", context)
 
@@ -120,6 +142,7 @@ def psl_delete(request, id):
 
 
 def create_type(request):
+    create = True
     form = TypepslForm()
 
     if request.method == "POST":
@@ -137,11 +160,12 @@ def create_type(request):
                     messages.error(request, typ['name'] + " existe déjà!")
             print(form.errors)
     
-    context = {"form": form}
+    context = {"form": form, "create":create}
     return render(request, "apps/psl/create_type.html", context)
     
             
 def update_type(request, id):
+    create = False
     typ = Type_PSL.objects.get(id=id)
     
     form = TypepslForm(instance=typ)
@@ -161,7 +185,7 @@ def update_type(request, id):
                     messages.error(request, ty.name + " existe déjà!")
             print(form.errors)
     
-    context = {"form": form}
+    context = {"form": form, "create":create}
     return render(request, "apps/psl/create_type.html", context)
 
 
