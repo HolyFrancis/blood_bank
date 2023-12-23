@@ -1,0 +1,45 @@
+{% extends "apps/layouts/main.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xl-12 mx-auto">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="border p-3 rounded">
+                        <div class="card card-outline-secondary p-2">
+                            <h5 class="mb-0 text-uppercase">Informations Détaillées sur la quatité du sang selon les groupes sanguins</h5>
+                            <hr />
+                            <div class="col-6">
+                                <p class="form-label">Groupe sanguin A+ : {{order.quantity_A_plus}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Groupe sanguin A- : {{order.quantity_A_m}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Groupe sanguin B+ : {{order.quantity_B_plus}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Groupe sanguin B- : {{order.quantity_B_m}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Groupe sanguin AB+ : {{order.quantity_AB_plus}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="form-label">Groupe sanguin AB- : {{order.quantity_AB_m}}</p>
+                            </div>
+                            <div class="col-12">
+                                <p class="form-label">Groupe sanguin O+ : {{order.quantity_O_plus}}</p>
+                            </div>
+                            <div class="col-12">
+                                <p class="form-label">Groupe sanguin O- : {{order.quantity_O_m}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
