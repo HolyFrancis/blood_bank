@@ -28,4 +28,6 @@ class DonorForm(ModelForm):
         self.fields['anemia'].widget.attrs.update({'class':'form-check-input'})
         self.fields['infections'].widget.attrs.update({'class':'form-check-input'})
         self.fields['examens'].widget.attrs.update({'class':'form-check-input'})
-        self.fields['status'].widget.attrs.update({'class':'form-select'})
+        self.fields['email'].widget.attrs.update({'class':'form-control'})
+        self.fields['phone'].widget.attrs.update({'class':'form-control', 'placeholder':'Numéro de Téléphone'})
+        self.fields['status'].widget.attrs.update({'class':'form-select', 'placeholder':'Adresse mail'})

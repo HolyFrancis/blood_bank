@@ -58,15 +58,22 @@
           <thead class="table-light">
             <tr>
               <th>ID</th>
+              <th>Actions</th>
               <th>Nom</th>
               <th>Description</th>
-              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {% for solution in solutions %}
             <tr>
               <td>{{solution.id}}</td>
+              <td>
+                  <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                  <a href="{% url 'update_solution' solution.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                      title="Edit"><i class="bi bi-pencil-fill"></i></a>
+                  <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer la solution {{solution.name}} ?')" href="{% url 'solution_delete' solution.id %}"><i class="bi bi-trash-fill"></i></a>
+                  </div>
+              </td>
               <td>
                 <div class="d-flex align-items-center gap-3 cursor-pointer">
                   <div class="">
@@ -81,13 +88,6 @@
                   </div>
                 </div>
               </td>
-                <td>
-                    <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                    <a href="{% url 'update_solution' solution.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                        title="Edit"><i class="bi bi-pencil-fill"></i></a>
-                    <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer la solution {{solution.name}} ?')" href="{% url 'solution_delete' solution.id %}"><i class="bi bi-trash-fill"></i></a>
-                    </div>
-                </td>
             </tr>
             {% endfor %}
           </tbody>

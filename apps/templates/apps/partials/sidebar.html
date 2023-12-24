@@ -12,6 +12,7 @@
             <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboards">
                 <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-dashboards" type="button"><i class="bi bi-house-door-fill"></i></button>
             </li>
+            {% if ingroups %}
             <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Requests">
                 <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-requests" type="button"><i class="bi bi-bell-fill"></i></button>
             </li>
@@ -21,6 +22,7 @@
             <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Users">
                 <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-users" type="button"><i class="bi bi-people-fill"></i></button>
             </li>
+            {% endif %}
         </ul>
 
     </div>
@@ -43,6 +45,7 @@
                     </div>
 
                     <a href="{% url 'home' %}" class="list-group-item"><i class="bi bi-house"></i>Accueil</a>
+                    {% if ingroups %}
                     <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-file-person"></i>Donneurs</a>
                     <a href="{% url 'transfusion' %}" class="list-group-item"><i class="bi bi-heart-pulse"></i>Prélèvements</a>
                     <a href="{% url 'analyse' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
@@ -50,6 +53,7 @@
                     <a href="{% url 'psl' %}" class="list-group-item"><i class="bi bi-bag-heart"></i>Produits Sanguins Labiles</a>
                     <a href="{% url 'client' %}" class="list-group-item"><i class="bi bi-person-rolodex"></i>Clients</a>
                     <a href="{% url 'order' %}" class="list-group-item"><i class="bi bi-list-ul"></i>Commandes</a>
+                    {% endif %}
                 </div>
             </div>
 
@@ -66,6 +70,7 @@
                     <a href="{% url 'request_analysis' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
                     <a href="{% url 'blood_request' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Centrifugation</a>
                     <a href="{% url 'order_requests' %}" class="list-group-item"><i class="bi bi-list-ul"></i>Commandes</a>
+                    <a href="{% url 'user_requests' %}" class="list-group-item"><i class="bi bi-people"></i>Utilisateurs</a>
                 </div>
             </div>
 

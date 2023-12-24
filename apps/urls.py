@@ -8,8 +8,11 @@ urlpatterns = [
     path("login", user.loginview, name="login"),
     path("register", user.register, name="register"),
     path("logout", user.logoutview, name="logout"),
+    
     path("users", user.users, name="users"),
+    path("user-requests", user.user_requests, name="user_requests"),
     path("settings", user.settings, name="settings"),
+    
     path(
         "reset_password/",
         auth_views.PasswordResetView.as_view(template_name="apps/user/reset_password.html"),
