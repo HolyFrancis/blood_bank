@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 
 from apps.forms import PslForm, TypepslForm
 from apps.models import PSL, Type_PSL, Blood
@@ -8,7 +9,9 @@ from apps.filters import PSLFilter
 #TODO: Set calculation on durée de conservation and set default values for volume
 
 
+@login_required(login_url="login")
 def psl(request):
+    ingroups = request.user.groups.exists()
     try:
         gr = Type_PSL.objects.get(name='GR')
         cps = Type_PSL.objects.get(name='CPS')
@@ -27,7 +30,7 @@ def psl(request):
     filtre = PSLFilter(request.GET, queryset=psl)
     psl = filtre.qs
     
-    context = {
+    context = {'ingroups':ingroups, 
         "psls": psl, 
         "types":types, 
         "filtre": filtre,
@@ -38,7 +41,9 @@ def psl(request):
 
     return render(request, "apps/psl/psl.html", context)
 
+@login_required(login_url="login")
 def create_psl(request, id):
+    ingroups = request.user.groups.exists()
     create = True
     blood = Blood.objects.get(id=id)
     
@@ -66,7 +71,7 @@ def create_psl(request, id):
             psl = form.save(commit=False)
             if of == 'gr':
                 if psl.solution == None:
-                    context = {"form": form, 'of':of}
+                    context = {'ingroups':ingroups, "form": form, 'of':of}
                     messages.error(request, "Veuillez choisir une solution avant de continuer!")
                     return render(request, "apps/psl/create_psl.html", context)
                 psl.duration = psl.solution.duration
@@ -99,12 +104,13 @@ def create_psl(request, id):
                     messages.error(request, p.serial + " existe déjà!")
             print(form.errors)
             
-    context = {'form':form, 'of':of, 'create':create}
+    context = {'ingroups':ingroups, 'form':form, 'of':of, 'create':create}
     
     return render(request, "apps/psl/create_psl.html", context)
 
-
+@login_required(login_url="login")
 def update_psl(request, id):
+    ingroups = request.user.groups.exists()
     create = False
     psl = PSL.objects.get(id=id)
 
@@ -120,28 +126,32 @@ def update_psl(request, id):
         else:
             return form.errors
 
-    context = {"form": form, "psls": psl, 'create':create}
+    context = {'ingroups':ingroups, "form": form, "psls": psl, 'create':create}
 
     return render(request, "apps/psl/create_psl.html", context)
 
-
+@login_required(login_url="login")
 def psl_details(request, id):
+    ingroups = request.user.groups.exists()
     psl = PSL.objects.get(id=id)
     blood = psl.blood
     
-    context = {"psl":psl, "blood":blood}
+    context = {'ingroups':ingroups, "psl":psl, "blood":blood}
     
     return render(request, "apps/psl/psl-details.html", context)
 
+@login_required(login_url="login")
 def psl_delete(request, id):
+    ingroups = request.user.groups.exists()
     psl = PSL.objects.get(id=id)
     psl.delete()
     messages.success(request, "PSL supprimé avec succès")
 
     return redirect("psl")
 
-
+@login_required(login_url="login")
 def create_type(request):
+    ingroups = request.user.groups.exists()
     create = True
     form = TypepslForm()
 
@@ -160,11 +170,12 @@ def create_type(request):
                     messages.error(request, typ['name'] + " existe déjà!")
             print(form.errors)
     
-    context = {"form": form, "create":create}
+    context = {'ingroups':ingroups, "form": form, "create":create}
     return render(request, "apps/psl/create_type.html", context)
     
-            
+@login_required(login_url="login")          
 def update_type(request, id):
+    ingroups = request.user.groups.exists()
     create = False
     typ = Type_PSL.objects.get(id=id)
     
@@ -185,11 +196,12 @@ def update_type(request, id):
                     messages.error(request, ty.name + " existe déjà!")
             print(form.errors)
     
-    context = {"form": form, "create":create}
+    context = {'ingroups':ingroups, "form": form, "create":create}
     return render(request, "apps/psl/create_type.html", context)
 
-
+@login_required(login_url="login")
 def delete_type(request, id):
+    ingroups = request.user.groups.exists()
     typ = Type_PSL.objects.get(id=id)
     typ.delete()
     messages.success(request, "Type de PSL supprimé avec succès")

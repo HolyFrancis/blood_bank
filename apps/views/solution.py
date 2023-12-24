@@ -1,18 +1,22 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 
 from apps.models import Solution
 from apps.forms import SolutionForm
 
+@login_required(login_url="login")
 def solution(request):
+    ingroups = request.user.groups.exists()
     products = Solution.objects.all()
     solutions = Solution.objects.all()
-    context = {"solutions": solutions}
+    context = {'ingroups':ingroups, "solutions": solutions}
 
     return render(request, "apps/solution/solution.html", context)
 
-
+@login_required(login_url="login")
 def save_solution(request):
+    ingroups = request.user.groups.exists()
     create = True
     form = SolutionForm()
 
@@ -26,11 +30,12 @@ def save_solution(request):
         else:
             print(form.errors)
 
-    context = {"form": form, "create":create}
+    context = {'ingroups':ingroups, "form": form, "create":create}
     return render(request, "apps/solution/create_solution.html", context)
 
-
+@login_required(login_url="login")
 def update_solution(request, id):
+    ingroups = request.user.groups.exists()
     create = False
     product_type = Solution.objects.get(id=id)
     form = SolutionForm(instance=product_type)
@@ -43,12 +48,13 @@ def update_solution(request, id):
             messages.success(request, item['name'] + " modifié avec succès")
         return redirect("solution")
 
-    context = {"form": form, "solution": product_type, "create":create}
+    context = {'ingroups':ingroups, "form": form, "solution": product_type, "create":create}
 
     return render(request, "apps/solution/create_solution.html", context)
 
-
+@login_required(login_url="login")
 def delete_solution(request, id):
+    ingroups = request.user.groups.exists()
     solution = Solution.objects.get(id=id)
     solution.delete()
     messages.success(request, "Solution supprimé avec succès")

@@ -1,12 +1,14 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 
 from apps.forms import BloodForm
 from apps.models import Blood, Donor
 from apps.filters import BloodFilter
 
-
+@login_required(login_url="login")
 def blood(request):
+    ingroups = request.user.groups.exists()
     bloods = Blood.objects.all()
     bloods_count = bloods.all().count()
     eligible_bloods = bloods.filter(state='Eligible').count()
@@ -25,7 +27,7 @@ def blood(request):
     filtre = BloodFilter(request.GET, queryset=bloods)
     bloods = filtre.qs
     
-    context = {
+    context = {'ingroups':ingroups, 
         "bloods": bloods, 
         "accepted":accepted, 
         "filtre":filtre,
@@ -40,8 +42,9 @@ def blood(request):
 
     return render(request, "apps/transfusion/transfusion.html", context)
 
-
+@login_required(login_url="login")
 def create_blood(request, id):
+    ingroups = request.user.groups.exists()
     create = True
     donor = Donor.objects.get(id=id)
     form = BloodForm(initial={'donor':donor})
@@ -63,11 +66,12 @@ def create_blood(request, id):
                     messages.error(request, "L'échantillon saisi existe déjà!")
             print(form.errors)
 
-    context = {"form": form, "donor":donor, 'create':create}
+    context = {'ingroups':ingroups, "form": form, "donor":donor, 'create':create}
     return render(request, "apps/transfusion/create_transfusion.html", context)
 
-
+@login_required(login_url="login")
 def update_blood(request, id):
+    ingroups = request.user.groups.exists()
     create = False
     blood = Blood.objects.get(pk=id)
     form = BloodForm(instance=blood)
@@ -87,36 +91,41 @@ def update_blood(request, id):
                     messages.error(request, "L'échantillon saisi existe déjà!")
 
     return render(
-        request, "apps/transfusion/create_transfusion.html", context={"form": form, 'create':create}
+        request, "apps/transfusion/create_transfusion.html", context={'ingroups':ingroups,"form": form, 'create':create}
     )
 
-
+@login_required(login_url="login")
 def blood_details(request, id):
+    ingroups = request.user.groups.exists()
     blood = Blood.objects.get(pk=id)
     return render(
-        request, "apps/transfusion/transfusion_details.html", {"blood": blood}
+        request, "apps/transfusion/transfusion_details.html", {'ingroups':ingroups,"blood": blood}
     )
 
-
+@login_required(login_url="login")
 def blood_delete(request, id):
+    ingroups = request.user.groups.exists()
     blood = Blood.objects.get(pk=id)
     blood.delete()
     messages.success(request, "La transfusion sanguine a été supprimée avec succès")
     return redirect("transfusion")
 
-
+@login_required(login_url="login")
 def blood_request(request):
+    ingroups = request.user.groups.exists()
     bloods = Blood.objects.filter(centrifuged=False, analysed=True, state='Eligible').exclude(gr=True, pfc=True, cps=True)
     
-    context = {"bloods": bloods}
+    context = {'ingroups':ingroups, "bloods": bloods}
     
     return render(request, "apps/transfusion/requests.html", context)
 
+@login_required(login_url="login")
 def blood_history(request):
+    ingroups = request.user.groups.exists()
     centrifuged = Blood.objects.filter(centrifuged=True)
     
     blood_psls={}
     
-    context = {'centrifuged':centrifuged, 'blood_psls':blood_psls}
+    context = {'ingroups':ingroups, 'centrifuged':centrifuged, 'blood_psls':blood_psls}
     
     return render(request, "apps/transfusion/history.html", context)

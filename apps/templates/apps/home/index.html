@@ -12,15 +12,18 @@
       </ol>
     </nav>
   </div>
+  {% if ingroups %}
   <div class="ms-auto">
     <div class="btn-group">
       <a class="btn btn-primary" href="{% url 'create_donor' %}" class="link-light"><i class="bi bi-plus-circle"></i>
         Ajouter un Donneur</a>
     </div>
   </div>
+  {% endif %}
 </div>
 <!--end breadcrumb-->
 
+{% if ingroups %}
 <h6 class="mb-0 text-uppercase">Donneurs</h6>
 <hr>
 <div class="row">
@@ -103,7 +106,6 @@
     </div>
   </div>
 </div>
-
 
 <h6 class="mb-0 text-uppercase">Poches de sang total</h6>
 <hr>
@@ -369,5 +371,14 @@
   </div>
   {% endfor %}
 </div>
+{% else %}
+
+<div class="text-center">
+  <h6 class="text-uppercase">
+    Attendez d'être approuvé par l'administrateur
+  </h6>
+</div>
+
+{% endif %}
 
 {% endblock %}
