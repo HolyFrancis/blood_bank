@@ -8,16 +8,21 @@ from apps.filters import AnalysisFilter
 
 @login_required(login_url="login")
 def analyse(request):
+    ingroups = request.user.groups.exists()
+    ingroups = request.user.groups.exists()
+    
     analyses = Analysis.objects.all()
     filtre = AnalysisFilter(request.GET, queryset=analyses)
     analyses = filtre.qs
     
-    context = {'analyses':analyses, "filtre":filtre}
+    context = {'ingroups':ingroups, 'analyses':analyses, "filtre":filtre}
     
     return render(request, "apps/analyse/analyse.html", context)
 
 @login_required(login_url="login")
 def create_analysis(request, id):
+    ingroups = request.user.groups.exists()
+    
     blood = Blood.objects.get(id=id)
     form = AnalysisForm(initial={'blood':blood})
     
@@ -46,12 +51,14 @@ def create_analysis(request, id):
         else:
             print(form.errors)
     
-    context = {"form":form, "blood":blood}
+    context = {'ingroups':ingroups, "form":form, "blood":blood}
     
     return render(request, "apps/analyse/create_analyse.html", context)
 
 @login_required(login_url="login")
 def update_analysis(request, id):
+    ingroups = request.user.groups.exists()
+    
     analysis = Analysis.objects.get(id=id)
     blood = Blood.objects.get(id=analysis.blood)
     
@@ -67,20 +74,24 @@ def update_analysis(request, id):
         else:
             return form.errors
     
-    context = {"form":form, 'analysis':analysis}
+    context = {'ingroups':ingroups, "form":form, 'analysis':analysis}
     
     return render(request, "apps/analyse/create_analyse.html", context)
 
 @login_required(login_url="login")
 def analysis_details(request, id):
+    ingroups = request.user.groups.exists()
+    
     analysis = Analysis.objects.get(id=id)
     
-    context = {'analysis':analysis}
+    context = {'ingroups':ingroups, 'analysis':analysis}
     
     return render(request, "apps/analyse/details.html", context)
 
 @login_required(login_url="login")
 def delete_analysis(request, id):
+    ingroups = request.user.groups.exists()
+    
     analysis = Analysis.objects.get(id=id)
     analysis.delete()
     messages.success(request, "Analyse supprimée avec succès")
@@ -89,16 +100,18 @@ def delete_analysis(request, id):
 
 @login_required(login_url="login")
 def request_analysis(request):
+    ingroups = request.user.groups.exists()
     bloods = Blood.objects.filter(analysed=False)
     
-    context = {'bloods':bloods}
+    context = {'ingroups':ingroups, 'bloods':bloods}
     
     return render(request, "apps/analyse/requests.html", context)
 
 @login_required(login_url="login")
 def analysis_history(request):
+    ingroups = request.user.groups.exists()
     analyses = Analysis.objects.all()
     
-    context = {'analyses':analyses}
+    context = {'ingroups':ingroups, 'analyses':analyses}
     
     return render(request, "apps/analyse/history.html", context)
