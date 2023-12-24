@@ -2,6 +2,47 @@ from django.shortcuts import redirect, render
 
 from apps.models import Donor, Blood, PSL, Type_PSL
 
+def counts(modelObject):
+    a_plus_bags = 0
+    b_plus_bags = 0
+    ab_plus_bags = 0
+    o_plus_bags = 0
+    a_minus_bags = 0
+    b_minus_bags = 0
+    ab_minus_bags = 0
+    o_minus_bags = 0
+    
+    for psl in modelObject:
+        if psl.blood.donor.blood_group == 'A+':
+            a_plus_bags = a_plus_bags + 1
+        elif psl.blood.donor.blood_group == 'B+':
+            b_plus_bags = b_plus_bags + 1
+        elif psl.blood.donor.blood_group == 'AB+':
+            ab_plus_bags = ab_plus_bags + 1
+        elif psl.blood.donor.blood_group == 'O+':
+            o_plus_bags = o_plus_bags + 1
+        elif psl.blood.donor.blood_group == 'A-':
+            a_minus_bags = a_minus_bags + 1
+        elif psl.blood.donor.blood_group == 'B-':
+            b_minus_bags = b_minus_bags + 1
+        elif psl.blood.donor.blood_group == 'AB-':
+            ab_minus_bags = ab_minus_bags + 1
+        elif psl.blood.donor.blood_group == 'O-':
+            o_minus_bags = o_minus_bags + 1
+        
+    bags_counts = {
+        'A+':a_plus_bags,
+        'B+':b_plus_bags,
+        'AB+':ab_plus_bags,
+        'O+':o_plus_bags,
+        'A-':a_minus_bags,
+        'B-':b_minus_bags,
+        'AB-':ab_minus_bags,
+        'O-':o_minus_bags,
+    }        
+        
+    return bags_counts
+
 def home(request):
     #--------------------------------------Donors Stats----------------------------------------
 
@@ -45,132 +86,18 @@ def home(request):
         cps = None
         pfc = None
         
-    gr_count = PSL.objects.filter(type_psl=gr).count()
-    cps_count = PSL.objects.filter(type_psl=cps).count()
-    pfc_count = PSL.objects.filter(type_psl=pfc).count()
+    gr_count = PSL.objects.filter(type_psl=gr, dispo=True).count()
+    cps_count = PSL.objects.filter(type_psl=cps, dispo=True).count()
+    pfc_count = PSL.objects.filter(type_psl=pfc,dispo=True).count()
+    
+    indispo_gr_count = PSL.objects.filter(type_psl=gr, dispo=False).count()
+    indispo_cps_count = PSL.objects.filter(type_psl=cps, dispo=False).count()
+    indispo_pfc_count = PSL.objects.filter(type_psl=pfc, dispo=False).count()
     
     psls = PSL.objects.all()
     psls_gr = PSL.objects.filter(type_psl=gr)
     psls_pfc = PSL.objects.filter(type_psl=pfc)
     psls_cps = PSL.objects.filter(type_psl=cps)
-    
-    def counts(modelObject):
-        a_plus_bags = 0
-        b_plus_bags = 0
-        ab_plus_bags = 0
-        o_plus_bags = 0
-        a_minus_bags = 0
-        b_minus_bags = 0
-        ab_minus_bags = 0
-        o_minus_bags = 0
-        
-        a_plus_gr_bags = 0
-        b_plus_gr_bags = 0
-        ab_plus_gr_bags = 0
-        o_plus_gr_bags = 0
-        a_minus_gr_bags = 0
-        b_minus_gr_bags = 0
-        ab_minus_gr_bags = 0
-        o_minus_gr_bags = 0
-        
-        a_plus_pfc_bags = 0
-        b_plus_pfc_bags = 0
-        ab_plus_pfc_bags = 0
-        o_plus_pfc_bags = 0
-        a_minus_pfc_bags = 0
-        b_minus_pfc_bags = 0
-        ab_minus_pfc_bags = 0
-        o_minus_pfc_bags = 0
-        
-        a_plus_cps_bags = 0
-        b_plus_cps_bags = 0
-        ab_plus_cps_bags = 0
-        o_plus_cps_bags = 0
-        a_minus_cps_bags = 0
-        b_minus_cps_bags = 0
-        ab_minus_cps_bags = 0
-        o_minus_cps_bags = 0
-        
-        for psl in modelObject:
-            if psl.blood.donor.blood_group == 'A+':
-                a_plus_bags = a_plus_bags + 1
-                if psl.type_psl == gr:
-                    a_plus_gr_bags = a_plus_gr_bags + 1
-                elif psl.type_psl == pfc:
-                    a_plus_pfc_bags = a_plus_pfc_bags + 1
-                elif psl.type_psl == cps:
-                    a_plus_cps_bags == a_plus_cps_bags + 1
-            elif psl.blood.donor.blood_group == 'B+':
-                b_plus_bags = b_plus_bags + 1
-                if psl.type_psl == gr:
-                    b_plus_gr_bags = b_plus_gr_bags + 1
-                elif psl.type_psl == pfc:
-                    b_plus_pfc_bags = b_plus_pfc_bags + 1
-                elif psl.type_psl == cps:
-                    b_plus_cps_bags == b_plus_cps_bags + 1
-            elif psl.blood.donor.blood_group == 'AB+':
-                ab_plus_bags = ab_plus_bags + 1
-                if psl.type_psl == gr:
-                    ab_plus_gr_bags = ab_plus_gr_bags + 1
-                elif psl.type_psl == pfc:
-                    ab_plus_pfc_bags = ab_plus_pfc_bags + 1
-                elif psl.type_psl == cps:
-                    ab_plus_cps_bags == ab_plus_cps_bags + 1
-            elif psl.blood.donor.blood_group == 'O+':
-                o_plus_bags = o_plus_bags + 1
-                if psl.type_psl == gr:
-                    o_plus_gr_bags = o_plus_gr_bags + 1
-                elif psl.type_psl == pfc:
-                    o_plus_pfc_bags = o_plus_pfc_bags + 1
-                elif psl.type_psl == cps:
-                    o_plus_cps_bags == o_plus_cps_bags + 1
-            elif psl.blood.donor.blood_group == 'A-':
-                a_minus_bags = a_minus_bags + 1
-                if psl.type_psl == gr:
-                    a_minus_gr_bags = a_minus_gr_bags + 1
-                elif psl.type_psl == pfc:
-                    a_minus_pfc_bags = a_minus_pfc_bags + 1
-                elif psl.type_psl == cps:
-                    a_minus_cps_bags == a_minus_cps_bags + 1
-            elif psl.blood.donor.blood_group == 'B-':
-                b_minus_bags = b_minus_bags + 1
-                if psl.type_psl == gr:
-                    b_minus_gr_bags = b_minus_gr_bags + 1
-                elif psl.type_psl == pfc:
-                    b_minus_pfc_bags = b_minus_pfc_bags + 1
-                elif psl.type_psl == cps:
-                    b_minus_cps_bags == b_minus_cps_bags + 1
-            elif psl.blood.donor.blood_group == 'AB-':
-                ab_minus_bags = ab_minus_bags + 1
-                if psl.type_psl == gr:
-                    ab_minus_gr_bags = ab_minus_gr_bags + 1
-                elif psl.type_psl == pfc:
-                    ab_minus_pfc_bags = ab_minus_pfc_bags + 1
-                elif psl.type_psl == cps:
-                    ab_minus_cps_bags == ab_minus_cps_bags + 1
-            elif psl.blood.donor.blood_group == 'O-':
-                o_minus_bags = o_minus_bags + 1
-                if psl.type_psl == gr:
-                    o_minus_gr_bags = o_minus_gr_bags + 1
-                elif psl.type_psl == pfc:
-                    o_minus_pfc_bags = o_minus_pfc_bags + 1
-                elif psl.type_psl == cps:
-                    o_minus_cps_bags == o_minus_cps_bags + 1
-            
-        bags_counts = {
-            'A+':a_plus_bags,
-            'B+':b_plus_bags,
-            'AB+':ab_plus_bags,
-            'O+':o_plus_bags,
-            'A-':a_minus_bags,
-            'B-':b_minus_bags,
-            'AB-':ab_minus_bags,
-            'O-':o_minus_bags,
-        }        
-        
-        bags_counts_items = bags_counts.items()
-            
-        return bags_counts_items
     
     psls_bags_count = counts(psls)
     gr_bags_count = counts(psls_gr)
@@ -184,6 +111,9 @@ def home(request):
         'eligible_donors':eligible_donors,
         'ineligible_donors':ineligible_donors,
         'pending_donors':pending_donors,
+        'eligible_donors_percent':eligible_donors_percent, 
+        'ineligible_donors_percent':ineligible_donors_percent,
+        'pending_donors_percent':pending_donors_percent,
         
         'bloods_count':bloods_count,
         'eligible_bloods':eligible_bloods,
@@ -197,13 +127,14 @@ def home(request):
         'cps_count':cps_count,
         'pfc_count':pfc_count,
         
-        'psls_bags_count':psls_bags_count,
-        'gr_bags_count':gr_bags_count,
-        'pfc_bags_count':pfc_bags_count,
-        'cps_bags_count':cps_bags_count,
-        'eligible_donors_percent':eligible_donors_percent, 
-        'ineligible_donors_percent':ineligible_donors_percent,
-        'pending_donors_percent':pending_donors_percent,
+        'indispo_gr_count':indispo_gr_count, 
+        'indispo_cps_count':indispo_cps_count,
+        'indispo_pfc_count':indispo_pfc_count,
+        
+        'psls_bags_count':psls_bags_count.items(),
+        'gr_bags_count':gr_bags_count.items(),
+        'pfc_bags_count':pfc_bags_count.items(),
+        'cps_bags_count':cps_bags_count.items(),
         }
     
     return render(request, "apps/home/index.html", context)

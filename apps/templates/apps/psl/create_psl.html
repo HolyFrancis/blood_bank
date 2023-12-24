@@ -75,6 +75,10 @@
                     <label class="form-label">Durée de Conservation</label>
                     {% render_field form.duration class="form-control" placeholder="Durée de Conservation"%}
                 </div>
+                <div class="col-6 d-none">
+                    <label class="form-label">Disponible en Stock</label>
+                    {{form.dispo}}
+                </div>
                 {% if of == 'gr' %}
                 <div class="col-12">
                     <label class="form-label">Solution</label>

@@ -69,7 +69,7 @@
                                     <div class="table-actions d-flex align-items-center gap-3 fs-6">
                                         <a href="{% url 'order_decision' order.id %}?q=confirm" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="Confirm"><i class="bi bi-check-circle-fill"></i></i></a>
-                                    <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reject" onclick="return confirm('Annuler la commande de {{order.client}} ?')" href="{% url 'order_decision' order.id %}q=reject"><i class="bi bi-trash-fill"></i></a>
+                                    <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reject" onclick="return confirm('Annuler la commande de {{order.client}} ?')" href="{% url 'order_decision' order.id %}?q=reject"><i class="bi bi-trash-fill"></i></a>
                                 </div>
                             </td>
                             <td>
