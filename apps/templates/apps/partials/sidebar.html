@@ -45,7 +45,6 @@
                     <a href="{% url 'home' %}" class="list-group-item"><i class="bi bi-house"></i>Accueil</a>
                     <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-file-person"></i>Donneurs</a>
                     <a href="{% url 'transfusion' %}" class="list-group-item"><i class="bi bi-heart-pulse"></i>Prélèvements</a>
-                    <a href="{% url 'reactant' %}" class="list-group-item"><i class="bi bi-highlighter"></i>Réactifs</a>
                     <a href="{% url 'analyse' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
                     <a href="{% url 'solution' %}" class="list-group-item"><i class="bi bi-shop"></i>Solution</a>
                     <a href="{% url 'psl' %}" class="list-group-item"><i class="bi bi-bag-heart"></i>Produits Sanguins Labiles</a>
@@ -64,10 +63,9 @@
                     </div>
 
                     <a href="{% url 'donor_requests' %}" class="list-group-item"><i class="bi bi-person-circle"></i>Donneurs</a>
-                    <a href="{% url 'request_analysis' %}" class="list-group-item"><i class="bi bi-droplet-fill"></i>Analyses</a>
+                    <a href="{% url 'request_analysis' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
                     <a href="{% url 'blood_request' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Centrifugation</a>
-                    <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-droplet"></i>Plaquettes</a>
-                    <a href="{% url "order_requests" %}" class="list-group-item"><i class="bi bi-droplet"></i>Commandes</a>
+                    <a href="{% url 'order_requests' %}" class="list-group-item"><i class="bi bi-list-ul"></i>Commandes</a>
                 </div>
             </div>
 
@@ -81,10 +79,9 @@
                     </div>
 
                     <a href="{% url 'donor_history' %}" class="list-group-item"><i class="bi bi-person-circle"></i>Donneurs</a>
-                    <a href="{% url 'analysis_history' %}" class="list-group-item"><i class="bi bi-droplet-fill"></i>Analyses</a>
+                    <a href="{% url 'analysis_history' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
                     <a href="{% url 'blood_history' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Centrifugations</a>
-                    <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-droplet"></i>Plaquettes</a>
-                    <a href="{% url "order_history" %}" class="list-group-item"><i class="bi bi-droplet"></i>Commandes</a>
+                    <a href="{% url 'order_history' %}" class="list-group-item"><i class="bi bi-list-ul"></i>Commandes</a>
                 </div>
             </div>
 
@@ -96,10 +93,7 @@
                         </div>
                         <small class="mb-0">Ici sont affichés tous les utilisateurs</small>
                     </div>
-
-
                     <a href="{% url 'users' %}" class="list-group-item"><i class="bi bi-people"></i>Utilisateurs</a>
-
                 </div>
             </div>
 

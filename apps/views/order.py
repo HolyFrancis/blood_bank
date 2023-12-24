@@ -1,18 +1,21 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.forms import formset_factory
+from django.contrib.auth.decorators import login_required
 
 from apps.models import Order, Type_PSL, PSL
 from apps.forms import OrderForm, SerialForm
 
 from apps.views.home import counts
 
+
+@login_required(login_url="login")
 def order(request):
     orders = Order.objects.all()
     context = {"orders": orders}
     return render(request, "apps/order/order.html", context)
 
-
+@login_required(login_url="login")
 def create_order(request):
     of = request.GET.get("of")
 
@@ -45,7 +48,7 @@ def create_order(request):
     context = {"form": form, 'type_psl':type_psl.name, 'psls_bags_count':psls_bags_count.items()}
     return render(request, "apps/order/create_order.html", context)
 
-
+@login_required(login_url="login")
 def update_order(request, id):
     order = Order.objects.get(id=id)
 
@@ -62,7 +65,7 @@ def update_order(request, id):
 
     return render(request, "apps/order/create_order.html", context)
 
-
+@login_required(login_url="login")
 def delete_order(request, id):
     order = Order.objects.get(id=id)
     order.delete()
@@ -70,21 +73,21 @@ def delete_order(request, id):
 
     return redirect("order")
 
-
+@login_required(login_url="login")
 def BloodQantityOrderDetatils(request, id):
     blood_order = Order.objects.get(id=id)
 
     context = {"order": blood_order}
     return render(request, "apps/order/quantity_details.html", context)
 
-
+@login_required(login_url="login")
 def order_request(request):
     orders = Order.objects.filter(status="En Attente")
     context = {"orders": orders}
 
     return render(request, "apps/order/order_requests.html", context)
 
-
+@login_required(login_url="login")
 def blood_order_decision(request, id):
     blood_order = Order.objects.get(id=id)
 
@@ -101,7 +104,7 @@ def blood_order_decision(request, id):
 
     return redirect("order_requests")
 
-
+@login_required(login_url="login")
 def blood_order_history(request):
     blood_order = Order.objects.filter(status="Confirmée")
     dorders = Order.objects.filter(status="Délivrée")
@@ -109,7 +112,7 @@ def blood_order_history(request):
 
     return render(request, "apps/order/order_history.html", context)
 
-
+@login_required(login_url="login")
 def blood_history_decision(request, id):
     blood_order = Order.objects.get(id=id)
     dispo_psls = PSL.objects.filter(dispo=True)

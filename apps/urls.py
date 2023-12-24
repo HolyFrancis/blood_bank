@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from apps.views import analyse, client, donor, reactant, home, order, psl, transfusion, solution, user
+from apps.views import analyse, client, donor, home, order, psl, transfusion, solution, user, public
 
 urlpatterns = [
     # -------------------------------User related-------------------------------
@@ -84,19 +84,6 @@ urlpatterns = [
         solution.delete_solution,
         name="solution_delete",
     ),
-    # -------------------------------Reactant-------------------------------
-    path("reactant", reactant.reactant, name="reactant"),
-    path("save-reactant", reactant.save_reactant, name="create_reactant"),
-    path(
-        "update-reactant/<int:id>",
-        reactant.update_reactant,
-        name="update_reactant",
-    ),
-    path(
-        "reactant-delete/<int:id>",
-        reactant.delete_reactant,
-        name="reactant_delete",
-    ),
     # -------------------------------Client-------------------------------
     path("client", client.client, name="client"),
     path("create-client", client.create_client, name="create_client"),
@@ -113,4 +100,6 @@ urlpatterns = [
     path("blood-order-decision/<str:id>", order.blood_order_decision, name="order_decision"),
     path("blood-order-history", order.blood_order_history, name="order_history"),
     path("blood-order-history-decision/<int:id>", order.blood_history_decision, name="order_history_decision"),
+    # -------------------------------Public-------------------------------
+    path("public-home", public.public, name="public"),
 ]

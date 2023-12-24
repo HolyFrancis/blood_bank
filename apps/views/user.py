@@ -3,22 +3,27 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 from apps.forms.user import UserForm, PasswordChangingForm
+from apps.decorators import gohome_if_authenticated
 
 User = get_user_model()
 
+@login_required(login_url="login")
 def users(request):
     context = {}
     
     return render(request, "apps/user/users.html", context)
 
+@login_required(login_url="login")
 def settings(request):
     
     context={}
     
     return render(request, "apps/user/settings.html", context)
 
+@gohome_if_authenticated
 def register(request):
     form = UserForm()
     if request.method == "POST":
@@ -42,7 +47,7 @@ def register(request):
             return redirect("login")
     return render(request, "apps/user/register.html", {"forms": form})
 
-
+@gohome_if_authenticated
 def loginview(request):
     if request.method == "POST":
         username = request.POST["username"]

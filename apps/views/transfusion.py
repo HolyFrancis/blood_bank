@@ -1,11 +1,12 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 
 from apps.forms import BloodForm
 from apps.models import Blood, Donor
 from apps.filters import BloodFilter
 
-
+@login_required(login_url="login")
 def blood(request):
     bloods = Blood.objects.all()
     bloods_count = bloods.all().count()
@@ -40,7 +41,7 @@ def blood(request):
 
     return render(request, "apps/transfusion/transfusion.html", context)
 
-
+@login_required(login_url="login")
 def create_blood(request, id):
     create = True
     donor = Donor.objects.get(id=id)
@@ -66,7 +67,7 @@ def create_blood(request, id):
     context = {"form": form, "donor":donor, 'create':create}
     return render(request, "apps/transfusion/create_transfusion.html", context)
 
-
+@login_required(login_url="login")
 def update_blood(request, id):
     create = False
     blood = Blood.objects.get(pk=id)
@@ -90,21 +91,21 @@ def update_blood(request, id):
         request, "apps/transfusion/create_transfusion.html", context={"form": form, 'create':create}
     )
 
-
+@login_required(login_url="login")
 def blood_details(request, id):
     blood = Blood.objects.get(pk=id)
     return render(
         request, "apps/transfusion/transfusion_details.html", {"blood": blood}
     )
 
-
+@login_required(login_url="login")
 def blood_delete(request, id):
     blood = Blood.objects.get(pk=id)
     blood.delete()
     messages.success(request, "La transfusion sanguine a été supprimée avec succès")
     return redirect("transfusion")
 
-
+@login_required(login_url="login")
 def blood_request(request):
     bloods = Blood.objects.filter(centrifuged=False, analysed=True, state='Eligible').exclude(gr=True, pfc=True, cps=True)
     
@@ -112,6 +113,7 @@ def blood_request(request):
     
     return render(request, "apps/transfusion/requests.html", context)
 
+@login_required(login_url="login")
 def blood_history(request):
     centrifuged = Blood.objects.filter(centrifuged=True)
     
