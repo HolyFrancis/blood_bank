@@ -67,7 +67,7 @@
                                 <td>{{order.id}}</td>
                                 <td>
                                     <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                                        <a href="{% url "order_history_decision" order.id %}?q=delivered" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        <a href="{% url 'order_history_decision' order.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="Mark as delivered"><i class="bi bi-check-circle-fill"></i></i></a>
                                 </div>
                             </td>

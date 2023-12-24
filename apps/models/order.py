@@ -9,7 +9,6 @@ class Order(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     type_psl = models.ForeignKey(Type_PSL, on_delete=models.CASCADE)
     status = models.CharField(max_length=50, choices=STATUS, default=STATUS[0])
-    # quantity = models.IntegerField()
     quantity_A_plus = models.IntegerField(default=0)
     quantity_A_m = models.IntegerField(default=0)
     quantity_B_plus = models.IntegerField(default=0)

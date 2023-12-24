@@ -6,11 +6,46 @@
 
     <div class="row">
         <div class="col-xl-12 mx-auto">
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+                            <div class="d-flex align-items-center">
+                                <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="text-info">{{message}}</div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% else %}
+                        <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                            <div class="d-flex align-items-center">
+                                <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="text-danger">{{message}}</div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
 
             <div class="card">
                 <div class="card-body">
                     <div class="border p-3 rounded">
-                        <h6 class="mb-0 text-uppercase">Nouvel Commande</h6>
+                        <h6 class="mb-0 text-uppercase">Nouvelle Commande de
+                            {% if type_psl == "GR" %}
+                                Globules Rouges
+                            {% elif type_psl == "PFC" %}
+                                Plasma frais congelé
+                            {% elif type_psl == "CPS" %}
+                                Concentré Plaquettaire
+                            {% endif %}
+                        </h6>
                         <hr />
                         <form class="row g-3" method="POST">
                             {% csrf_token %}
@@ -18,43 +53,92 @@
                                 <label class="form-label">Client</label>
                                 {{form.client}}
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 d-none">
                                 <label class="form-label">Produit Sanguin</label>
                                 {{form.type_psl}}
                             </div>
                             <div class="col-6">
-                                <label class="form-label">Quantité pour le groupe sanguin A+</label>
+                                <label class="form-label">Quantité pour le groupe sanguin A+ (Poches disponibles: 
+                                    {% for k,v in psls_bags_count %}
+                                    {% if k == 'A+' %}
+                                    <span style="font-weight: bold;">{{v}}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    )
+                                </label>
                                 {{form.quantity_A_plus}}
                             </div>
                             <div class="col-6">
-                                <label class="form-label">Quantité pour le groupe sanguin A-</label>
+                                <label class="form-label">Quantité pour le groupe sanguin A- (Poches disponibles: 
+                                    {% for k,v in psls_bags_count %}
+                                    {% if k == 'A-' %}
+                                    <span style="font-weight: bold;">{{v}}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    )</label>
                                 {{form.quantity_A_m}}
                             </div>
                             <div class="col-6">
-                                <label class="form-label">Quantité pour le groupe sanguin B+</label>
+                                <label class="form-label">Quantité pour le groupe sanguin B+ (Poches disponibles: 
+                                    {% for k,v in psls_bags_count %}
+                                    {% if k == 'B+' %}
+                                    <span style="font-weight: bold;">{{v}}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    )</label>
                                 {{form.quantity_B_plus}}
                             </div>
                             <div class="col-6">
-                                <label class="form-label">Quantité pour le groupe sanguin B-</label>
+                                <label class="form-label">Quantité pour le groupe sanguin B- (Poches disponibles: 
+                                    {% for k,v in psls_bags_count %}
+                                    {% if k == 'B-' %}
+                                    <span style="font-weight: bold;">{{v}}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    )</label>
                                 {{form.quantity_B_m}}
                             </div>
                             <div class="col-6">
-                                <label class="form-label">Quantité pour le groupe sanguin AB+</label>
+                                <label class="form-label">Quantité pour le groupe sanguin AB+ (Poches disponibles: 
+                                    {% for k,v in psls_bags_count %}
+                                    {% if k == 'AB+' %}
+                                    <span style="font-weight: bold;">{{v}}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    )</label>
                                 {{form.quantity_AB_plus}}
                             </div>
                             <div class="col-6">
-                                <label class="form-label">Quantité pour le groupe sanguin AB-</label>
+                                <label class="form-label">Quantité pour le groupe sanguin AB- (Poches disponibles: 
+                                    {% for k,v in psls_bags_count %}
+                                    {% if k == 'AB-' %}
+                                    <span style="font-weight: bold;">{{v}}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    )</label>
                                 {{form.quantity_AB_m}}
                             </div>
                             <div class="col-6">
-                                <label class="form-label">Quantité pour le groupe sanguin O+</label>
+                                <label class="form-label">Quantité pour le groupe sanguin O+ (Poches disponibles: 
+                                    {% for k,v in psls_bags_count %}
+                                    {% if k == 'O+' %}
+                                    <span style="font-weight: bold;">{{v}}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    )</label>
                                 {{form.quantity_O_plus}}
                             </div>
                             <div class="col-6">
-                                <label class="form-label">Quantité pour le groupe sanguin O-</label>
+                                <label class="form-label">Quantité pour le groupe sanguin O- (Poches disponibles: 
+                                    {% for k,v in psls_bags_count %}
+                                    {% if k == 'O-' %}
+                                    <span style="font-weight: bold;">{{v}}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    )</label>
                                 {{form.quantity_O_m}}
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 d-none">
                                 <label class="form-label">Status</label>
                                 {{form.status}}
                             </div>
