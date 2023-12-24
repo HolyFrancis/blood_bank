@@ -104,7 +104,8 @@ def blood_order_decision(request, id):
 
 def blood_order_history(request):
     blood_order = Order.objects.filter(status="Confirmée")
-    context = {"orders": blood_order}
+    dorders = Order.objects.filter(status="Délivrée")
+    context = {"orders": blood_order, 'dorders':dorders}
 
     return render(request, "apps/order/order_history.html", context)
 
