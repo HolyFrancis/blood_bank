@@ -23,7 +23,7 @@ def create_order(request):
     elif of == "cps":
         type_psl = Type_PSL.objects.get(name="CPS")
         
-    psls = PSL.objects.filter(type_psl=type_psl)
+    psls = PSL.objects.filter(type_psl=type_psl, dispo=True)
     psls_bags_count = counts(psls)
         
     form = OrderForm(initial={"type_psl": type_psl})

@@ -189,7 +189,7 @@
 </div>
 
 
-<h6 class="mb-0 text-uppercase">Produits sanguins labiles</h6>
+<h6 class="mb-0 text-uppercase">Produits sanguins labiles disponibles en stock</h6>
 <hr>
 <div class="row row-cols-1 row-cols-sm-3 row-cols-md-3 row-cols-xl-3 row-cols-xxl-6">
   <div class="col">
@@ -258,6 +258,68 @@
       <div class="card-title mx-auto">
         <a href="{% url 'create_order'%}?of=cps"><button type="button" class="btn btn-outline-warning px-5 radius-30"><i
               class="bi bi-bag-plus"></i>Commander</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h6 class="mb-0 text-uppercase">Produits sanguins labiles vendus</h6>
+<hr>
+<div class="row row-cols-1 row-cols-sm-3 row-cols-md-3 row-cols-xl-3 row-cols-xxl-6">
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-end border-danger border-3">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <h4 class="mb-0 text-danger">{{indispo_gr_count}}</h4>
+            {% if indispo_gr_count == 1 %}
+            <p class="mb-1">Poche de Globules Rouges</p>
+            {% else %}
+            <p class="mb-1">Poches de Globules Rouges</p>
+            {% endif %}
+          </div>
+          <div class="ms-auto widget-icon bg-danger text-white">
+            <i class="bi bi-droplet-half"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-end border-secondary border-3">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <h4 class="mb-0 text-secondary">{{indispo_pfc_count}}</h4>
+            {% if indispo_gr_count == 1 %}
+            <p class="mb-1">Poche de Plasma Frais Congelé</p>
+            {% else %}
+            <p class="mb-1">Poches de Plasma Frais Congelé</p>
+            {% endif %}
+          </div>
+          <div class="ms-auto widget-icon bg-secondary text-white">
+            <i class="bi bi-droplet-half"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-end border-warning border-3">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <h4 class="mb-0 text-warning">{{indispo_cps_count}}</h4>
+            {% if indispo_gr_count == 1 %}
+            <p class="mb-1">Poche de Concentré Plaquettaire</p>
+            {% else %}
+            <p class="mb-1">Poches de Concentré Plaquettaire</p>
+            {% endif %}
+          </div>
+          <div class="ms-auto widget-icon bg-warning text-white">
+            <i class="bi bi-droplet-half"></i>
+          </div>
+        </div>
       </div>
     </div>
   </div>
