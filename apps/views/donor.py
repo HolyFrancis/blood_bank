@@ -1,11 +1,13 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from apps.models import Donor
 from apps.forms import DonorForm
 from apps.filters import DonorFilter
 
 
+@login_required(login_url="login")
 def donor(request):
     donors_count = Donor.objects.all().count()
     eligible_donors = Donor.objects.filter(status = 'Eligible').count()
@@ -36,6 +38,7 @@ def donor(request):
     
     return render(request, "apps/donor/donor.html", context)
 
+@login_required(login_url="login")
 def create_donor(request):
     create = True
     form = DonorForm()
@@ -61,6 +64,7 @@ def create_donor(request):
     
     return render(request, "apps/donor/create_donor.html", context)
 
+@login_required(login_url="login")
 def update_donor(request, id):
     create = False
     donor = Donor.objects.get(id=id)
@@ -85,6 +89,7 @@ def update_donor(request, id):
     
     return render(request, "apps/donor/create_donor.html", context)
 
+@login_required(login_url="login")
 def donor_details(request, id):
     donor = Donor.objects.get(id=id)
     
@@ -92,6 +97,7 @@ def donor_details(request, id):
     
     return render(request, "apps/donor/donor_details.html", context)
 
+@login_required(login_url="login")
 def delete_donor(request, id):
     donor = Donor.objects.get(id=id)
     donor.delete()
@@ -101,6 +107,7 @@ def delete_donor(request, id):
     
     return redirect('donor')
 
+@login_required(login_url="login")
 def donor_requests(request):
     donors = Donor.objects.filter(status='Attente')
     
@@ -108,6 +115,7 @@ def donor_requests(request):
     
     return render(request, "apps/donor/requests.html", context)
 
+@login_required(login_url="login")
 def request_decision(request, id):
     donor = Donor.objects.get(id=id)
     q = request.GET.get("q")
@@ -126,6 +134,7 @@ def request_decision(request, id):
     
     return redirect('donor_requests')
     
+@login_required(login_url="login")
 def donor_history(request):
     accepted = Donor.objects.filter(status='Eligible')
     refused = Donor.objects.filter(status='Ineligible')

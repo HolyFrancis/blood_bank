@@ -1,11 +1,12 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from apps.models import Analysis, Blood
 from apps.forms import AnalysisForm
 from apps.filters import AnalysisFilter
 
-
+@login_required(login_url="login")
 def analyse(request):
     analyses = Analysis.objects.all()
     filtre = AnalysisFilter(request.GET, queryset=analyses)
@@ -15,7 +16,7 @@ def analyse(request):
     
     return render(request, "apps/analyse/analyse.html", context)
 
-
+@login_required(login_url="login")
 def create_analysis(request, id):
     blood = Blood.objects.get(id=id)
     form = AnalysisForm(initial={'blood':blood})
@@ -49,6 +50,7 @@ def create_analysis(request, id):
     
     return render(request, "apps/analyse/create_analyse.html", context)
 
+@login_required(login_url="login")
 def update_analysis(request, id):
     analysis = Analysis.objects.get(id=id)
     blood = Blood.objects.get(id=analysis.blood)
@@ -69,6 +71,7 @@ def update_analysis(request, id):
     
     return render(request, "apps/analyse/create_analyse.html", context)
 
+@login_required(login_url="login")
 def analysis_details(request, id):
     analysis = Analysis.objects.get(id=id)
     
@@ -76,6 +79,7 @@ def analysis_details(request, id):
     
     return render(request, "apps/analyse/details.html", context)
 
+@login_required(login_url="login")
 def delete_analysis(request, id):
     analysis = Analysis.objects.get(id=id)
     analysis.delete()
@@ -83,6 +87,7 @@ def delete_analysis(request, id):
     
     return redirect('analyse')
 
+@login_required(login_url="login")
 def request_analysis(request):
     bloods = Blood.objects.filter(analysed=False)
     
@@ -90,6 +95,7 @@ def request_analysis(request):
     
     return render(request, "apps/analyse/requests.html", context)
 
+@login_required(login_url="login")
 def analysis_history(request):
     analyses = Analysis.objects.all()
     

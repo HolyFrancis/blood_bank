@@ -1,9 +1,11 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 
 from apps.models import Solution
 from apps.forms import SolutionForm
 
+@login_required(login_url="login")
 def solution(request):
     products = Solution.objects.all()
     solutions = Solution.objects.all()
@@ -11,7 +13,7 @@ def solution(request):
 
     return render(request, "apps/solution/solution.html", context)
 
-
+@login_required(login_url="login")
 def save_solution(request):
     create = True
     form = SolutionForm()
@@ -29,7 +31,7 @@ def save_solution(request):
     context = {"form": form, "create":create}
     return render(request, "apps/solution/create_solution.html", context)
 
-
+@login_required(login_url="login")
 def update_solution(request, id):
     create = False
     product_type = Solution.objects.get(id=id)
@@ -47,7 +49,7 @@ def update_solution(request, id):
 
     return render(request, "apps/solution/create_solution.html", context)
 
-
+@login_required(login_url="login")
 def delete_solution(request, id):
     solution = Solution.objects.get(id=id)
     solution.delete()

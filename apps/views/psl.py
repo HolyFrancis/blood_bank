@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 
 from apps.forms import PslForm, TypepslForm
 from apps.models import PSL, Type_PSL, Blood
@@ -8,6 +9,7 @@ from apps.filters import PSLFilter
 #TODO: Set calculation on durée de conservation and set default values for volume
 
 
+@login_required(login_url="login")
 def psl(request):
     try:
         gr = Type_PSL.objects.get(name='GR')
@@ -38,6 +40,7 @@ def psl(request):
 
     return render(request, "apps/psl/psl.html", context)
 
+@login_required(login_url="login")
 def create_psl(request, id):
     create = True
     blood = Blood.objects.get(id=id)
@@ -103,7 +106,7 @@ def create_psl(request, id):
     
     return render(request, "apps/psl/create_psl.html", context)
 
-
+@login_required(login_url="login")
 def update_psl(request, id):
     create = False
     psl = PSL.objects.get(id=id)
@@ -124,7 +127,7 @@ def update_psl(request, id):
 
     return render(request, "apps/psl/create_psl.html", context)
 
-
+@login_required(login_url="login")
 def psl_details(request, id):
     psl = PSL.objects.get(id=id)
     blood = psl.blood
@@ -133,6 +136,7 @@ def psl_details(request, id):
     
     return render(request, "apps/psl/psl-details.html", context)
 
+@login_required(login_url="login")
 def psl_delete(request, id):
     psl = PSL.objects.get(id=id)
     psl.delete()
@@ -140,7 +144,7 @@ def psl_delete(request, id):
 
     return redirect("psl")
 
-
+@login_required(login_url="login")
 def create_type(request):
     create = True
     form = TypepslForm()
@@ -163,7 +167,7 @@ def create_type(request):
     context = {"form": form, "create":create}
     return render(request, "apps/psl/create_type.html", context)
     
-            
+@login_required(login_url="login")          
 def update_type(request, id):
     create = False
     typ = Type_PSL.objects.get(id=id)
@@ -188,7 +192,7 @@ def update_type(request, id):
     context = {"form": form, "create":create}
     return render(request, "apps/psl/create_type.html", context)
 
-
+@login_required(login_url="login")
 def delete_type(request, id):
     typ = Type_PSL.objects.get(id=id)
     typ.delete()

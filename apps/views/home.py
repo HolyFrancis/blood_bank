@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 
 from apps.models import Donor, Blood, PSL, Type_PSL
 
@@ -43,6 +44,7 @@ def counts(modelObject):
         
     return bags_counts
 
+@login_required(login_url="public")
 def home(request):
     #--------------------------------------Donors Stats----------------------------------------
 
