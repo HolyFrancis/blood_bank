@@ -5,11 +5,6 @@ from apps.forms import DonorForm
 from apps.models import Donor
 
 def public(request):
-    role = request.user.role    
-    if role is None:
-        ingroups = False
-    else:
-        ingroups = True
      
     form = DonorForm()
     if request.method == "POST":
@@ -26,6 +21,6 @@ def public(request):
                 if don.cni == donor['cni']:
                     messages.error(request, "Un donneur avec la CNI saisie saisie existe déjà!")
     
-    context = {'ingroups':ingroups, 'form':form}
+    context = {'form':form}
     
     return render(request, "apps/public/index.html", context)
