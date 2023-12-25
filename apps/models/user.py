@@ -7,7 +7,7 @@ class Users(AbstractUser):
         ('Admin','Admin'), 
         ('Client','Client'),
         ('Docteur','Docteur'),
-        ('gcc','Gestionnaire'),
+        ('Gestionnaire','Gestionnaire'),
         ('Laborantin','Laborantin'),
         ('Infirmier(e)','Infirmier(e)')
         )
