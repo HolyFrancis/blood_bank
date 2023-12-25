@@ -16,13 +16,22 @@ def users(request):
     ingroups = request.user.groups.exists()
     users = User.objects.all()
     
-    groupusers = []
+    groupusers = {}
+    
+    admins = Group.objects.get(name='admins')
+    doctors = Group.objects.get(name='doctors')
+    gcc = Group.objects.get(name='gcc')
+    client = Group.objects.get(name='client')
+    laborantin = Group.objects.get(name='laborantin')
+    nurse = Group.objects.get(name='nurse')
     
     for user in users:
         if user.groups.exists() is True:
-            groupusers.append(user)
+            groupusers.update({user:user.groups.all()})
     
-    context = {'ingroups':ingroups, 'users':groupusers}
+    groupusers = groupusers.items()
+    
+    context = {'ingroups':ingroups, 'users':groupusers, 'admins':admins, 'doctors':doctors, 'gcc':gcc, 'client':client, 'laborantin':laborantin, 'nurse':nurse}
     
     return render(request, "apps/user/users.html", context)
 

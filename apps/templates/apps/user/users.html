@@ -59,10 +59,11 @@
               <th>Prénom</th>
               <th>Email</th>
               <th>Téléphone</th>
+              <th>Rôle</th>
             </tr>
           </thead>
           <tbody>
-            {% for user in users %}
+            {% for user, groups in users %}
             <tr>
               <td>{{user.id}}</td>
               <td>
@@ -102,6 +103,27 @@
                 <div class="d-flex align-items-center gap-3 cursor-pointer">
                   <div class="">
                     <p class="mb-0">{{user.phone_number}}</p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3 cursor-pointer">
+                  <div class="">
+                    {% for group in groups %}
+                    {% if group == admins %}
+                    <p class="mb-0">Admin</p>
+                    {% elif group == client %}
+                    <p class="mb-0">Client</p>
+                    {% elif group == doctors %}
+                    <p class="mb-0">Docteur</p>
+                    {% elif group == gcc %}
+                    <p class="mb-0">Gestionnaire</p>
+                    {% elif group == laborantin %}
+                    <p class="mb-0">Laborantin</p>
+                    {% elif group == nurse %}
+                    <p class="mb-0">Infirmier</p>
+                    {% endif %}
+                    {% endfor %}
                   </div>
                 </div>
               </td>
