@@ -34,7 +34,7 @@ def analyse(request):
     return render(request, "apps/analyse/analyse.html", context)
 
 @login_required(login_url="login")
-@allowed_users(['Admin, Laborantin'])
+@allowed_users(['Laborantin'])
 def create_analysis(request, id):
     role = request.user.role    
     if role is None:
@@ -76,7 +76,7 @@ def create_analysis(request, id):
     return render(request, "apps/analyse/create_analyse.html", context)
 
 @login_required(login_url="login")
-@allowed_users(['Admin, Laborantin'])
+@allowed_users(['Laborantin'])
 def update_analysis(request, id):
     role = request.user.role    
     if role is None:
@@ -121,14 +121,8 @@ def analysis_details(request, id):
     return render(request, "apps/analyse/details.html", context)
 
 @login_required(login_url="login")
-@allowed_users(["Admin, Laborantin"])
-def delete_analysis(request, id):
-    role = request.user.role    
-    if role is None:
-        ingroups = False
-    else:
-        ingroups = True
-     
+@allowed_users(["Laborantin"])
+def delete_analysis(request, id):    
     
     analysis = Analysis.objects.get(id=id)
     analysis.delete()
@@ -137,7 +131,7 @@ def delete_analysis(request, id):
     return redirect('analyse')
 
 @login_required(login_url="login")
-@allowed_users(['Admin, Laborantin'])
+@allowed_users(['Laborantin'])
 def request_analysis(request):
     role = request.user.role    
     if role is None:
@@ -152,7 +146,7 @@ def request_analysis(request):
     return render(request, "apps/analyse/requests.html", context)
 
 @login_required(login_url="login")
-@allowed_users(['Admin, Laborantin'])
+@allowed_users(['Laborantin'])
 def analysis_history(request):
     role = request.user.role    
     if role is None:

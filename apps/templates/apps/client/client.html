@@ -14,11 +14,13 @@
         </ol>
       </nav>
     </div>
+    {% if request.user.role == 'Admin' %}
     <div class="ms-auto">
       <div class="btn-group">
         <a class="btn btn-primary" href="{% url 'create_client' %}" class="link-light"><i class="bi bi-plus-circle"></i> Ajouter un Client</a>
       </div>
     </div>
+    {% endif %}
   </div>
   <!--end breadcrumb-->
 
@@ -58,7 +60,9 @@
           <thead class="table-light">
             <tr>
               <th>ID</th>
+              {% if request.user.role == 'Admin' %}
               <th>Actions</th>
+              {% endif %}
               <th>Nom</th>
               <th>Téléphone</th>
               <th>E-mail</th>
@@ -71,9 +75,11 @@
               <td>{{client.id}}</td>
               <td>
                 <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                  {% if request.user.role == 'Admin' %}
                   <a href="{% url 'update_client' client.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
                     title="Edit"><i class="bi bi-pencil-fill"></i></a>
                   <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer {{client.name}} ?')" href="{% url 'delete_client' client.id %}"><i class="bi bi-trash-fill"></i></a>
+                  {% endif %}
                 </div>
               </td>
               <td>

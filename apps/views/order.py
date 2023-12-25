@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.http import HttpResponse
 from django.contrib import messages
 from django.forms import formset_factory
 from django.contrib.auth.decorators import login_required
@@ -17,7 +18,10 @@ def order(request):
     else:
         ingroups = True
      
-    orders = Order.objects.all()
+    if role == 'Client':
+        orders = Order.objects.filter(client=request.user.client)
+    else:
+        orders = Order.objects.all()
     context = {'ingroups':ingroups, "orders": orders}
     return render(request, "apps/order/order.html", context)
 
@@ -40,8 +44,11 @@ def create_order(request):
         
     psls = PSL.objects.filter(type_psl=type_psl, dispo=True)
     psls_bags_count = counts(psls)
-        
-    form = OrderForm(initial={"type_psl": type_psl})
+     
+    try:   
+        form = OrderForm(initial={'client':request.user.client,"type_psl": type_psl})
+    except:
+        return HttpResponse("Vous n'êtes pas un client")
     
     if request.method == "POST":
         form = OrderForm(request.POST)

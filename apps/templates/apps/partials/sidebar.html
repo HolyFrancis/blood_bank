@@ -54,7 +54,7 @@
                     <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-file-person"></i>Donneurs</a>
                     <a href="{% url 'transfusion' %}" class="list-group-item"><i class="bi bi-heart-pulse"></i>Prélèvements</a>
                     <a href="{% url 'analyse' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
-                    {% if request.user.role == 'Admin' %}
+                    {% if request.user.role == 'Laborantin' %}
                     <a href="{% url 'solution' %}" class="list-group-item"><i class="bi bi-shop"></i>Solutions</a>
                     {% endif %}
                     <a href="{% url 'psl' %}" class="list-group-item"><i class="bi bi-bag-heart"></i>Produits Sanguins Labiles</a>

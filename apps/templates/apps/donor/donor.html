@@ -15,12 +15,14 @@
       </ol>
     </nav>
   </div>
+  {% if request.user.role == 'Docteur' or request.user.role == 'Infirmier(e)' %}
   <div class="ms-auto">
     <div class="btn-group">
       <a class="btn btn-primary" href="{% url 'create_donor' %}" class="link-light"><i class="bi bi-plus-circle"></i>
         Ajouter un Donneur</a>
     </div>
   </div>
+  {% endif %}
 </div>
 <!--end breadcrumb-->
 
@@ -170,11 +172,17 @@
               <div class="table-actions d-flex align-items-center gap-3 fs-6">
                 <a href="{% url 'donor_details' donor.id %}" class="text-primary" data-bs-toggle="tooltip"
                   data-bs-placement="bottom" title="Views"><i class="bi bi-eye-fill"></i></a>
+                  {% if request.user.role == 'Docteur' or request.user.role == 'Infirmier(e)' %}
                 <a href="{% url 'update_donor' donor.id %}" class="text-warning" data-bs-toggle="tooltip"
                   data-bs-placement="bottom" title="Edit"><i class="bi bi-pencil-fill"></i></a>
                 <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
                   onclick="return confirm('Supprimer {{donor.first_name}} {{donor.last_name}}?')"
                   href="{% url 'delete_donor' donor.id %}"><i class="bi bi-trash-fill"></i></a>
+                  {% if donor.status == "Eligible" %}
+                <a class="btn btn-sm btn-primary" href="{% url 'create_blood' donor.id %}" class="link-light"><i
+                class="bi bi-plus-circle"></i></a>
+                {% endif %}
+                  {% endif %}
               </div>
             </td>
             <td>

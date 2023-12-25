@@ -88,9 +88,9 @@
                         </td>
                         <td>
                             <div class="d-flex align-items-center gap-3 cursor-pointer">
-                                <div class="">
-                                    <p class="mb-0">{{order.get_total_quantity}}</p>
-                                    <a href="{% url " blood_quantity" order.id %}" class="text-primary"
+                                <div class="d-flex">
+                                    <p class="mb-0 mx-1">{{order.get_total_quantity}}</p>
+                                    <a href="{% url 'blood_quantity' order.id %}" class="text-primary"
                                         data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i
                                             class="bi bi-eye-fill"></i></a>
                                 </div>
@@ -152,7 +152,7 @@
             {% endif %}
             {% endfor %}
             {% endif %}
-            <table id="example" class="table align-middle" style="width:100%">
+            <table id="example2" class="table align-middle" style="width:100%">
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
@@ -193,7 +193,7 @@
                             <div class="d-flex align-items-center gap-3 cursor-pointer">
                                 <div class="">
                                     <p class="mb-0">{{order.get_total_quantity}}</p>
-                                    <a href="{% url " blood_quantity" order.id %}" class="text-primary"
+                                    <a href="{% url 'blood_quantity' order.id %}" class="text-primary"
                                         data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i
                                             class="bi bi-eye-fill"></i></a>
                                 </div>

@@ -144,12 +144,14 @@
                                 <a href="{% url 'psl_details' psl.id %}" class="text-primary"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i
                                         class="bi bi-eye-fill"></i></a>
+                                {% if request.user.role == 'Laborantin' %}
                                 <a href="{% url 'update_psl' psl.id %}" class="text-warning" data-bs-toggle="tooltip"
                                     data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
                                     aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                 <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Delete" onclick="return confirm('Supprimer {{psl.serial}} ?')"
                                     href="{% url 'psl_delete' psl.id %}"><i class="bi bi-trash-fill"></i></a>
+                                {% endif %}
                             </div>
                         </td>
                         <td>{{psl.serial}}</td>
@@ -165,6 +167,7 @@
     </div>
 </div>
 
+{% if request.user.role == 'Admin' %}
 <div class="card">
     <div class="card-header py-3">
         <div class="d-flex justify-content-between">
@@ -209,5 +212,6 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 {% endblock %}
