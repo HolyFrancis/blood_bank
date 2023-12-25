@@ -12,16 +12,20 @@
             <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboards">
                 <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-dashboards" type="button"><i class="bi bi-house-door-fill"></i></button>
             </li>
-            {% if ingroups %}
+            {% if ingroups and request.user.role != 'Client' %}
+            {% if request.user.role != 'Infirmier(e)' %}
             <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Requests">
                 <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-requests" type="button"><i class="bi bi-bell-fill"></i></button>
             </li>
+            {% endif %}
             <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="History">
                 <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-history" type="button"><i class="bi bi-clock-fill"></i></button>
             </li>
+            {% if request.user.role == 'Admin' %}
             <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Users">
                 <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-users" type="button"><i class="bi bi-people-fill"></i></button>
             </li>
+            {% endif %}
             {% endif %}
         </ul>
 
@@ -46,13 +50,21 @@
 
                     <a href="{% url 'home' %}" class="list-group-item"><i class="bi bi-house"></i>Accueil</a>
                     {% if ingroups %}
+                    {% if request.user.role != 'Client' and request.user.role != 'Gestionnaire' %}
                     <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-file-person"></i>Donneurs</a>
                     <a href="{% url 'transfusion' %}" class="list-group-item"><i class="bi bi-heart-pulse"></i>Prélèvements</a>
                     <a href="{% url 'analyse' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
-                    <a href="{% url 'solution' %}" class="list-group-item"><i class="bi bi-shop"></i>Solution</a>
+                    {% if request.user.role == 'Laborantin' %}
+                    <a href="{% url 'solution' %}" class="list-group-item"><i class="bi bi-shop"></i>Solutions</a>
+                    {% endif %}
                     <a href="{% url 'psl' %}" class="list-group-item"><i class="bi bi-bag-heart"></i>Produits Sanguins Labiles</a>
+                    {% endif %}
+                    {% if request.user.role == 'Admin' or request.user.role == 'Gestionnaire' %}
                     <a href="{% url 'client' %}" class="list-group-item"><i class="bi bi-person-rolodex"></i>Clients</a>
+                    {% endif %}
+                    {% if request.user.role == 'Admin' or request.user.role == 'Client' or request.user.role == 'Gestionnaire' %}
                     <a href="{% url 'order' %}" class="list-group-item"><i class="bi bi-list-ul"></i>Commandes</a>
+                    {% endif %}
                     {% endif %}
                 </div>
             </div>
@@ -66,11 +78,19 @@
                         <small class="mb-0">Ici sont affichées les dernières requêtes</small>
                     </div>
 
+                    {% if request.user.role == 'Docteur'%}
                     <a href="{% url 'donor_requests' %}" class="list-group-item"><i class="bi bi-person-circle"></i>Donneurs</a>
+                    {% endif %}
+                    {% if request.user.role == 'Laborantin' %}
                     <a href="{% url 'request_analysis' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
                     <a href="{% url 'blood_request' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Centrifugation</a>
+                    {% endif %}
+                    {% if request.user.role == 'Gestionnaire' %}
                     <a href="{% url 'order_requests' %}" class="list-group-item"><i class="bi bi-list-ul"></i>Commandes</a>
+                    {% endif %}
+                    {% if request.user.role == 'Admin' %}
                     <a href="{% url 'user_requests' %}" class="list-group-item"><i class="bi bi-people"></i>Utilisateurs</a>
+                    {% endif %}
                 </div>
             </div>
 
@@ -82,11 +102,14 @@
                         </div>
                         <small class="mb-0">Ici s'affiche un historique détaillé</small>
                     </div>
-
+                    {% if request.user.role == 'Docteur' or request.user.role == 'Infirmier(e)'  or request.user.role == 'Laborantin'%}
                     <a href="{% url 'donor_history' %}" class="list-group-item"><i class="bi bi-person-circle"></i>Donneurs</a>
                     <a href="{% url 'analysis_history' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
                     <a href="{% url 'blood_history' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Centrifugations</a>
+                    {% endif %}
+                    {% if request.user.role == 'Gestionnaire' %}
                     <a href="{% url 'order_history' %}" class="list-group-item"><i class="bi bi-list-ul"></i>Commandes</a>
+                    {% endif %}
                 </div>
             </div>
 

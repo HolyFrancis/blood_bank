@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.http import HttpResponse
 from django.contrib import messages
 from django.forms import formset_factory
 from django.contrib.auth.decorators import login_required
@@ -11,14 +12,27 @@ from apps.views.home import counts
 
 @login_required(login_url="login")
 def order(request):
-    ingroups = request.user.groups.exists()
-    orders = Order.objects.all()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
+    if role == 'Client':
+        orders = Order.objects.filter(client=request.user.client)
+    else:
+        orders = Order.objects.all()
     context = {'ingroups':ingroups, "orders": orders}
     return render(request, "apps/order/order.html", context)
 
 @login_required(login_url="login")
 def create_order(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     of = request.GET.get("of")
 
     if of == "gr":
@@ -30,8 +44,11 @@ def create_order(request):
         
     psls = PSL.objects.filter(type_psl=type_psl, dispo=True)
     psls_bags_count = counts(psls)
-        
-    form = OrderForm(initial={"type_psl": type_psl})
+     
+    try:   
+        form = OrderForm(initial={'client':request.user.client,"type_psl": type_psl})
+    except:
+        return HttpResponse("Vous n'êtes pas un client")
     
     if request.method == "POST":
         form = OrderForm(request.POST)
@@ -52,7 +69,12 @@ def create_order(request):
 
 @login_required(login_url="login")
 def update_order(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     order = Order.objects.get(id=id)
 
     form = OrderForm(instance=order)
@@ -70,7 +92,12 @@ def update_order(request, id):
 
 @login_required(login_url="login")
 def delete_order(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     order = Order.objects.get(id=id)
     order.delete()
     messages.success(request, "La commande a été supprimé avec succès!")
@@ -79,7 +106,12 @@ def delete_order(request, id):
 
 @login_required(login_url="login")
 def BloodQantityOrderDetatils(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     blood_order = Order.objects.get(id=id)
 
     context = {'ingroups':ingroups, "order": blood_order}
@@ -87,7 +119,12 @@ def BloodQantityOrderDetatils(request, id):
 
 @login_required(login_url="login")
 def order_request(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     orders = Order.objects.filter(status="En Attente")
     context = {'ingroups':ingroups, "orders": orders}
 
@@ -95,7 +132,12 @@ def order_request(request):
 
 @login_required(login_url="login")
 def blood_order_decision(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     blood_order = Order.objects.get(id=id)
 
     q = request.GET.get("q")
@@ -113,7 +155,12 @@ def blood_order_decision(request, id):
 
 @login_required(login_url="login")
 def blood_order_history(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     blood_order = Order.objects.filter(status="Confirmée")
     dorders = Order.objects.filter(status="Délivrée")
     context = {'ingroups':ingroups, "orders": blood_order, 'dorders':dorders}
@@ -122,7 +169,12 @@ def blood_order_history(request):
 
 @login_required(login_url="login")
 def blood_history_decision(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     blood_order = Order.objects.get(id=id)
     dispo_psls = PSL.objects.filter(dispo=True)
 

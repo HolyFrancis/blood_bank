@@ -70,7 +70,7 @@
                 <form method="POST" action="{% url 'user_requests' %}?user_id={{user.id}}"> 
                     {% csrf_token %}
                     <span><button class="btn btn-sm btn-primary" type="submit"><i class="bi bi-plus-circle"></i></button></span>
-                    <span class="mb-0">{{form.groups}}</span>
+                    <span class="mb-0">{{form.role}}</span>
                 </form>
               </td>
               <td>

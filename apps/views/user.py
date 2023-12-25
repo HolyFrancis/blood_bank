@@ -6,38 +6,38 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
-from apps.forms import UserForm, PasswordChangingForm, GroupForm
+from apps.forms import UserForm, PasswordChangingForm, RoleForm
 from apps.decorators import gohome_if_authenticated
 
 User = get_user_model()
 
 @login_required(login_url="login")
 def users(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     users = User.objects.all()
     
-    groupusers = {}
-    
-    admins = Group.objects.get(name='admins')
-    doctors = Group.objects.get(name='doctors')
-    gcc = Group.objects.get(name='gcc')
-    client = Group.objects.get(name='client')
-    laborantin = Group.objects.get(name='laborantin')
-    nurse = Group.objects.get(name='nurse')
+    roleusers = []
     
     for user in users:
-        if user.groups.exists() is True:
-            groupusers.update({user:user.groups.all()})
+        if user.role is not None:
+            roleusers.append(user)
     
-    groupusers = groupusers.items()
-    
-    context = {'ingroups':ingroups, 'users':groupusers, 'admins':admins, 'doctors':doctors, 'gcc':gcc, 'client':client, 'laborantin':laborantin, 'nurse':nurse}
+    context = {'ingroups':ingroups, 'users':roleusers}
     
     return render(request, "apps/user/users.html", context)
 
 @login_required(login_url="login")
 def settings(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
     
     context={'ingroups':ingroups}
     
@@ -87,26 +87,32 @@ def loginview(request):
 
 @login_required(login_url="login")
 def user_requests(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     users = User.objects.all()
-    nogroupusers = []
+    noroleusers = []
     
     for user in users:
-        if user.groups.exists() is False:
-            nogroupusers.append(user)
+        if user.role is None:
+            noroleusers.append(user)
             
-    form = GroupForm()
+    form = RoleForm()
     
     if request.method == "POST":
-        form = GroupForm(request.POST)
+        form = RoleForm(request.POST)
         if form.is_valid():
             user_id = request.GET.get('user_id')
             user = User.objects.get(id=user_id)
-            user.groups.add(Group.objects.get(name=form.cleaned_data['groups']))
+            user.role = form.cleaned_data['role']
             user.save()
+            
             return redirect("user_requests")
         
-    context = {'ingroups':ingroups, 'users':nogroupusers, 'form':form}
+    context = {'ingroups':ingroups, 'users':noroleusers, 'form':form}
     
     return render(request, "apps/user/requests.html", context)
 
