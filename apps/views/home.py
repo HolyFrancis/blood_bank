@@ -46,7 +46,12 @@ def counts(modelObject):
 
 @login_required(login_url="public")
 def home(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     
     if ingroups:
     

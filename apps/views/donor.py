@@ -9,7 +9,12 @@ from apps.filters import DonorFilter
 
 @login_required(login_url="login")
 def donor(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     donors_count = Donor.objects.all().count()
     eligible_donors = Donor.objects.filter(status = 'Eligible').count()
     ineligible_donors = Donor.objects.filter(status='Ineligible').count()
@@ -41,7 +46,12 @@ def donor(request):
 
 @login_required(login_url="login")
 def create_donor(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     create = True
     form = DonorForm()
     
@@ -68,7 +78,12 @@ def create_donor(request):
 
 @login_required(login_url="login")
 def update_donor(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     create = False
     donor = Donor.objects.get(id=id)
     
@@ -94,7 +109,12 @@ def update_donor(request, id):
 
 @login_required(login_url="login")
 def donor_details(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     donor = Donor.objects.get(id=id)
     
     context = {'ingroups':ingroups, "donor":donor}
@@ -103,7 +123,12 @@ def donor_details(request, id):
 
 @login_required(login_url="login")
 def delete_donor(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     donor = Donor.objects.get(id=id)
     donor.delete()
     messages.success(request, "Donneur supprimer avec succès!")
@@ -114,7 +139,12 @@ def delete_donor(request, id):
 
 @login_required(login_url="login")
 def donor_requests(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     donors = Donor.objects.filter(status='Attente')
     
     context = {'ingroups':ingroups, 'donors':donors}
@@ -123,7 +153,12 @@ def donor_requests(request):
 
 @login_required(login_url="login")
 def request_decision(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     donor = Donor.objects.get(id=id)
     q = request.GET.get("q")
     if q=='confirm':
@@ -143,7 +178,12 @@ def request_decision(request, id):
     
 @login_required(login_url="login")
 def donor_history(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     accepted = Donor.objects.filter(status='Eligible')
     refused = Donor.objects.filter(status='Ineligible')
     

@@ -5,7 +5,12 @@ from apps.forms import DonorForm
 from apps.models import Donor
 
 def public(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     form = DonorForm()
     if request.method == "POST":
         form = DonorForm(request.POST)

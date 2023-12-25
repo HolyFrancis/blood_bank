@@ -70,7 +70,9 @@
                     <a href="{% url 'request_analysis' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
                     <a href="{% url 'blood_request' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Centrifugation</a>
                     <a href="{% url 'order_requests' %}" class="list-group-item"><i class="bi bi-list-ul"></i>Commandes</a>
+                    {% if request.user.role == 'Admin' %}
                     <a href="{% url 'user_requests' %}" class="list-group-item"><i class="bi bi-people"></i>Utilisateurs</a>
+                    {% endif %}
                 </div>
             </div>
 

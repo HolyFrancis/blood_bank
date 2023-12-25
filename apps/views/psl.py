@@ -11,7 +11,12 @@ from apps.filters import PSLFilter
 
 @login_required(login_url="login")
 def psl(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     try:
         gr = Type_PSL.objects.get(name='GR')
         cps = Type_PSL.objects.get(name='CPS')
@@ -43,7 +48,12 @@ def psl(request):
 
 @login_required(login_url="login")
 def create_psl(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     create = True
     blood = Blood.objects.get(id=id)
     
@@ -110,7 +120,12 @@ def create_psl(request, id):
 
 @login_required(login_url="login")
 def update_psl(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     create = False
     psl = PSL.objects.get(id=id)
 
@@ -132,7 +147,12 @@ def update_psl(request, id):
 
 @login_required(login_url="login")
 def psl_details(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     psl = PSL.objects.get(id=id)
     blood = psl.blood
     
@@ -142,7 +162,12 @@ def psl_details(request, id):
 
 @login_required(login_url="login")
 def psl_delete(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     psl = PSL.objects.get(id=id)
     psl.delete()
     messages.success(request, "PSL supprimé avec succès")
@@ -151,7 +176,12 @@ def psl_delete(request, id):
 
 @login_required(login_url="login")
 def create_type(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     create = True
     form = TypepslForm()
 
@@ -175,7 +205,12 @@ def create_type(request):
     
 @login_required(login_url="login")          
 def update_type(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     create = False
     typ = Type_PSL.objects.get(id=id)
     
@@ -201,7 +236,12 @@ def update_type(request, id):
 
 @login_required(login_url="login")
 def delete_type(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     typ = Type_PSL.objects.get(id=id)
     typ.delete()
     messages.success(request, "Type de PSL supprimé avec succès")

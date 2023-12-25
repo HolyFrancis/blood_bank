@@ -7,7 +7,12 @@ from apps.forms import SolutionForm
 
 @login_required(login_url="login")
 def solution(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     products = Solution.objects.all()
     solutions = Solution.objects.all()
     context = {'ingroups':ingroups, "solutions": solutions}
@@ -16,7 +21,12 @@ def solution(request):
 
 @login_required(login_url="login")
 def save_solution(request):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     create = True
     form = SolutionForm()
 
@@ -35,7 +45,12 @@ def save_solution(request):
 
 @login_required(login_url="login")
 def update_solution(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     create = False
     product_type = Solution.objects.get(id=id)
     form = SolutionForm(instance=product_type)
@@ -54,7 +69,12 @@ def update_solution(request, id):
 
 @login_required(login_url="login")
 def delete_solution(request, id):
-    ingroups = request.user.groups.exists()
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     solution = Solution.objects.get(id=id)
     solution.delete()
     messages.success(request, "Solution supprimé avec succès")
