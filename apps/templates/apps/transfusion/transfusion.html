@@ -163,12 +163,14 @@
                                 <a href="{% url 'blood_details' blood.id %}" class="text-primary"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i
                                         class="bi bi-eye-fill"></i></a>
+                                {% if request.user.role == 'Docteur' or request.user.role == 'Infirmier(e)' %}
                                 <a href="{% url 'update_blood' blood.id %}" class="text-warning"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                         class="bi bi-pencil-fill"></i></a>
                                 <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Delete" onclick="return confirm('Supprimer la transfusion N°{{blood.serial}}?')"
                                     href="{% url 'delete_blood' blood.id %}"><i class="bi bi-trash-fill"></i></a>
+                                {% endif %}
                             </div>
                         </td>
                         </td>

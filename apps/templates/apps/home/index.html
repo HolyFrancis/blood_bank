@@ -12,7 +12,7 @@
       </ol>
     </nav>
   </div>
-  {% if ingroups %}
+  {% if request.user.role == 'Docteur' or request.user.role == 'Infirmier(e)' %}
   <div class="ms-auto">
     <div class="btn-group">
       <a class="btn btn-primary" href="{% url 'create_donor' %}" class="link-light"><i class="bi bi-plus-circle"></i>
@@ -24,6 +24,7 @@
 <!--end breadcrumb-->
 
 {% if ingroups %}
+{% if request.user.role != 'Client' %}
 <h6 class="mb-0 text-uppercase">Donneurs</h6>
 <hr>
 <div class="row">
@@ -189,7 +190,7 @@
     </div>
   </div>
 </div>
-
+{% endif %}
 
 <h6 class="mb-0 text-uppercase">Produits sanguins labiles disponibles en stock</h6>
 <hr>
@@ -211,10 +212,12 @@
           </div>
         </div>
       </div>
+      {% if request.user.role == 'Client' %}
       <div class="card-title mx-auto">
         <a href="{% url 'create_order'%}?of=gr"><button type="button" class="btn btn-outline-danger px-5 radius-30"><i
               class="bi bi-bag-plus"></i>Commander</button></a>
       </div>
+      {% endif %}
     </div>
   </div>
   <div class="col">
@@ -234,10 +237,12 @@
           </div>
         </div>
       </div>
+      {% if request.user.role == 'Client' %}
       <div class="card-title mx-auto">
         <a href="{% url 'create_order'%}?of=pfc"><button type="button"
             class="btn btn-outline-secondary px-5 radius-30"><i class="bi bi-bag-plus"></i>Commander</button></a>
       </div>
+      {% endif %}
     </div>
   </div>
   <div class="col">
@@ -257,14 +262,17 @@
           </div>
         </div>
       </div>
+      {% if request.user.role == 'Client' %}
       <div class="card-title mx-auto">
         <a href="{% url 'create_order'%}?of=cps"><button type="button" class="btn btn-outline-warning px-5 radius-30"><i
               class="bi bi-bag-plus"></i>Commander</button></a>
       </div>
+      {% endif %}
     </div>
   </div>
 </div>
 
+{% if request.user.role != 'Client' %}
 <h6 class="mb-0 text-uppercase">Produits sanguins labiles vendus</h6>
 <hr>
 <div class="row row-cols-1 row-cols-sm-3 row-cols-md-3 row-cols-xl-3 row-cols-xxl-6">
@@ -371,6 +379,9 @@
   </div>
   {% endfor %}
 </div>
+{% endif %}
+
+
 {% else %}
 
 <div class="text-center">
