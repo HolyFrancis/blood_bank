@@ -136,10 +136,10 @@ def home(request):
         #-------------------------------------------Orders Stats---------------------------------------
             
         orders = Order.objects.all().count()
-        new_orders_pct = Order.objects.filter(status = "En Attente").count()/orders * 100
-        completed_orders_pct = Order.objects.filter(status = "Délivrée").count()/orders * 100
-        pending_orders_pct = Order.objects.filter(status = "Confirmée").count()/orders * 100
-        canceled_orders_pct = Order.objects.filter(status = "Annulée").count()/orders * 100
+        new_orders_pct = Order.objects.filter(status = "En Attente").count()
+        completed_orders_pct = Order.objects.filter(status = "Délivrée").count()
+        pending_orders_pct = Order.objects.filter(status = "Confirmée").count()
+        canceled_orders_pct = Order.objects.filter(status = "Annulée").count()
         
         #-------------------------------------------Staff Stats---------------------------------------
         
