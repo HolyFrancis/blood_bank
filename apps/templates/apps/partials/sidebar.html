@@ -2,110 +2,132 @@
 
 <!--start sidebar -->
 <aside class="sidebar-wrapper">
-    <div class="iconmenu"> 
+    <div class="iconmenu">
 
-      <div class="nav-toggle-box">
-        <div class="nav-toggle-icon"><i class="bi bi-list"></i></div>
-      </div>
+        <div class="nav-toggle-box">
+            <div class="nav-toggle-icon"><i class="bi bi-list"></i></div>
+        </div>
 
-      <ul class="nav nav-pills flex-column">
-        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboards">
-          <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-dashboards" type="button"><i class="bi bi-house-door-fill"></i></button>
-        </li>
-        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Requests">
-          <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-requests" type="button"><i class="bi bi-bell-fill"></i></button>
-        </li>
-        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="History">
-          <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-history" type="button"><i class="bi bi-clock-fill"></i></button>
-        </li>
-        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Users">
-          <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-users" type="button"><i class="bi bi-people-fill"></i></button>
-        </li>
-      </ul>
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboards">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-dashboards" type="button"><i class="bi bi-house-door-fill"></i></button>
+            </li>
+            {% if ingroups and request.user.role != 'Client' %}
+            {% if request.user.role != 'Infirmier(e)' %}
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Requests">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-requests" type="button"><i class="bi bi-bell-fill"></i></button>
+            </li>
+            {% endif %}
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="History">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-history" type="button"><i class="bi bi-clock-fill"></i></button>
+            </li>
+            {% if request.user.role == 'Admin' %}
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Users">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-users" type="button"><i class="bi bi-people-fill"></i></button>
+            </li>
+            {% endif %}
+            {% endif %}
+        </ul>
 
     </div>
 
     <div class="textmenu">
 
-      <div class="brand-logo">
-        <img src="{% static 'assets/images/brand-logo-2.png' %}" width="140" alt=""/>
-      </div>
-
-      <div class="tab-content">
-
-        <div class="tab-pane fade" id="pills-dashboards">
-          <div class="list-group list-group-flush">
-            <div class="list-group-item">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-0">Tableau de Bord</h5>
-              </div>
-              <small class="mb-0">Voici les informations générales</small>
-            </div>
-
-            <a href="{% url 'home' %}" class="list-group-item"><i class="bi bi-house"></i>Accueil</a>
-            <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-file-person"></i>Donneurs</a>
-            <a href="{% url 'transfusion' %}" class="list-group-item"><i class="bi bi-heart-pulse"></i>Transfusions</a>
-            <a href="{% url 'psl' %}" class="list-group-item"><i class="bi bi-bag-heart"></i>Produits Sanguins labiles</a>
-            <a href="{% url 'analyse' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
-            <a href="{% url 'equipement' %}" class="list-group-item"><i class="bi bi-highlighter"></i>Equipements</a>
-            <a href="{% url 'client' %}" class="list-group-item"><i class="bi bi-person-rolodex"></i>Clients</a>
-            <a href="{% url 'order' %}" class="list-group-item"><i class="bi bi-list-ul"></i>Commandes</a>
-            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-shop"></i>Stock</a>
-          </div>
+        <div class="brand-logo">
+            <img src="{% static 'assets/images/brand-logo-2.png' %}" width="140" alt=""/>
         </div>
 
-        <div class="tab-pane fade" id="pills-requests">
-          <div class="list-group list-group-flush">
-            <div class="list-group-item">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-0">Requêtes</h5>
-              </div>
-              <small class="mb-0">Ici sont affichées les dernières demandes</small>
-            </div>
-            
-            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-person-circle"></i>Donneurs</a>
-            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-droplet-fill"></i>Globules Rouges</a>
-            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Plasma</a>
-            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-droplet"></i>Plaquettes</a>
+        <div class="tab-content">
 
-          </div>
-        </div>
+            <div class="tab-pane fade" id="pills-dashboards">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">Tableau de Bord</h5>
+                        </div>
+                        <small class="mb-0">Voici les informations générales</small>
+                    </div>
 
-        <div class="tab-pane fade" id="pills-history">
-          <div class="list-group list-group-flush">
-            <div class="list-group-item">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-0">Historique</h5>
-              </div>
-              <small class="mb-0">Ici s'affiche un historique détaillé des demandes</small>
-            </div>
-
-            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-person-circle"></i>Donneurs</a>
-            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-droplet-fill"></i>Globules Rouges</a>
-            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Plasma</a>
-            <a href="{% url 'stock' %}" class="list-group-item"><i class="bi bi-droplet"></i>Plaquettes</a>
-
-          </div>
-        </div>
-
-        <div class="tab-pane fade" id="pills-users">
-          <div class="list-group list-group-flush">
-            <div class="list-group-item">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-0">Utilisateurs</h5>
-              </div>
-              <small class="mb-0">Ici sont affichés tous les utilisateurs</small>
+                    <a href="{% url 'home' %}" class="list-group-item"><i class="bi bi-house"></i>Accueil</a>
+                    {% if ingroups %}
+                    {% if request.user.role != 'Client' and request.user.role != 'Gestionnaire' %}
+                    <a href="{% url 'donor' %}" class="list-group-item"><i class="bi bi-file-person"></i>Donneurs</a>
+                    <a href="{% url 'transfusion' %}" class="list-group-item"><i class="bi bi-heart-pulse"></i>Prélèvements</a>
+                    <a href="{% url 'analyse' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
+                    {% if request.user.role == 'Laborantin' %}
+                    <a href="{% url 'solution' %}" class="list-group-item"><i class="bi bi-shop"></i>Solutions</a>
+                    {% endif %}
+                    <a href="{% url 'psl' %}" class="list-group-item"><i class="bi bi-bag-heart"></i>Produits Sanguins Labiles</a>
+                    {% endif %}
+                    {% if request.user.role == 'Admin' or request.user.role == 'Gestionnaire' %}
+                    <a href="{% url 'client' %}" class="list-group-item"><i class="bi bi-person-rolodex"></i>Clients</a>
+                    {% endif %}
+                    {% if request.user.role == 'Admin' or request.user.role == 'Client' or request.user.role == 'Gestionnaire' %}
+                    <a href="{% url 'order' %}" class="list-group-item"><i class="bi bi-list-ul"></i>Commandes</a>
+                    {% endif %}
+                    {% endif %}
+                </div>
             </div>
 
-            
-            <a href="{% url 'users' %}" class="list-group-item"><i class="bi bi-people"></i>Utilisateurs</a>
+            <div class="tab-pane fade" id="pills-requests">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">Requêtes</h5>
+                        </div>
+                        <small class="mb-0">Ici sont affichées les dernières requêtes</small>
+                    </div>
 
-          </div>
+                    {% if request.user.role == 'Docteur'%}
+                    <a href="{% url 'donor_requests' %}" class="list-group-item"><i class="bi bi-person-circle"></i>Donneurs</a>
+                    {% endif %}
+                    {% if request.user.role == 'Laborantin' %}
+                    <a href="{% url 'request_analysis' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
+                    <a href="{% url 'blood_request' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Centrifugation</a>
+                    {% endif %}
+                    {% if request.user.role == 'Gestionnaire' %}
+                    <a href="{% url 'order_requests' %}" class="list-group-item"><i class="bi bi-list-ul"></i>Commandes</a>
+                    {% endif %}
+                    {% if request.user.role == 'Admin' %}
+                    <a href="{% url 'user_requests' %}" class="list-group-item"><i class="bi bi-people"></i>Utilisateurs</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-history">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">Historique</h5>
+                        </div>
+                        <small class="mb-0">Ici s'affiche un historique détaillé</small>
+                    </div>
+                    {% if request.user.role == 'Docteur' or request.user.role == 'Infirmier(e)'  or request.user.role == 'Laborantin'%}
+                    <a href="{% url 'donor_history' %}" class="list-group-item"><i class="bi bi-person-circle"></i>Donneurs</a>
+                    <a href="{% url 'analysis_history' %}" class="list-group-item"><i class="bi bi-kanban"></i>Analyses</a>
+                    <a href="{% url 'blood_history' %}" class="list-group-item"><i class="bi bi-droplet-half"></i>Centrifugations</a>
+                    {% endif %}
+                    {% if request.user.role == 'Gestionnaire' %}
+                    <a href="{% url 'order_history' %}" class="list-group-item"><i class="bi bi-list-ul"></i>Commandes</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-users">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">Utilisateurs</h5>
+                        </div>
+                        <small class="mb-0">Ici sont affichés tous les utilisateurs</small>
+                    </div>
+                    <a href="{% url 'users' %}" class="list-group-item"><i class="bi bi-people"></i>Utilisateurs</a>
+                </div>
+            </div>
+
         </div>
-
-      </div>
 
     </div>
 
- </aside>
- <!--start sidebar -->
+</aside>
+<!--start sidebar -->

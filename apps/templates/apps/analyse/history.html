@@ -1,0 +1,79 @@
+{% extends "apps/layouts/main.html" %}
+{% load static %}
+
+{% block content %}
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Analyses</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+{% if messages %}
+{% for message in messages %}
+{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+<div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+    <div class="d-flex align-items-center">
+        <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+        </div>
+        <div class="ms-3">
+            <div class="text-info">{{message}}</div>
+        </div>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% else %}
+<div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+    <div class="d-flex align-items-center">
+        <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+        </div>
+        <div class="ms-3">
+            <div class="text-danger">{{message}}</div>
+        </div>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h5 class="mb-0">Détails des Analyses</h5>
+        </div>
+        <div class="table-responsive mt-3">
+            <table id="example2" class="table align-middle" style="width:100%">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Analyse</th>
+                        <th>Prélèvement</th>
+                        <th>Résultat</th>
+                        <th>Créé le</th>
+                        <th>Modifié le</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for analysis in analyses %}
+                    <tr>
+                        <td>{{analysis.id}}</td>
+                        <td>{{analysis.analysis}}</td>
+                        <td>{{analysis.blood}}</td>
+                        <td>{{analysis.result}}</td>
+                        <td>{{analysis.date_created}}</td>
+                        <td>{{analysis.updated}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

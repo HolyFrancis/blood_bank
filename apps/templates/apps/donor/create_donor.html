@@ -7,6 +7,24 @@
 <div class="row">
     <div class="col-xl-12 mx-auto">
 
+        <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'donor' %}">Donneurs</a></li>
+                        {% if create is True %}
+                        <li class="breadcrumb-item active" aria-current="page">Créer Donneur</li>
+                        {% else %}
+                        <li class="breadcrumb-item active" aria-current="page">Modifier Donneur</li>
+                        {% endif %}
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!--end breadcrumb-->
+
         <div class="card">
             <div class="card-body">
                 <div class="border p-3 rounded">
@@ -14,12 +32,39 @@
                     <hr />
                     <form class="row g-3" method="POST">
                         {% csrf_token %}
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+                            <div class="d-flex align-items-center">
+                                <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="text-info">{{message}}</div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% else %}
+                        <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                            <div class="d-flex align-items-center">
+                                <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="text-danger">{{message}}</div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
                         <div class="col-6">
                             <label class="form-label">Nom</label>
                             {{form.first_name}}
                         </div>
                         <div class="col-6">
-                            <label class="form-label">Prénom</label>
+                            <label class="form-label">Prénom(s)</label>
                             {{form.last_name}}
                         </div>
                         <div class="col-6">
@@ -27,16 +72,24 @@
                             {{form.cni}}
                         </div>
                         <div class="col-6">
-                            <label class="form-label">Date de Naissance:</label>
+                            <label class="form-label">Adresse mail</label>
+                            {{form.email}}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Numéro de Téléphone</label>
+                            {{form.phone}}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Date de Naissance</label>
                             {% render_field form.birthday type="date" class="form-control" %}
                         </div>
                         <div class="col-6">
-                            <label class="form-label">Poids</label>
+                            <label class="form-label">Poids(en kg)</label>
                             {{form.weight}}
                         </div>
                         <div class="col-6">
                             <label class="form-select-label">
-                                Sex
+                                Sexe
                             </label>
                             {{form.sex}}
                         </div>
@@ -49,15 +102,15 @@
                         <div class="col-12">
                             <div class="form-check">
                                 {{form.last_donation}}
-                                <label class="form-check-label" >
-                                A fait un don de sang dans les 4 derniers mois
+                                <label class="form-check-label">
+                                    A fait un don de sang dans les 4 derniers mois
                                 </label>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-check">
                                 {{form.drugs}}
-                                <label class="form-check-label" >
+                                <label class="form-check-label">
                                     A pris de la drogue par voie intra-veineuse dans les 4 derniers mois
                                 </label>
                             </div>
@@ -65,7 +118,7 @@
                         <div class="col-12">
                             <div class="form-check">
                                 {{form.tattoo_piercing}}
-                                <label class="form-check-label" >
+                                <label class="form-check-label">
                                     S'est fait(e) faire un tatouage ou un piercing dans les 4 derniers mois
                                 </label>
                             </div>
@@ -73,7 +126,7 @@
                         <div class="col-12">
                             <div class="form-check">
                                 {{form.disease}}
-                                <label class="form-check-label" >
+                                <label class="form-check-label">
                                     Présente ou a déjà eu une de ces maladies: <br>
                                     <ul>
                                         <li>Cancer</li>
@@ -82,7 +135,8 @@
                                         <li>VIH/SIDA</li>
                                         <li>Hépatite C</li>
                                         <li>Syphilis</li>
-                                        <li>Maladie Chronique(Diabète(traité par insuline), maladie inflammatoire de l'intestin, maladie auto-immune,...)</li>
+                                        <li>Maladie Chronique(Diabète(traité par insuline), maladie inflammatoire de
+                                            l'intestin, maladie auto-immune,...)</li>
                                     </ul>
                                 </label>
                             </div>
@@ -90,7 +144,7 @@
                         <div class="col-12">
                             <div class="form-check">
                                 {{form.surgery}}
-                                <label class="form-check-label" >
+                                <label class="form-check-label">
                                     A été opéré dans les 4 derniers mois
                                 </label>
                             </div>
@@ -98,7 +152,7 @@
                         <div class="col-12">
                             <div class="form-check">
                                 {{form.under_medication}}
-                                <label class="form-check-label" >
+                                <label class="form-check-label">
                                     Prend des médicaments
                                 </label>
                             </div>
@@ -106,7 +160,7 @@
                         <div class="col-12">
                             <div class="form-check">
                                 {{form.vaccine}}
-                                <label class="form-check-label" >
+                                <label class="form-check-label">
                                     A été vacciné au cours du dernier mois
                                 </label>
                             </div>
@@ -114,7 +168,7 @@
                         <div class="col-12">
                             <div class="form-check">
                                 {{form.dentist}}
-                                <label class="form-check-label" >
+                                <label class="form-check-label">
                                     Est allé(e) chez un dentiste dans les 7 derniers jours
                                 </label>
                             </div>
@@ -122,7 +176,7 @@
                         <div class="col-12">
                             <div class="form-check">
                                 {{form.pregnancy}}
-                                <label class="form-check-label" >
+                                <label class="form-check-label">
                                     Est enceinte ou a accouché depuis moins de 6 mois
                                 </label>
                             </div>
@@ -130,7 +184,7 @@
                         <div class="col-12">
                             <div class="form-check">
                                 {{form.transfusion}}
-                                <label class="form-check-label" >
+                                <label class="form-check-label">
                                     A eu une transfusion ou une greffe d'organe
                                 </label>
                             </div>
@@ -138,7 +192,7 @@
                         <div class="col-12">
                             <div class="form-check">
                                 {{form.anemia}}
-                                <label class="form-check-label" >
+                                <label class="form-check-label">
                                     Est suivi(e) pour une anémie ou manque de fer
                                 </label>
                             </div>
@@ -146,20 +200,21 @@
                         <div class="col-12">
                             <div class="form-check">
                                 {{form.infections}}
-                                <label class="form-check-label" >
-                                    A eu de la fièvre ou une infection(toux, diarrhée, infection urinaire, plaie cutanée...) dans les 2 dernières semaines
+                                <label class="form-check-label">
+                                    A eu de la fièvre ou une infection(toux, diarrhée, infection urinaire, plaie
+                                    cutanée...) dans les 2 dernières semaines
                                 </label>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-check">
                                 {{form.examens}}
-                                <label class="form-check-label" >
+                                <label class="form-check-label">
                                     A fait un examen de type "fibroscopie" dans les 4 derniers mois
                                 </label>
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 d-none">
                             <label class="form-select-label">
                                 Status
                             </label>

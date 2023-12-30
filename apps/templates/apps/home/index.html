@@ -2,37 +2,757 @@
 {% load static %}
 
 {% block content %}
-
-<div class="row row-cols-1 row-cols-sm-3 row-cols-md-3 row-cols-xl-3 row-cols-xxl-6">
-  <div class="col">
-    <div class="card radius-10 bg-danger">
-      <div class="card-body text-center">
-        <div class="widget-icon mx-auto mb-3 bg-white-1 text-white">
-          <i class="bi bi-hdd-fill"></i>
-        </div>
-        <h3 class="text-white">35</h3>
-         <p class="mb-0 text-white">Litres</p>
-      </div>
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+  <div class="breadcrumb-title pe-3">Accueil</div>
+  <div class="ps-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 p-0">
+        <li class="breadcrumb-item"><a href="{%url 'logout' %}">Déconnexion</a></li>
+      </ol>
+    </nav>
+  </div>
+  {% if request.user.role == 'Docteur' or request.user.role == 'Infirmier(e)' %}
+  <div class="ms-auto">
+    <div class="btn-group">
+      <a class="btn btn-primary" href="{% url 'create_donor' %}" class="link-light"><i class="bi bi-plus-circle"></i>
+        Ajouter un Donneur</a>
     </div>
   </div>
+  {% endif %}
 </div>
+<!--end breadcrumb-->
 
+{% if ingroups %}
+{% if request.user.role != 'Client' %}
 <div class="row">
   <div class="col">
     <div class="card radius-10">
       <div class="card-body">
         <div class="d-flex align-items-center">
           <div class="">
-            <p class="mb-1">Nombre de Commandes</p>
-            <h4 class="mb-0 text-tiffany">248</h4>
+            <p class="mb-1">Docteurs</p>
+            <h4 class="mb-0 text-purple">{{doctors}}</h4>
           </div>
-          <div class="ms-auto">
-            <div id="chart1"></div>
+          <div class="ms-auto fs-2 text-purple">
+            <i class="bi bi-person-fill"></i>
           </div>
         </div>
       </div>
     </div>
-   </div>
+    <div class="card radius-10">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <p class="mb-1">Infirmiers</p>
+            <h4 class="mb-0 text-purple">{{nurses}}</h4>
+          </div>
+          <div class="ms-auto fs-2 text-purple">
+            <i class="bi bi-person-fill"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card radius-10">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <p class="mb-1">Laborantins</p>
+            <h4 class="mb-0 text-purple">{{labstff}}</h4>
+          </div>
+          <div class="ms-auto fs-2 text-purple">
+            <i class="bi bi-person-fill"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card radius-10">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <p class="mb-1">Gestionnaires</p>
+            <h4 class="mb-0 text-purple">{{managers}}</h4>
+          </div>
+          <div class="ms-auto fs-2 text-purple">
+            <i class="bi bi-person-fill"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card radius-10">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <p class="mb-1">Clients</p>
+            <h4 class="mb-0 text-purple">{{clients}}</h4>
+          </div>
+          <div class="ms-auto fs-2 text-purple">
+            <i class="bi bi-person-fill"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col d-flex">
+    <div class="card radius-10 w-100">
+      <div class="card-header bg-transparent">
+        <div class="row g-3 align-items-center">
+          <div class="col">
+            <h5 class="mb-0">Commandes</h5>
+          </div>
+         </div>
+      </div>
+      <div class="card-body">
+        <div id="chart200"></div>
+      </div>
+      <ul class="list-group list-group-flush mb-0">
+        <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent" data-percent="{{new_orders_pct}}" id="neworders">Nouvelles Commandes<span class="badge bg-primary badge-pill">{{new_orders_pct}}%</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent" data-percent="{{completed_orders_pct}}" id="completed">Délivrées<span class="badge bg-success badge-pill">{{completed_orders_pct}}%</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent" data-percent="{{pending_orders_pct}}" id="pending">En attente<span class="badge bg-secondary badge-pill">{{pending_orders_pct}}%</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent" data-percent="{{canceled_orders_pct}}" id="canceled">Annulées<span class="badge bg-danger badge-pill">{{canceled_orders_pct}}%</span>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div><!--end row-->
+<h6 class="mb-0 text-uppercase">Donneurs</h6>
+<hr>
+<div class="row">
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-primary border-3">
+      <div class="card-body text-center">
+        <div class="widget-icon mx-auto mb-3 bg-primary text-white">
+          <i class="bi bi-file-person"></i>
+        </div>
+        <h3 class="text-primary">{{donors_count}}</h3>
+        {% if donors_count == 1 %}
+        <p class="mb-1 text-primary">Donneur Inscrit</p>
+        {% else %}
+        <p class="mb-1 text-primary">Donneurs Inscrits</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-success border-3">
+      <div class="card-body text-center">
+        <div class="d-flex align-items-center">
+          <h3 class="text-success">{{eligible_donors}}</h3>
+          <div class="ms-auto">
+            <div class="w_chart" id="chart21" data-percent="{{eligible_donors_percent}}">
+              <span class="w_percent"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-title text-center m-1">
+        {% if eligible_donors == 1 %}
+        <p class="mb-0 text-success">Donneur Eligible aux Dons de Sang</p>
+        {% else %}
+        <p class="mb-0 text-success">Donneurs Eligibles aux Dons de Sang</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-danger border-3">
+      <div class="card-body text-center">
+        <div class="d-flex align-items-center">
+          <h3 class="text-danger">{{ineligible_donors}}</h3>
+          <div class="ms-auto">
+            <div class="w_chart" id="chart22" data-percent="{{ineligible_donors_percent}}">
+              <span class="w_percent"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-title text-center">
+        {% if ineligible_donors == 1 %}
+        <p class="mb-0 text-danger">Donneur Ineligible aux Dons de Sang</p>
+        {% else %}
+        <p class="mb-0 text-danger">Donneurs Ineligibles aux Dons de Sang</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-secondary border-3">
+      <div class="card-body text-center">
+        <div class="d-flex align-items-center">
+          <h3 class="text-secondary">{{pending_donors}}</h3>
+          <div class="ms-auto">
+            <div class="w_chart" id="chart23" data-percent="{{pending_donors_percent}}">
+              <span class="w_percent"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-title text-center">
+        {% if pending_donors == 1 %}
+        <p class="mb-0 text-secondary">Donneur En Attente d'une Evaluation</p>
+        {% else %}
+        <p class="mb-0 text-secondary">Donneurs En Attente d'une Evaluation</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<h6 class="mb-0 text-uppercase">Poches de sang total</h6>
+<hr>
+<div class="row">
+  <div class="col">
+    <div class="card radius-10 bg-primary">
+      <div class="card-body text-center">
+        <div class="widget-icon mx-auto mb-3 bg-white-1 text-white">
+          <i class="bi bi-heart-pulse mt-2"></i>
+        </div>
+        <h3 class="text-white">{{bloods_count}}</h3>
+        {% if bloods_count == 1 %}
+        <p class="mb-0 text-white">Poche de Sang Total</p>
+        {% else %}
+        <p class="mb-0 text-white">Poches de Sang Total</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 bg-success">
+      <div class="card-body text-center">
+        <div class="d-flex align-items-center">
+          <h3 class="text-white ms-auto">{{eligible_bloods}}</h3>
+          <div class="ms-auto">
+            <div class="w_chart" id="chart24" data-percent="{{eligible_bloods_percent}}">
+              <span class="w_percent text-white"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-title text-center">
+        {% if eligible_bloods == 1 %}
+        <p class="text-white">Poche Saine</p>
+        {% else %}
+        <p class="text-white">Poches Saines</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 bg-danger">
+      <div class="card-body text-center">
+        <div class="d-flex align-items-center">
+          <h3 class="text-white ms-auto">{{ineligible_bloods}}</h3>
+          <div class="ms-auto">
+            <div class="w_chart" id="chart25" data-percent="{{ineligible_bloods_percent}}">
+              <span class="w_percent text-white"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-title text-center">
+        {% if ineligible_bloods == 1 %}
+        <p class="text-white">Poche Non Utilisable</p>
+        {% else %}
+        <p class="text-white">Poches Non Utilisables</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 bg-secondary">
+      <div class="card-body text-center">
+        <div class="d-flex align-items-center">
+          <h3 class="text-white ms-auto">{{pending_bloods}}</h3>
+          <div class="ms-auto">
+            <div class="w_chart" id="chart26" data-percent="{{pending_bloods_percent}}">
+              <span class="w_percent text-white"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-title text-center">
+        {% if pending_bloods == 1 %}
+        <p class="text-white">Poche En Attente d'Analyse</p>
+        {% else %}
+        <p class="text-white">Poches En Attente d'Analyse</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<h6 class="mb-0 text-uppercase">Produits sanguins labiles disponibles en stock</h6>
+<hr>
+<div class="row row-cols-1 row-cols-sm-3 row-cols-md-3 row-cols-xl-3 row-cols-xxl-6">
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-end border-danger border-3">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <h4 class="mb-0 text-danger">{{gr_count}}</h4>
+            {% if gr_count == 1 %}
+            <p class="mb-1">Poche de Globules Rouges</p>
+            {% else %}
+            <p class="mb-1">Poches de Globules Rouges</p>
+            {% endif %}
+          </div>
+          <div class="ms-auto widget-icon bg-danger text-white">
+            <i class="bi bi-droplet-half"></i>
+          </div>
+        </div>
+      </div>
+      {% if request.user.role == 'Client' %}
+      <div class="card-title mx-auto">
+        <a href="{% url 'create_order'%}?of=gr"><button type="button" class="btn btn-outline-danger px-5 radius-30"><i
+              class="bi bi-bag-plus"></i>Commander</button></a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-end border-secondary border-3">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <h4 class="mb-0 text-secondary">{{pfc_count}}</h4>
+            {% if gr_count == 1 %}
+            <p class="mb-1">Poche de Plasma Frais Congelé</p>
+            {% else %}
+            <p class="mb-1">Poches de Plasma Frais Congelé</p>
+            {% endif %}
+          </div>
+          <div class="ms-auto widget-icon bg-secondary text-white">
+            <i class="bi bi-droplet-half"></i>
+          </div>
+        </div>
+      </div>
+      {% if request.user.role == 'Client' %}
+      <div class="card-title mx-auto">
+        <a href="{% url 'create_order'%}?of=pfc"><button type="button"
+            class="btn btn-outline-secondary px-5 radius-30"><i class="bi bi-bag-plus"></i>Commander</button></a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-end border-warning border-3">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <h4 class="mb-0 text-warning">{{cps_count}}</h4>
+            {% if gr_count == 1 %}
+            <p class="mb-1">Poche de Concentré Plaquettaire</p>
+            {% else %}
+            <p class="mb-1">Poches de Concentré Plaquettaire</p>
+            {% endif %}
+          </div>
+          <div class="ms-auto widget-icon bg-warning text-white">
+            <i class="bi bi-droplet-half"></i>
+          </div>
+        </div>
+      </div>
+      {% if request.user.role == 'Client' %}
+      <div class="card-title mx-auto">
+        <a href="{% url 'create_order'%}?of=cps"><button type="button" class="btn btn-outline-warning px-5 radius-30"><i
+              class="bi bi-bag-plus"></i>Commander</button></a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if request.user.role != 'Client' %}
+<h6 class="mb-0 text-uppercase">Produits sanguins labiles vendus</h6>
+<hr>
+<div class="row row-cols-1 row-cols-sm-3 row-cols-md-3 row-cols-xl-3 row-cols-xxl-6">
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-end border-danger border-3">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <h4 class="mb-0 text-danger">{{indispo_gr_count}}</h4>
+            {% if indispo_gr_count == 1 %}
+            <p class="mb-1">Poche de Globules Rouges</p>
+            {% else %}
+            <p class="mb-1">Poches de Globules Rouges</p>
+            {% endif %}
+          </div>
+          <div class="ms-auto widget-icon bg-danger text-white">
+            <i class="bi bi-droplet-half"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-end border-secondary border-3">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <h4 class="mb-0 text-secondary">{{indispo_pfc_count}}</h4>
+            {% if indispo_gr_count == 1 %}
+            <p class="mb-1">Poche de Plasma Frais Congelé</p>
+            {% else %}
+            <p class="mb-1">Poches de Plasma Frais Congelé</p>
+            {% endif %}
+          </div>
+          <div class="ms-auto widget-icon bg-secondary text-white">
+            <i class="bi bi-droplet-half"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-end border-warning border-3">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="">
+            <h4 class="mb-0 text-warning">{{indispo_cps_count}}</h4>
+            {% if indispo_gr_count == 1 %}
+            <p class="mb-1">Poche de Concentré Plaquettaire</p>
+            {% else %}
+            <p class="mb-1">Poches de Concentré Plaquettaire</p>
+            {% endif %}
+          </div>
+          <div class="ms-auto widget-icon bg-warning text-white">
+            <i class="bi bi-droplet-half"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h6 class="mb-0 text-uppercase">Poches par groupe sanguin</h6>
+<hr>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-2 row-cols-xxl-4">
+  {% for blood_group, count in psls_bags_count %}
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-pink border-3">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="widget-icon bg-pink text-white">
+            <span>{{blood_group}}</span>
+          </div>
+          <div class="ms-auto">
+            <h4 class="mb-0 text-pink">{{count}}</h4>
+            <p class="mb-1">Poches</p>
+          </div>
+        </div>
+        <hr class="my-2 border-top border-pink">
+        <small class="mb-0 text-dark d-flex flex-row-reverse">
+          <span>
+            {% for blood_group_gr, count_gr in gr_bags_count %}
+            {% if blood_group == blood_group_gr %}
+            {{count_gr}} {% if count_gr == 1 %}<span class="text-pink">Poche de GR </span>{% else %}<span
+              class="text-pink">Poches de GR </span>{% endif %} |
+            {% endif %}
+            {% endfor %}
+            {% for blood_group_pfc, count_pfc in pfc_bags_count %}
+            {% if blood_group == blood_group_pfc %}
+            {{count_pfc}} {% if count_pfc == 1 %}<span class="text-pink">Poche de PFC </span>{% else %}<span
+              class="text-pink">Poches de PFC </span>{% endif %}|
+            {% endif %}
+            {% endfor %}
+            {% for blood_group_cps, count_cps in cps_bags_count %}
+            {% if blood_group == blood_group_cps %}
+            {{count_cps}} {% if count_cps == 1 %}<span class="text-pink">Poche de CPS</span>{% else %}<span
+              class="text-pink">Poches de CPS </span>{% endif %}
+            {% endif %}
+            {% endfor %}
+          </span>
+        </small>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if request.user.role == 'Client' %}
+<h6 class="mb-0 text-uppercase">Vos commandes</h6>
+<hr>
+<div class="row">
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-primary border-3">
+      <div class="card-body text-center">
+        <h3 class="text-primary">{{clientorders}}</h3>
+      </div>
+      <div class="card-title text-center">
+        {% if clientorders == 1 %}
+        <p class="mb-1 text-primary">Commande effectuée</p>
+        {% else %}
+        <p class="mb-1 text-primary">Commandes effectuées</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-success border-3">
+      <div class="card-body text-center">
+        <div class="text-center">
+          <h3 class="text-success">{{succesorders}}</h3>
+        </div>
+      </div>
+      <div class="card-title text-center m-1">
+        {% if succesorders == 1 %}
+        <p class="mb-0 text-success">Commande reçue</p>
+        {% else %}
+        <p class="mb-0 text-success">Commandes reçues</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-danger border-3">
+      <div class="card-body text-center">
+        <div class="text-center">
+          <h3 class="text-danger">{{canceledorders}}</h3>
+        </div>
+      </div>
+      <div class="card-title text-center">
+        {% if canceledorders == 1 %}
+        <p class="mb-0 text-danger">Commande annulée</p>
+        {% else %}
+        <p class="mb-0 text-danger">Commandes annulées</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card radius-10 border-0 border-start border-secondary border-3">
+      <div class="card-body text-center">
+        <div class="text-center">
+          <h3 class="text-secondary">{{pendingorders}}</h3>
+        </div>
+      </div>
+      <div class="card-title text-center">
+        {% if pendingorders == 1 %}
+        <p class="mb-0 text-secondary">Commande à Récupérer</p>
+        {% else %}
+        <p class="mb-0 text-secondary">Commandes à Récupérer</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<h6 class="mb-0 text-uppercase">Dernières commandes</h6>
+<hr>
+<div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-xl-2 row-cols-xxl-2">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+          <div class="d-flex align-items-center">
+              <h5 class="mb-0">Commandes à Rècupérer</h5>
+          </div>
+          <div class="table-responsive mt-3">
+            {% if messages %}
+              {% for message in messages %}
+                  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                      <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+                          <div class="d-flex align-items-center">
+                              <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                              </div>
+                              <div class="ms-3">
+                                  <div class="text-info">{{message}}</div>
+                              </div>
+                          </div>
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                  {% else %}
+                      <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                          <div class="d-flex align-items-center">
+                              <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+                              </div>
+                              <div class="ms-3">
+                                  <div class="text-danger">{{message}}</div>
+                              </div>
+                          </div>
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                  {% endif %}
+              {% endfor %}
+          {% endif %}
+              <table id="example" class="table align-middle" style="width:100%">
+                  <thead class="table-light">
+                      <tr>
+                          <th>ID</th>
+                          {% if request.user.role == 'Client' %}
+                          <th>Actions</th>
+                          {% endif %}
+                          <th>Type de PSL</th>
+                          <th>Quantité</th>
+                          <th>Status</th>
+                          <th>Date de la commande</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for order in pendingorders_l %}
+                          <tr>
+                              <td>{{order.id}}</td>
+                              {% if request.user.role == 'Client' %}
+                              <td>
+                                  <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                                      <a href="{% url 'update_order' order.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                          title="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                      <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Annuler la commande de {{order.client}} ?')" href="{% url 'delete_order' order.id %}"><i class="bi bi-trash-fill"></i></a>
+                                  </div>
+                              </td>
+                              {% endif %}
+                              <td>
+                                  <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                      <div class="">
+                                          <p class="mb-0">{{order.type_psl}}</p>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                      <div class="d-flex">
+                                          <p class="mb-0 mx-1">{{order.get_total_quantity}}</p>
+                                          <a href="{% url "blood_quantity" order.id %}" class="text-primary"
+                                              data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i
+                                                  class="bi bi-eye-fill"></i></a>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                      <div class="">
+                                          <p class="mb-0">{{order.status}}</p>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                      <div class="">
+                                          <p class="mb-0">{{order.date_created}}</p>
+                                      </div>
+                                  </div>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+          <div class="d-flex align-items-center">
+              <h5 class="mb-0">Commandes En Attente de Confirmation</h5>
+          </div>
+          <div class="table-responsive mt-3">{% if messages %}
+              {% for message in messages %}
+                  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                      <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+                          <div class="d-flex align-items-center">
+                              <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                              </div>
+                              <div class="ms-3">
+                                  <div class="text-info">{{message}}</div>
+                              </div>
+                          </div>
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                  {% else %}
+                      <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                          <div class="d-flex align-items-center">
+                              <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+                              </div>
+                              <div class="ms-3">
+                                  <div class="text-danger">{{message}}</div>
+                              </div>
+                          </div>
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                  {% endif %}
+              {% endfor %}
+          {% endif %}
+              <table id="example2" class="table align-middle" style="width:100%">
+                  <thead class="table-light">
+                      <tr>
+                          <th>ID</th>
+                          {% if request.user.role == 'Client' %}
+                          <th>Actions</th>
+                          {% endif %}
+                          <th>Type de PSL</th>
+                          <th>Quantité</th>
+                          <th>Status</th>
+                          <th>Date de la commande</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for order in waitorders %}
+                          <tr>
+                              <td>{{order.id}}</td>
+                              {% if request.user.role == 'Client' %}
+                              <td>
+                                  <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                                      <a href="{% url 'update_order' order.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                          title="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                      <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Annuler la commande de {{order.client}} ?')" href="{% url 'delete_order' order.id %}"><i class="bi bi-trash-fill"></i></a>
+                                  </div>
+                              </td>
+                              {% endif %}
+                              <td>
+                                  <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                      <div class="">
+                                          <p class="mb-0">{{order.type_psl}}</p>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                      <div class="d-flex">
+                                          <p class="mb-0 mx-1">{{order.get_total_quantity}}</p>
+                                          <a href="{% url 'blood_quantity' order.id %}" class="text-primary"
+                                              data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i
+                                                  class="bi bi-eye-fill"></i></a>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                      <div class="">
+                                          <p class="mb-0">{{order.status}}</p>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                      <div class="">
+                                          <p class="mb-0">{{order.date_created}}</p>
+                                      </div>
+                                  </div>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% else %}
+
+<div class="text-center">
+  <h6 class="text-uppercase">
+    Attendez d'être approuvé par l'administrateur
+  </h6>
+</div>
+
+{% endif %}
 
 {% endblock %}

@@ -1,6 +1,217 @@
 {% extends "apps/layouts/main.html" %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block content %}
+
+<div class="d-flex justify-content-between">
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Table</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page">Produits Sanguins Labiles</li>
+            </ol>
+        </nav>
+    </div>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-sm-3 row-cols-md-3 row-cols-xl-3 row-cols-xxl-6">
+    <div class="col">
+      <div class="card radius-10 border-0 border-start border-end border-danger border-3">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="">
+              <h4 class="mb-0 text-danger">{{gr_count}}</h4>
+              {% if gr_count == 1 %}
+              <p class="mb-1">Poche de Globules Rouges</p>
+              {% else %}
+              <p class="mb-1">Poches de Globules Rouges</p>
+              {% endif %}
+            </div>
+            <div class="ms-auto widget-icon bg-danger text-white">
+              <i class="bi bi-droplet-half"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card radius-10 border-0 border-start border-end border-secondary border-3">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="">
+              <h4 class="mb-0 text-secondary">{{pfc_count}}</h4>
+              {% if gr_count == 1 %}
+              <p class="mb-1">Poche de Plasma Frais Congelé</p>
+              {% else %}
+              <p class="mb-1">Poches de Plasma Frais Congelé</p>
+              {% endif %}
+            </div>
+            <div class="ms-auto widget-icon bg-secondary text-white">
+              <i class="bi bi-droplet-half"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card radius-10 border-0 border-start border-end border-warning border-3">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="">
+              <h4 class="mb-0 text-warning">{{cps_count}}</h4>
+              {% if gr_count == 1 %}
+              <p class="mb-1">Poche de Concentré Plaquettaire</p>
+              {% else %}
+              <p class="mb-1">Poches de Concentré Plaquettaire</p>
+              {% endif %}
+            </div>
+            <div class="ms-auto widget-icon bg-warning text-white">
+              <i class="bi bi-droplet-half"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% if messages %}
+{% for message in messages %}
+{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+<div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+    <div class="d-flex align-items-center">
+        <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+        </div>
+        <div class="ms-3">
+            <div class="text-info">{{message}}</div>
+        </div>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% else %}
+<div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+    <div class="d-flex align-items-center">
+        <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+        </div>
+        <div class="ms-3">
+            <div class="text-danger">{{message}}</div>
+        </div>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<div class="card">
+    <div class="card-header py-3">
+        <div class="d-flex justify-content-between">
+            <h4 class="mb-0">Produits Sanguins Labiles</h4>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <form  method="GET">
+              <div class="input-group input-group-sm">
+                <label class="form-label d-inline m-2">Type de PSL: </label>
+                {% render_field filtre.form.type_psl class="form-select d-inline m-2"%}
+                <label class="form-label d-inline m-2">Solution: </label>
+                {% render_field filtre.form.solution class="form-select d-inline m-2"%}
+                <button type="Submit" class="btn btn-primary btn-sm m-2">Filtrer</button>
+              </div>
+            </form>
+            <table id="example" class="table align-middle" style="width:100%">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Action</th>
+                        <th>Numéro de Série</th>
+                        <th>Type</th>
+                        <th>Volume</th>
+                        <th>Durée de Conservation</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for psl in psls %}
+                    <tr>
+                        <td>{{psl.id}}</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 fs-6">
+                                <a href="{% url 'psl_details' psl.id %}" class="text-primary"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i
+                                        class="bi bi-eye-fill"></i></a>
+                                {% if request.user.role == 'Laborantin' %}
+                                <a href="{% url 'update_psl' psl.id %}" class="text-warning" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
+                                    aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Delete" onclick="return confirm('Supprimer {{psl.serial}} ?')"
+                                    href="{% url 'psl_delete' psl.id %}"><i class="bi bi-trash-fill"></i></a>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>{{psl.serial}}</td>
+                        <td>{{psl.type_psl}}</td>
+                        <td>{{psl.volume}} ml</td>
+                        <td>{{psl.duration}}</td>
+                        <td>{{psl.solution}}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% if request.user.role == 'Admin' %}
+<div class="card">
+    <div class="card-header py-3">
+        <div class="d-flex justify-content-between">
+            <h4 class="mb-0">Types de Produits Sanguins Labiles</h4>
+            <div class="btn-group">
+                <a class="btn btn-primary" href="{% url 'create_type' %}" class="link-light"><i
+                        class="bi bi-plus-circle"></i> Ajouter un nouveau type de PSL </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="example2" class="table align-middle" style="width:100%">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Action</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for typ in types %}
+                    <tr>
+                        <td>{{typ.id}}</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 fs-6">
+                                <a href="{% url 'update_type' typ.id %}" class="text-warning" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
+                                    aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Delete" onclick="return confirm('Supprimer {{typ.name}} ?')"
+                                    href="{% url 'delete_type' typ.id %}"><i class="bi bi-trash-fill"></i></a>
+                            </div>
+                        </td>
+                        <td>{{typ.name}}</td>
+                        <td>{{typ.price}}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {% endblock %}

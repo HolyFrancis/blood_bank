@@ -9,23 +9,25 @@
     <div class="ps-3">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-0 p-0">
-          <li class="breadcrumb-item"><a href=""><i class="bx bx-home-alt"></i></a>
+          <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a>
           </li>
         </ol>
       </nav>
     </div>
+    {% if request.user.role == 'Admin' %}
     <div class="ms-auto">
       <div class="btn-group">
         <a class="btn btn-primary" href="{% url 'create_client' %}" class="link-light"><i class="bi bi-plus-circle"></i> Ajouter un Client</a>
       </div>
     </div>
+    {% endif %}
   </div>
   <!--end breadcrumb-->
 
   <div class="card">
     <div class="card-body">
       <div class="d-flex align-items-center">
-        <h5 class="mb-0">Details des Client</h5>
+        <h5 class="mb-0">Détails des Client</h5>
       </div>
       <div class="table-responsive mt-3">{% if messages %}
         {% for message in messages %}
@@ -58,7 +60,9 @@
           <thead class="table-light">
             <tr>
               <th>ID</th>
+              {% if request.user.role == 'Admin' %}
               <th>Actions</th>
+              {% endif %}
               <th>Nom</th>
               <th>Téléphone</th>
               <th>E-mail</th>
@@ -71,11 +75,11 @@
               <td>{{client.id}}</td>
               <td>
                 <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                  <a href="{% url 'client_details' client.id %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Views"><i class="bi bi-eye-fill"></i></a>
+                  {% if request.user.role == 'Admin' %}
                   <a href="{% url 'update_client' client.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
                     title="Edit"><i class="bi bi-pencil-fill"></i></a>
                   <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" onclick="return confirm('Supprimer {{client.name}} ?')" href="{% url 'delete_client' client.id %}"><i class="bi bi-trash-fill"></i></a>
+                  {% endif %}
                 </div>
               </td>
               <td>
