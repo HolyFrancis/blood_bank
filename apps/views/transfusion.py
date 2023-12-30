@@ -23,7 +23,7 @@ def blood(request):
     eligible_bloods_percent = 0
     ineligible_bloods_percent = 0
     pending_bloods_percent = 0
-    if eligible_bloods is not 0:
+    if eligible_bloods != 0:
         eligible_bloods_percent = eligible_bloods/bloods_count*100
         ineligible_bloods_percent = ineligible_bloods/bloods_count*100
         pending_bloods_percent = pending_bloods/bloods_count*100

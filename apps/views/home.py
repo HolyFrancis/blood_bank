@@ -68,7 +68,7 @@ def home(request):
         ineligible_donors_percent = 0
         pending_donors_percent = 0
         
-        if donors_count is not 0:
+        if donors_count != 0:
             eligible_donors_percent = eligible_donors/donors_count*100
             ineligible_donors_percent = ineligible_donors/donors_count*100
             pending_donors_percent = pending_donors/donors_count*100
@@ -84,7 +84,7 @@ def home(request):
         eligible_bloods_percent = 0
         ineligible_bloods_percent = 0
         pending_bloods_percent = 0
-        if eligible_bloods is not 0:
+        if eligible_bloods != 0:
             eligible_bloods_percent = eligible_bloods/bloods_count*100
             ineligible_bloods_percent = ineligible_bloods/bloods_count*100
             pending_bloods_percent = pending_bloods/bloods_count*100
