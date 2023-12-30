@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
 from apps.forms import UserForm, PasswordChangingForm, RoleForm
+from apps.models import Users
 from apps.decorators import gohome_if_authenticated
 
 User = get_user_model()
@@ -51,7 +52,7 @@ def register(request):
         username = request.POST["username"]
         if request.POST["password"] != request.POST["password_confirm"]:
             messages.error(request, "Les mots de passes saisis ne sont pas identiques")
-            return render(request, "apps/user/register.html")
+            return render(request, "apps/user/register.html", {'form', form})
         elif User.objects.filter(username=username).exists():
             messages.error(
                 request,
@@ -59,7 +60,7 @@ def register(request):
                 + username
                 + " existe déjà. Veuillez saisir un autre nom d'utilisateur",
             )
-            return render(request, "apps/user/register.html")
+            return render(request, "apps/user/register.html", {'form', form})
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data["password"])
@@ -127,3 +128,8 @@ class changePassword(PasswordChangeView):
 def password_success(request):
     messages.success(request, "Le mot de passe a été changé avec succès")
     return render(request, "apps/user/settings.html")
+
+def delete_user(request, id):
+    user = Users.objects.get(id=id)
+    user.is_active = False
+    redirect('users')
