@@ -1,7 +1,9 @@
+import json
+
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
-from apps.models import Donor, Blood, PSL, Type_PSL
+from apps.models import Donor, Blood, PSL, Type_PSL, Order, Users
 
 def counts(modelObject):
     a_plus_bags = 0
@@ -65,6 +67,7 @@ def home(request):
         eligible_donors_percent = 0
         ineligible_donors_percent = 0
         pending_donors_percent = 0
+        
         if donors_count is not 0:
             eligible_donors_percent = eligible_donors/donors_count*100
             ineligible_donors_percent = ineligible_donors/donors_count*100
@@ -114,6 +117,37 @@ def home(request):
         gr_bags_count = counts(psls_gr)
         pfc_bags_count = counts(psls_pfc)
         cps_bags_count = counts(psls_cps)
+        
+        #-------------------------------------------Client's orders Stats---------------------------------------
+        
+        try:
+            clientorders = Order.objects.filter(client = request.user.client)
+            succesorders = Order.objects.filter(client= request.user.client, status = "Délivrée")
+            pendingorders = Order.objects.filter(client= request.user.client, status = "Confirmée")
+            canceledorders = Order.objects.filter(client= request.user.client, status = "Annulée")
+            waitorders = Order.objects.filter(client= request.user.client, status = "En Attente")
+        except:
+            clientorders = Order.objects.filter()
+            succesorders = Order.objects.filter()
+            pendingorders = Order.objects.filter()
+            canceledorders = Order.objects.filter()
+            waitorders = Order.objects.filter()
+            
+        #-------------------------------------------Orders Stats---------------------------------------
+            
+        orders = Order.objects.all().count()
+        new_orders_pct = Order.objects.filter(status = "En Attente").count()/orders * 100
+        completed_orders_pct = Order.objects.filter(status = "Délivrée").count()/orders * 100
+        pending_orders_pct = Order.objects.filter(status = "Confirmée").count()/orders * 100
+        canceled_orders_pct = Order.objects.filter(status = "Annulée").count()/orders * 100
+        
+        #-------------------------------------------Staff Stats---------------------------------------
+        
+        doctors = Users.objects.filter(role='Docteur').count()
+        nurses = Users.objects.filter(role='Infirmier(e)').count()
+        labstff = Users.objects.filter(role='Laborantin').count()
+        managers = Users.objects.filter(role='Gestionnaire').count()
+        clients = Users.objects.filter(role='Client').count()
 
         #-------------------------------------------End Stats---------------------------------------
             
@@ -147,7 +181,26 @@ def home(request):
             'pfc_bags_count':pfc_bags_count.items(),
             'cps_bags_count':cps_bags_count.items(),
             
-            'ingroups':ingroups
+            "clientorders":clientorders.count(),
+            "succesorders":succesorders.count(),
+            "pendingorders":pendingorders.count(),
+            "pendingorders_l":pendingorders,
+            "canceledorders":canceledorders.count(),
+            "waitorders":waitorders,
+            
+            'orders':orders,
+            'new_orders_pct':new_orders_pct,
+            'completed_orders_pct':completed_orders_pct,
+            'pending_orders_pct':pending_orders_pct,
+            'canceled_orders_pct':canceled_orders_pct,
+            
+            'doctors':doctors,
+            'nurses':nurses,
+            'labstff':labstff,
+            'managers':managers,
+            'clients':clients,
+            
+            'ingroups':ingroups,
             }
     else:
         context = {'ingroups':ingroups}

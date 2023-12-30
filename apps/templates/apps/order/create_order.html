@@ -3,6 +3,23 @@
 {% load widget_tweaks %}
 
 {% block content %}
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'order' %}">Commande</a></li>
+                    {% if create is True %}
+                    <li class="breadcrumb-item active" aria-current="page">Ajouter Commande</li>
+                    {% else %}
+                    <li class="breadcrumb-item active" aria-current="page">Modifier Commande</li>
+                    {% endif %}
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--end breadcrumb-->
 
     <div class="row">
         <div class="col-xl-12 mx-auto">

@@ -1,0 +1,75 @@
+{% extends "apps/layouts/main.html" %}
+{% load static %}
+
+{% block content %}
+
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="ps-3 pe-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item"><a href="{% url 'order' %}">Commandes</a></li>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Facture</li>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--end breadcrumb-->
+
+
+<div class="row">
+    <div class="col-xl-12 mx-auto">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="border p-3 rounded">
+                    <div class="card card-outline-secondary p-2">
+                        <h6 class="mb-0 text-uppercase">Facture N°{{order.id}} pour {{order.client.name}}</h6>
+                        <hr>
+                        <div class="col-6">
+                            <p class="form-label">Commande N°{{order.id}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Effectuée le : {{order.date_created|date:"d/m/Y"}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Produit Sanguin : {{order.type_psl}}</p>
+                        </div>
+                        <div class="col-12">
+                            <p class="form-label d-inline">Quantités :</p>
+                            <span class="form-label">A+ : {{order.quantity_A_plus}}</span>
+                            <span class="form-label">| A- : {{order.quantity_A_m}}</span>
+                            <span class="form-label">| B+ : {{order.quantity_B_plus}}</span>
+                            <span class="form-label">| B- : {{order.quantity_B_m}}</span>
+                            <span class="form-label">| AB+ : {{order.quantity_AB_plus}}</span>
+                            <span class="form-label">| AB- : {{order.quantity_AB_m}}</span>
+                            <span class="form-label">| O+ : {{order.quantity_O_plus}}</span>
+                            <span class="form-label">| O- : {{order.quantity_O_m}}</span>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Quantité totale: {{order.get_total_quantity}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="form-label">Prix unitaire: {{order.type_psl.price}}FBU</p>
+                        </div>
+                        <hr>
+                        <div class="col-6">
+                            <p class="font-weight-bold">Prix total: {{total_price}}FBU</p>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-grid">
+                            <button class="btn btn-outline-secondary" onclick="history.back()">Retour</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

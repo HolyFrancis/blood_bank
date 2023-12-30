@@ -35,6 +35,7 @@ urlpatterns = [
     ),
     path("change_password/", auth_views.PasswordChangeView.as_view(template_name="apps/user/change_password.html"), name="change-password"),
     path("password_success/", user.password_success, name="password_success"),
+    path("delete-user/<str:id>", user.delete_user, name="delete_user"),
     path("", home.home, name="home"),
     # -------------------------------Donor-------------------------------
     path("donor", donor.donor, name="donor"),
@@ -103,6 +104,7 @@ urlpatterns = [
     path("blood-order-decision/<str:id>", order.blood_order_decision, name="order_decision"),
     path("blood-order-history", order.blood_order_history, name="order_history"),
     path("blood-order-history-decision/<int:id>", order.blood_history_decision, name="order_history_decision"),
+    path("bill/<int:id>", order.bill, name="bill"),
     # -------------------------------Public-------------------------------
     path("public-home", public.public, name="public"),
 ]

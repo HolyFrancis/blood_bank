@@ -215,3 +215,11 @@ def blood_history_decision(request, id):
     context = {'ingroups':ingroups, 'formset': formset, 'q':blood_order.get_total_quantity, 'psls':dispo_psls}
     
     return render(request, "apps/order/submit_psls.html", context)
+
+def bill(request, id):
+    order = Order.objects.get(id=id)
+    total_price = order.type_psl.price * order.get_total_quantity
+    
+    context = {'order':order, 'total_price':total_price}
+    
+    return render(request, "apps/order/bill.html", context)

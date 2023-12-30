@@ -64,7 +64,7 @@ def create_blood(request, id):
         if form.is_valid():
             blood = request.POST
             form.save()
-            messages.success(request, "La transfusion sanguine N°" + blood['serial'] + " a été enregistrée avec succès")
+            messages.success(request, "Le prélèvement N°" + blood['serial'] + " a été enregistré avec succès")
             return redirect('donor')
         else:
             current_blood = request.POST
@@ -94,7 +94,7 @@ def update_blood(request, id):
         form = BloodForm(request.POST, instance=blood)
         if form.is_valid():
             form.save()
-            messages.success(request, "La transfusion sanguine N°" + blood.serial + " a été modifiée avec succès")
+            messages.success(request, "Le prélèvement N°" + blood.serial + " a été modifié avec succès")
             return redirect("transfusion")
         else:
             current_blood = request.POST
@@ -132,7 +132,7 @@ def blood_delete(request, id):
      
     blood = Blood.objects.get(pk=id)
     blood.delete()
-    messages.success(request, "La transfusion sanguine a été supprimée avec succès")
+    messages.success(request, "Le prélèvement a été supprimé avec succès")
     return redirect("transfusion")
 
 @login_required(login_url="login")
