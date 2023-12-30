@@ -1,19 +1,38 @@
 from django.shortcuts import redirect, render
+from django.http import HttpResponse
 from django.contrib import messages
 from django.forms import formset_factory
+from django.contrib.auth.decorators import login_required
 
 from apps.models import Order, Type_PSL, PSL
 from apps.forms import OrderForm, SerialForm
 
 from apps.views.home import counts
 
+
+@login_required(login_url="login")
 def order(request):
-    orders = Order.objects.all()
-    context = {"orders": orders}
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
+    if role == 'Client':
+        orders = Order.objects.filter(client=request.user.client)
+    else:
+        orders = Order.objects.all()
+    context = {'ingroups':ingroups, "orders": orders}
     return render(request, "apps/order/order.html", context)
 
-
+@login_required(login_url="login")
 def create_order(request):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     of = request.GET.get("of")
 
     if of == "gr":
@@ -25,8 +44,11 @@ def create_order(request):
         
     psls = PSL.objects.filter(type_psl=type_psl, dispo=True)
     psls_bags_count = counts(psls)
-        
-    form = OrderForm(initial={"type_psl": type_psl})
+     
+    try:   
+        form = OrderForm(initial={'client':request.user.client,"type_psl": type_psl})
+    except:
+        return HttpResponse("Vous n'êtes pas un client")
     
     if request.method == "POST":
         form = OrderForm(request.POST)
@@ -36,17 +58,23 @@ def create_order(request):
             if order.quantity_A_plus > psls_bags_count['A+'] or order.quantity_A_m > psls_bags_count['A-'] or order.quantity_B_plus > psls_bags_count['B+'] or order.quantity_B_m > psls_bags_count['B-'] or order.quantity_AB_plus > psls_bags_count['AB+'] or order.quantity_AB_m > psls_bags_count['AB-'] or order.quantity_O_plus > psls_bags_count['O+'] or order.quantity_O_m > psls_bags_count['O-']:
                
                 messages.error(request, "Vous ne pouvez pas commander une quantité supérieure à la quantité disponible")
-                context = {"form": form, 'type_psl':type_psl.name, 'psls_bags_count':psls_bags_count.items()}
+                context = {'ingroups':ingroups, "form": form, 'type_psl':type_psl.name, 'psls_bags_count':psls_bags_count.items()}
                 return render(request, "apps/order/create_order.html", context)
             
             order.save()
             messages.success(request, "Commande N°" + str(order.id) + " ajoutée avec succès!")
             return redirect("order")
-    context = {"form": form, 'type_psl':type_psl.name, 'psls_bags_count':psls_bags_count.items()}
+    context = {'ingroups':ingroups, "form": form, 'type_psl':type_psl.name, 'psls_bags_count':psls_bags_count.items()}
     return render(request, "apps/order/create_order.html", context)
 
-
+@login_required(login_url="login")
 def update_order(request, id):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     order = Order.objects.get(id=id)
 
     form = OrderForm(instance=order)
@@ -58,34 +86,58 @@ def update_order(request, id):
             messages.success(request, "Commande N°" + str(order.id) + " modifiée avec succès!")
             return redirect("order")
 
-    context = {"form": form, "order": order}
+    context = {'ingroups':ingroups, "form": form, "order": order}
 
     return render(request, "apps/order/create_order.html", context)
 
-
+@login_required(login_url="login")
 def delete_order(request, id):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     order = Order.objects.get(id=id)
     order.delete()
     messages.success(request, "La commande a été supprimé avec succès!")
 
     return redirect("order")
 
-
+@login_required(login_url="login")
 def BloodQantityOrderDetatils(request, id):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     blood_order = Order.objects.get(id=id)
 
-    context = {"order": blood_order}
+    context = {'ingroups':ingroups, "order": blood_order}
     return render(request, "apps/order/quantity_details.html", context)
 
-
+@login_required(login_url="login")
 def order_request(request):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     orders = Order.objects.filter(status="En Attente")
-    context = {"orders": orders}
+    context = {'ingroups':ingroups, "orders": orders}
 
     return render(request, "apps/order/order_requests.html", context)
 
-
+@login_required(login_url="login")
 def blood_order_decision(request, id):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     blood_order = Order.objects.get(id=id)
 
     q = request.GET.get("q")
@@ -101,15 +153,28 @@ def blood_order_decision(request, id):
 
     return redirect("order_requests")
 
-
+@login_required(login_url="login")
 def blood_order_history(request):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     blood_order = Order.objects.filter(status="Confirmée")
-    context = {"orders": blood_order}
+    dorders = Order.objects.filter(status="Délivrée")
+    context = {'ingroups':ingroups, "orders": blood_order, 'dorders':dorders}
 
     return render(request, "apps/order/order_history.html", context)
 
-
+@login_required(login_url="login")
 def blood_history_decision(request, id):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     blood_order = Order.objects.get(id=id)
     dispo_psls = PSL.objects.filter(dispo=True)
 
@@ -130,7 +195,7 @@ def blood_history_decision(request, id):
                 if exsts == False:
                     messages.error(request, "Un ou pulsieurs numéros de série sont incorrect")
                     
-                    context = {'formset': formset, 'q':blood_order.get_total_quantity, 'psls':dispo_psls}
+                    context = {'ingroups':ingroups, 'formset': formset, 'q':blood_order.get_total_quantity, 'psls':dispo_psls}
             
                     return render(request, "apps/order/submit_psls.html", context)
                 
@@ -147,6 +212,14 @@ def blood_history_decision(request, id):
         else:
             print(formset.errors)
 
-    context = {'formset': formset, 'q':blood_order.get_total_quantity, 'psls':dispo_psls}
+    context = {'ingroups':ingroups, 'formset': formset, 'q':blood_order.get_total_quantity, 'psls':dispo_psls}
     
     return render(request, "apps/order/submit_psls.html", context)
+
+def bill(request, id):
+    order = Order.objects.get(id=id)
+    total_price = order.type_psl.price * order.get_total_quantity
+    
+    context = {'order':order, 'total_price':total_price}
+    
+    return render(request, "apps/order/bill.html", context)

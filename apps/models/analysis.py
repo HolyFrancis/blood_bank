@@ -1,6 +1,5 @@
 from django.db import models
 
-from apps.models.reactant import Reactant
 from apps.models.blood import Blood
 
 class Analysis(models.Model):

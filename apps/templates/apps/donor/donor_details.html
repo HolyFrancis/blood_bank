@@ -28,6 +28,7 @@
             <span class="text text-success">{{donor.status}}</span>
         </div>
     </div>
+    {% if request.user.role == 'Docteur' or request.user.role == 'Infirmier' %}
     <div class="col d-flex">
         <div class="ms-auto">
             <div class="btn-group">
@@ -36,6 +37,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
     {% elif donor.status == "Ineligible" %}
     <div class="h4 pe-3">
         {{donor.first_name}} {{donor.last_name}}:

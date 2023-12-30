@@ -1,22 +1,48 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from apps.models import Analysis, Blood
 from apps.forms import AnalysisForm
 from apps.filters import AnalysisFilter
 
+from apps.decorators import allowed_users, disallowed_users
 
+
+@login_required(login_url="login")
+@disallowed_users(['Client'])
 def analyse(request):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
+    
     analyses = Analysis.objects.all()
     filtre = AnalysisFilter(request.GET, queryset=analyses)
     analyses = filtre.qs
     
-    context = {'analyses':analyses, "filtre":filtre}
+    context = {'ingroups':ingroups, 'analyses':analyses, "filtre":filtre}
     
     return render(request, "apps/analyse/analyse.html", context)
 
-
+@login_required(login_url="login")
+@allowed_users(['Laborantin'])
 def create_analysis(request, id):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
+    
     blood = Blood.objects.get(id=id)
     form = AnalysisForm(initial={'blood':blood})
     
@@ -45,11 +71,20 @@ def create_analysis(request, id):
         else:
             print(form.errors)
     
-    context = {"form":form, "blood":blood}
+    context = {'ingroups':ingroups, "form":form, "blood":blood}
     
     return render(request, "apps/analyse/create_analyse.html", context)
 
+@login_required(login_url="login")
+@allowed_users(['Laborantin'])
 def update_analysis(request, id):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
+    
     analysis = Analysis.objects.get(id=id)
     blood = Blood.objects.get(id=analysis.blood)
     
@@ -65,34 +100,62 @@ def update_analysis(request, id):
         else:
             return form.errors
     
-    context = {"form":form, 'analysis':analysis}
+    context = {'ingroups':ingroups, "form":form, 'analysis':analysis}
     
     return render(request, "apps/analyse/create_analyse.html", context)
 
+@login_required(login_url="login")
+@disallowed_users(['Client'])
 def analysis_details(request, id):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
+    
     analysis = Analysis.objects.get(id=id)
     
-    context = {'analysis':analysis}
+    context = {'ingroups':ingroups, 'analysis':analysis}
     
     return render(request, "apps/analyse/details.html", context)
 
-def delete_analysis(request, id):
+@login_required(login_url="login")
+@allowed_users(["Laborantin"])
+def delete_analysis(request, id):    
+    
     analysis = Analysis.objects.get(id=id)
     analysis.delete()
     messages.success(request, "Analyse supprimée avec succès")
     
     return redirect('analyse')
 
+@login_required(login_url="login")
+@allowed_users(['Laborantin'])
 def request_analysis(request):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     bloods = Blood.objects.filter(analysed=False)
     
-    context = {'bloods':bloods}
+    context = {'ingroups':ingroups, 'bloods':bloods}
     
     return render(request, "apps/analyse/requests.html", context)
 
+@login_required(login_url="login")
+@allowed_users(['Laborantin'])
 def analysis_history(request):
+    role = request.user.role    
+    if role is None:
+        ingroups = False
+    else:
+        ingroups = True
+     
     analyses = Analysis.objects.all()
     
-    context = {'analyses':analyses}
+    context = {'ingroups':ingroups, 'analyses':analyses}
     
     return render(request, "apps/analyse/history.html", context)

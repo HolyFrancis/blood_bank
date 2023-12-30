@@ -20,3 +20,9 @@ class PasswordChangingForm(PasswordChangeForm):
     class Meta:
         model = Users
         fields = ["old_password", "new_password1", "new_password2"]
+        
+
+class RoleForm(ModelForm):
+    class Meta:
+        model = Users
+        fields = ['role']
