@@ -25,7 +25,7 @@ def users(request):
     roleusers = []
     
     for user in users:
-        if user.role is not None:
+        if user.role != None:
             roleusers.append(user)
     
     context = {'ingroups':ingroups, 'users':roleusers}
@@ -79,7 +79,7 @@ def loginview(request):
         
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
+        if user != None:
             login(request, user)
             return redirect("home")
         else:

@@ -23,7 +23,7 @@ def donor(request):
     eligible_donors_percent = 0
     ineligible_donors_percent = 0
     pending_donors_percent = 0
-    if donors_count is not 0:
+    if donors_count != 0:
         eligible_donors_percent = eligible_donors/donors_count*100
         ineligible_donors_percent = ineligible_donors/donors_count*100
         pending_donors_percent = pending_donors/donors_count*100
