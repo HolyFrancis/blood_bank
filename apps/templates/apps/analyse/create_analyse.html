@@ -4,63 +4,67 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="col-xl-12 mx-auto">
+    <div class="row">
+        <div class="col-xl-12 mx-auto">
 
-        <div class="card">
-            <div class="card-body">
-                <div class="border p-3 rounded">
-                    <h6 class="mb-0 text-uppercase">Nouvelle Analyse pour la {{blood}}</h6>
-                    <hr />
-                    <form class="row g-3" method="POST">
-                        {% csrf_token %}
-                        <div class="col-6 d-none">
-                            <label class="form-label">Prélèvement</label>
-                            {{form.blood}}
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Présence d'anticorps irréguliers</label>
-                            {{form.irregular_antibodies}}
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Dépistage du VIH</label>
-                            {{form.hiv_test}}
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Dépistage des Hépaties B et C</label>
-                            {{form.hepatites_test}}
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Présence d'anticorps anti-HTLV1</label>
-                            {{form.anti_hlv1_test}}
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Présence d'anticorps anti-HTLV2</label>
-                            {{form.anti_hlv2_test}}
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Dépistage du Paludisme</label>
-                            {{form.malaria_test}}
-                        </div>
-                        <div class="col-12 d-none">
-                            <label class="form-label">Résultat</label>
-                            {{form.result}}
-                        </div>
-                        <div class="col-6">
-                            <div class="d-grid">
-                                <a class="btn btn-outline-secondary" href="{% url 'analyse' %}">Annuler</a>
+            <div class="card">
+                <div class="card-body">
+                    <div class="border p-3 rounded">
+                        <h6 class="mb-0 text-uppercase">Nouvelle Analyse pour la {{blood}}</h6>
+                        <hr />
+                        <form class="row g-3" method="POST">
+                            {% csrf_token %}
+                            <div class="col-6 d-none">
+                                <label class="form-label">Prélèvement</label>
+                                {{form.blood}}
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <div class="col-12">
+                                <label class="form-label">Présence d'anticorps irréguliers</label>
+                                {{form.irregular_antibodies}}
                             </div>
-                        </div>
-                    </form>
+                            <div class="col-12">
+                                <label class="form-label">Dépistage du VIH</label>
+                                {{form.hiv_test}}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Dépistage des Hépaties B et C</label>
+                                {{form.hepatites_test}}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Présence d'anticorps anti-HTLV1</label>
+                                {{form.anti_hlv1_test}}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Présence d'anticorps anti-HTLV2</label>
+                                {{form.anti_hlv2_test}}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Dépistage du Paludisme</label>
+                                {{form.malaria_test}}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Groupe sanguin du donneur</label>
+                                {{form.blood_group}}
+                            </div>
+                            <div class="col-12 d-none">
+                                <label class="form-label">Résultat</label>
+                                {{form.result}}
+                            </div>
+                            <div class="col-6">
+                                <div class="d-grid">
+                                    <a class="btn btn-outline-secondary" href="{% url 'analyse' %}">Annuler</a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 {% endblock %}
