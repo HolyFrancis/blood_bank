@@ -97,27 +97,38 @@ var options = {
     }
   };
 
-  var chart = new ApexCharts(document.querySelector("#chart1"), options);
+  var chart = new ApexCharts(document.querySelector("#chart100"), options);
   chart.render();
 
 
 
 // chart 2
-  
+
+
+var newOrders = document.getElementById("neworders");
+var completed = document.getElementById("completed");
+var pending = document.getElementById("pending");
+var canceled = document.getElementById("canceled");
+
+newOrders = parseFloat(newOrders.dataset.percent);
+completed = parseFloat(completed.dataset.percent);
+pending = parseFloat(pending.dataset.percent);
+canceled = parseFloat(canceled.dataset.percent);
+
 var options = {
-    series: [160, 60, 35],
+    series: [newOrders, pending, completed, canceled],
     chart: {
      height: 250,
      type: 'pie',
   },
-  labels: [ 'New Orders', 'Pending', 'Completed'],
+  labels: [ 'Nouvelles Commandes', 'En Attente', 'Délivrées', 'Annulées'],
   fill: {
     type: 'gradient',
     gradient: {
       shade: 'light',
       type: "vertical",
       shadeIntensity: 0.5,
-      gradientToColors: ["#00c6fb", "#ff6a00", "#98ec2d"],
+      gradientToColors: ["#0275d8", "#292b2c", "#292b2c", '#d9534f'],
       inverseColors: true,
       opacityFrom: 1,
       opacityTo: 1,
@@ -125,7 +136,7 @@ var options = {
       //colorStops: []
     }
   },
-  colors: ["#005bea", "#ee0979", "#17ad37"],
+  colors: ["#3B71CA", "#9FA6B2", "#14A44D", "#DC4C64"],
   legend: {
     show: false,
     position: 'top',
@@ -145,7 +156,7 @@ var options = {
   }]
   };
 
-  var chart = new ApexCharts(document.querySelector("#chart2"), options);
+  var chart = new ApexCharts(document.querySelector("#chart200"), options);
   chart.render();
 
   

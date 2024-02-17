@@ -72,6 +72,14 @@
                             {{form.cni}}
                         </div>
                         <div class="col-6">
+                            <label class="form-label">Adresse mail</label>
+                            {{form.email}}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Numéro de Téléphone</label>
+                            {{form.phone}}
+                        </div>
+                        <div class="col-6">
                             <label class="form-label">Date de Naissance</label>
                             {% render_field form.birthday type="date" class="form-control" %}
                         </div>
@@ -81,7 +89,7 @@
                         </div>
                         <div class="col-6">
                             <label class="form-select-label">
-                                Sex
+                                Sexe
                             </label>
                             {{form.sex}}
                         </div>

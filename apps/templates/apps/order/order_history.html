@@ -3,117 +3,220 @@
 
 {% block content %}
 
-    <!--breadcrumb-->
-    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Commandes</div>
-        <div class="ps-3">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0 p-0">
-                    <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a>
-                    </li>
-                </ol>
-            </nav>
-        </div>
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Historique</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="{%url 'home' %}"><i class="bx bx-home-alt"></i></a></li>
+                <li class="breadcrumb-item"><a href="{% url 'order' %}">Commandes</a></li>
+            </ol>
+        </nav>
     </div>
-    <!--end breadcrumb-->
+</div>
+<!--end breadcrumb-->
 
-    <div class="card">
-        <div class="card-body">
-            <div class="d-flex align-items-center">
-                <h5 class="mb-0">Historique des Commandes de poches de sang confirmés et qui attendent d'être delivrées</h5>
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0">Historique des Commandes de poches de sang confirmés et qui attendent d'être delivrées</h5>
+        </div>
+        <div class="table-responsive mt-3">{% if messages %}
+            {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+                <div class="d-flex align-items-center">
+                    <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="text-info">{{message}}</div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <div class="table-responsive mt-3">{% if messages %}
-                {% for message in messages %}
-                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                        <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
-                            <div class="d-flex align-items-center">
-                                <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
-                                </div>
-                                <div class="ms-3">
-                                    <div class="text-info">{{message}}</div>
-                                </div>
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    {% else %}
-                        <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
-                            <div class="d-flex align-items-center">
-                                <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
-                                </div>
-                                <div class="ms-3">
-                                    <div class="text-danger">{{message}}</div>
-                                </div>
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    {% endif %}
-                {% endfor %}
+            {% else %}
+            <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                <div class="d-flex align-items-center">
+                    <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="text-danger">{{message}}</div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             {% endif %}
-                <table id="example" class="table align-middle" style="width:100%">
-                    <thead class="table-light">
-                        <tr>
-                            <th>ID</th>
-                            <th>Actions</th>
-                            <th>Client</th>
-                            <th>Type de PSL</th>
-                            <th>Quantité</th>
-                            <th>Status</th>
-                            <th>Date de la commande</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for order in orders %}
-                            <tr>
-                                <td>{{order.id}}</td>
-                                <td>
-                                    <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                                        <a href="{% url 'order_history_decision' order.id %}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            title="Mark as delivered"><i class="bi bi-check-circle-fill"></i></i></a>
+            {% endfor %}
+            {% endif %}
+            <table id="example" class="table align-middle" style="width:100%">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Actions</th>
+                        <th>Client</th>
+                        <th>Type de PSL</th>
+                        <th>Quantité</th>
+                        <th>Status</th>
+                        <th>Date de la commande</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{order.id}}</td>
+                        <td>
+                            <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                                <a href="{% url 'order_history_decision' order.id %}" class="text-warning"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mark as delivered"><i
+                                        class="bi bi-check-circle-fill"></i></i></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                <div class="">
+                                    <p class="mb-0">{{order.client}}</p>
                                 </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-3 cursor-pointer">
-                                    <div class="">
-                                        <p class="mb-0">{{order.client}}</p>
-                                    </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                <div class="">
+                                    <p class="mb-0">{{order.type_psl}}</p>
                                 </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-3 cursor-pointer">
-                                    <div class="">
-                                        <p class="mb-0">{{order.type_psl}}</p>
-                                    </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                <div class="d-flex">
+                                    <p class="mb-0 mx-1">{{order.get_total_quantity}}</p>
+                                    <a href="{% url 'blood_quantity' order.id %}" class="text-primary"
+                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i
+                                            class="bi bi-eye-fill"></i></a>
                                 </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-3 cursor-pointer">
-                                    <div class="">
-                                        <p class="mb-0">{{order.get_total_quantity}}</p>
-                                        <a href="{% url "blood_quantity" order.id %}" class="text-primary"
-                                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i
-                                                class="bi bi-eye-fill"></i></a>
-                                    </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                <div class="">
+                                    <p class="mb-0">{{order.status}}</p>
                                 </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-3 cursor-pointer">
-                                    <div class="">
-                                        <p class="mb-0">{{order.status}}</p>
-                                    </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                <div class="">
+                                    <p class="mb-0">{{order.date_created}}</p>
                                 </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-3 cursor-pointer">
-                                    <div class="">
-                                        <p class="mb-0">{{order.date_created}}</p>
-                                    </div>
-                                </div>
-                            </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0">Commandes Délivrées</h5>
+        </div>
+        <div class="table-responsive mt-3">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+                <div class="d-flex align-items-center">
+                    <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="text-info">{{message}}</div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% else %}
+            <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                <div class="d-flex align-items-center">
+                    <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="text-danger">{{message}}</div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <table id="example2" class="table align-middle" style="width:100%">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Actions</th>
+                        <th>Client</th>
+                        <th>Type de PSL</th>
+                        <th>Quantité</th>
+                        <th>Status</th>
+                        <th>Date de la commande</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in dorders %}
+                    <tr>
+                        <td>{{order.id}}</td>
+                        <td>
+                            <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                                <a href="{% url 'bill' order.id %}" class="text-warning"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mark as delivered"><button class="btn btn-sm btn-primary">Voir la facture</button></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                <div class="">
+                                    <p class="mb-0">{{order.client}}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                <div class="">
+                                    <p class="mb-0">{{order.type_psl}}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                <div class="">
+                                    <p class="mb-0">{{order.get_total_quantity}}</p>
+                                    <a href="{% url 'blood_quantity' order.id %}" class="text-primary"
+                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i
+                                            class="bi bi-eye-fill"></i></a>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                <div class="">
+                                    <p class="mb-0">{{order.status}}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                <div class="">
+                                    <p class="mb-0">{{order.date_created}}</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,15 +1,18 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from apps.views import analyse, client, donor, reactant, home, order, psl, transfusion, solution, user
+from apps.views import analyse, client, donor, home, order, psl, transfusion, solution, user, public
 
 urlpatterns = [
     # -------------------------------User related-------------------------------
     path("login", user.loginview, name="login"),
     path("register", user.register, name="register"),
     path("logout", user.logoutview, name="logout"),
+    
     path("users", user.users, name="users"),
+    path("user-requests", user.user_requests, name="user_requests"),
     path("settings", user.settings, name="settings"),
+    
     path(
         "reset_password/",
         auth_views.PasswordResetView.as_view(template_name="apps/user/reset_password.html"),
@@ -32,6 +35,7 @@ urlpatterns = [
     ),
     path("change_password/", auth_views.PasswordChangeView.as_view(template_name="apps/user/change_password.html"), name="change-password"),
     path("password_success/", user.password_success, name="password_success"),
+    path("delete-user/<str:id>", user.delete_user, name="delete_user"),
     path("", home.home, name="home"),
     # -------------------------------Donor-------------------------------
     path("donor", donor.donor, name="donor"),
@@ -84,19 +88,6 @@ urlpatterns = [
         solution.delete_solution,
         name="solution_delete",
     ),
-    # -------------------------------Reactant-------------------------------
-    path("reactant", reactant.reactant, name="reactant"),
-    path("save-reactant", reactant.save_reactant, name="create_reactant"),
-    path(
-        "update-reactant/<int:id>",
-        reactant.update_reactant,
-        name="update_reactant",
-    ),
-    path(
-        "reactant-delete/<int:id>",
-        reactant.delete_reactant,
-        name="reactant_delete",
-    ),
     # -------------------------------Client-------------------------------
     path("client", client.client, name="client"),
     path("create-client", client.create_client, name="create_client"),
@@ -113,4 +104,7 @@ urlpatterns = [
     path("blood-order-decision/<str:id>", order.blood_order_decision, name="order_decision"),
     path("blood-order-history", order.blood_order_history, name="order_history"),
     path("blood-order-history-decision/<int:id>", order.blood_history_decision, name="order_history_decision"),
+    path("bill/<int:id>", order.bill, name="bill"),
+    # -------------------------------Public-------------------------------
+    path("public-home", public.public, name="public"),
 ]
