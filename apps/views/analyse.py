@@ -44,7 +44,7 @@ def create_analysis(request, id):
 
     blood = Blood.objects.get(id=id)
     form = AnalysisForm(initial={"blood": blood})
-
+    donor = blood.donor
     if request.method == "POST":
         form = AnalysisForm(request.POST)
         if form.is_valid():
@@ -71,13 +71,17 @@ def create_analysis(request, id):
 
             blood.analysed = True
             blood.save()
+            if analysis.blood_group and donor.blood_group is None:
+                donor.blood_group = analysis.blood_group
+                donor.save()
+            donor.save()
             # item = request.POST
             messages.success(request, "Analyse pour la " + str(blood) + " créée avec succès")
             return redirect("request_analysis")
         else:
             print(form.errors)
 
-    context = {"ingroups": ingroups, "form": form, "blood": blood}
+    context = {"ingroups": ingroups, "form": form, "blood": blood, "donor": donor}
 
     return render(request, "apps/analyse/create_analyse.html", context)
 
