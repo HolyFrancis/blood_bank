@@ -22,6 +22,38 @@
         {% endif %}
     </div>
     <!--end breadcrumb-->
+    {% if donor_info_display %}
+        <div class="col">
+            <div class="card radius-10 bg-primary">
+                <div class="card-body text-center">
+                    <div class="widget-icon mx-auto mb-3 bg-white-1 text-white">
+                        <a href="{% url "donor_details" donor_infos.id %}"><i class="bi bi-heart-pulse mt-2"></i></a>
+                    </div>
+                    <h3 class="text-white">Vos informations</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 bg-primary">
+                <div class="card-body text-center">
+                    <div class="widget-icon mx-auto mb-3 bg-white-1 text-white">
+                        <a href="{% url "donor_specimens" donor_infos.id %}"><i class="bi bi-heart-pulse mt-2"></i></a>
+                    </div>
+                    <h3 class="text-white">Vos informations de prelevements</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 bg-primary">
+                <div class="card-body text-center">
+                    <div class="widget-icon mx-auto mb-3 bg-white-1 text-white">
+                        <a href="{% url "donor_analysis" donor_infos.id %}"><i class="bi bi-heart-pulse mt-2"></i></a>
+                    </div>
+                    <h3 class="text-white">Resultats d'analyse de vos prelevements</h3>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
     {% if ingroups %}
         {% if request.user.role != 'Client' %}
@@ -746,14 +778,18 @@
         {% endif %}
 
     {% else %}
+        {% if not donor_info_display %}
+            <div class="text-center">
+                <h6 class="text-uppercase">
+                    Attendez d'être approuvé par l'administrateur
+                </h6>
+            </div>
+        {% endif %}
 
-        <div class="text-center">
-            <h6 class="text-uppercase">
-                Attendez d'être approuvé par l'administrateur
-            </h6>
-        </div>
 
     {% endif %}
+
+
 
 
 
