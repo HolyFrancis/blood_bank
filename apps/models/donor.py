@@ -43,6 +43,8 @@ class Donor(models.Model):
     status = models.CharField(null=True, blank=True, choices=STATUS, default=STATUS[1], max_length=50)
     date_created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    username = models.CharField(max_length=200, null=True, blank=True, unique=True)
+    password = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
