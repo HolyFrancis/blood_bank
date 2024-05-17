@@ -8,11 +8,9 @@ urlpatterns = [
     path("login", user.loginview, name="login"),
     path("register", user.register, name="register"),
     path("logout", user.logoutview, name="logout"),
-    
     path("users", user.users, name="users"),
     path("user-requests", user.user_requests, name="user_requests"),
     path("settings", user.settings, name="settings"),
-    
     path(
         "reset_password/",
         auth_views.PasswordResetView.as_view(template_name="apps/user/reset_password.html"),
@@ -67,7 +65,7 @@ urlpatterns = [
     path("analyse", analyse.analyse, name="analyse"),
     path("create-analysis/<str:id>", analyse.create_analysis, name="create_analysis"),
     path("update-analysis/<str:id>", analyse.update_analysis, name="update_analysis"),
-    path("analysis-details", analyse.analysis_details, name="analysis_details"),
+    path("analysis-details/<str:id>", analyse.analysis_details, name="analysis_details"),
     path("delete-analysis/<str:id>", analyse.delete_analysis, name="delete_analysis"),
     path("request-analysis", analyse.request_analysis, name="request_analysis"),
     path("analysis-history", analyse.analysis_history, name="analysis_history"),
