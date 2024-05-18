@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext as _
 
 
 class Donor(models.Model):
@@ -48,3 +49,24 @@ class Donor(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class Appointment(models.Model):
+    class AppointmentStatus(models.TextChoices):
+        ACCEPTED = "A", _("accepted")
+        PENDING = "P", _("pending")
+        REFUSED = "R", _("refused")
+
+    donor = models.ForeignKey(
+        "Donor",
+        on_delete=models.DO_NOTHING,
+        related_name="appointements",
+        related_query_name="appointment",
+    )
+    created_at = models.DateTimeField(auto_now=True)
+    date_to_be = models.DateTimeField(auto_now=False, null=True, blank=True)
+    description = models.CharField(max_length=200, null=True, blank=True)
+    status = models.CharField(max_length=1, choices=AppointmentStatus.choices, default=AppointmentStatus.PENDING)
+
+    def __str__(self):
+        return f"{self.donor.first_name} {self.donor.last_name}"
