@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 from apps.models import Donor, Blood, Analysis, Appointment
 from apps.forms import DonorForm, AppointmentForm
@@ -229,8 +230,13 @@ def appointment_request(request):
     donor = request.user.donor
     if request.method == "POST":
         form = AppointmentForm(request.POST)
+
         if form.is_valid():
             appointment = form.save(commit=False)
+            date_to_be = form.cleaned_data["date_to_be"]
+            if date_to_be < timezone.now():
+                messages.warning(request, "la date du rendez-vous doit etre superieur au date du jour de la demande")
+                return render(request, "apps/donor/appointment.html", context={"form": form})
             appointment.donor = donor
             appointment.save()
             messages.success(request, "Rendez-vous cree avec succes")

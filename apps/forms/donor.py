@@ -39,8 +39,9 @@ class DonorForm(ModelForm):
 class AppointmentForm(ModelForm):
     class Meta:
         model = Appointment
-        fields = ["description"]
+        fields = ["description", "date_to_be"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["description"].widget.attrs.update({"class": "form-control", "placeholder": "Description"})
+        self.fields["date_to_be"].widget.attrs.update({"class": "form-control"})
