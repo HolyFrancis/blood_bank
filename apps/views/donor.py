@@ -2,8 +2,8 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from apps.models import Donor, Blood, Analysis
-from apps.forms import DonorForm
+from apps.models import Donor, Blood, Analysis, Appointment
+from apps.forms import DonorForm, AppointmentForm
 from apps.filters import DonorFilter
 
 
@@ -222,3 +222,45 @@ def donor_analysis(request, id):
     context = {"donor_analysis": analysis}
 
     return render(request, "apps/donor/donor_analysis.html", context=context)
+
+
+def appointment_request(request):
+    form = AppointmentForm()
+    donor = request.user.donor
+    if request.method == "POST":
+        form = AppointmentForm(request.POST)
+        if form.is_valid():
+            appointment = form.save(commit=False)
+            appointment.donor = donor
+            appointment.save()
+            messages.success(request, "Rendez-vous cree avec succes")
+            return redirect("home")
+        else:
+
+            messages.error(request, "Erreur survenu lors de la creation de rendez-vous")
+    context = {"form": form, "donor": donor}
+    return render(request, "apps/donor/appointment.html", context=context)
+
+
+def appointment_requests(request):
+    appointments = Appointment.objects.filter(status=Appointment.AppointmentStatus.PENDING)
+    context = {"appointments": appointments}
+
+    return render(request, "apps/donor/appointment_req.html", context=context)
+
+
+def appointment_decision(request, id):
+    appointment = Appointment.objects.get(id=id)
+    print(appointment.status)
+
+    if request.GET.get("q") == "confirm":
+        appointment.status = Appointment.AppointmentStatus.ACCEPTED
+        appointment.save()
+        print(appointment.status)
+        messages.success(request, "appointment succesfully accepted")
+    elif request.GET.get("q") == "reject":
+        appointment.status = Appointment.AppointmentStatus.REFUSED
+        appointment.save()
+        messages.warning(request, "le demande de rendez n'est pas ete approuve")
+
+    return redirect("appointment_requests")
