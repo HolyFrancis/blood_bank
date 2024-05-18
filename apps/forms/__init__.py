@@ -1,9 +1,9 @@
-from .blood import BloodForm 
-from .donor import DonorForm  
-from .psl import PslForm, SerialForm
-from .analyse import AnalysisForm
-from .client import ClientForm
-from .order import OrderForm
-from .solution import SolutionForm
-from .type_psl import TypepslForm
-from .user import UserForm, PasswordChangingForm, RoleForm
+from .blood import BloodForm  # noqa
+from .donor import DonorForm, AppointmentForm  # noqa
+from .psl import PslForm, SerialForm  # noqa
+from .analyse import AnalysisForm  # noqa
+from .client import ClientForm  # noqa
+from .order import OrderForm  # noqa
+from .solution import SolutionForm  # noqa
+from .type_psl import TypepslForm  # noqa
+from .user import UserForm, PasswordChangingForm, RoleForm  # noqa

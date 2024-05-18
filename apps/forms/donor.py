@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from apps.models.donor import Donor
+from apps.models.donor import Donor, Appointment
 
 
 class DonorForm(ModelForm):
@@ -34,3 +34,13 @@ class DonorForm(ModelForm):
         self.fields["status"].widget.attrs.update({"class": "form-select"})
         self.fields["username"].widget.attrs.update({"class": "form-control", "placeholder": "Nom d'utilisateur"})
         self.fields["password"].widget.attrs.update({"class": "form-control", "placeholder": "Votre mot de passe"})
+
+
+class AppointmentForm(ModelForm):
+    class Meta:
+        model = Appointment
+        fields = ["description"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["description"].widget.attrs.update({"class": "form-control", "placeholder": "Description"})
