@@ -2,6 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 
+
 {% block  content%}
     <div class="card">
         <div class="card-body">
@@ -53,5 +54,101 @@
                 </div>
             </div>
         </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <h5 class="mb-0">Requêtes des Rendez-Vous</h5>
+                </div>
+                <div class="table-responsive mt-3">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                                <div class="alert border-0 bg-light-info alert-dismissible fade show py-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <div class="text-info">{{message}}</div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                                <div class="alert border-0 bg-light-warning alert-dismissible fade show py-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="fs-3 text-warning"><i class="bi bi-exclamation-triangle-fill"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <div class="text-warning">{{message}}</div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% else %}
+                                <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="fs-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <div class="text-danger">{{message}}</div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <table id="example2" class="table align-middle" style="width:100%">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Actions</th>
+                                <th>Nom</th>
+                                <th>Prénom(s)</th>
+                                <th>Date de creation</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for appointment in appointments %}
+                                <tr>
+                                    <td>{{appointment.id}}</td>
+                                    <td>
+                                        <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                                            <a href="{% url 'donor_details' appointment.donor.id %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="Voir"><i class="bi bi-eye-fill"></i></a>
+                                            <a class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Refuser" onclick="return confirm('Refuser la demande de {{appointment.donor.first_name}} {{appointment.donor.last_name}}?')" href="{% url 'appointment_decision' appointment.id %}?q=reject"><i class="bi bi-x-square-fill"></i></a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                            <div class="">
+                                                <p class="mb-0">{{appointment.donor.first_name}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                            <div class="">
+                                                <p class="mb-0">{{appointment.donor.last_name}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{appointment.created_at}}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3 cursor-pointer">
+                                            <div class="">
+                                                <p class="mb-0">{{appointment.status}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
 
 {% endblock  %}

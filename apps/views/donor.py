@@ -1,6 +1,8 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+# from django.db.models import fields
 from django.utils import timezone
 
 from apps.models import Donor, Blood, Analysis, Appointment
@@ -244,7 +246,9 @@ def appointment_request(request):
         else:
 
             messages.error(request, "Erreur survenu lors de la creation de rendez-vous")
-    context = {"form": form, "donor": donor}
+    appointments = Appointment.objects.filter(donor=request.user.donor)
+    context = {"form": form, "donor": donor, "appointments": appointments}
+
     return render(request, "apps/donor/appointment.html", context=context)
 
 
